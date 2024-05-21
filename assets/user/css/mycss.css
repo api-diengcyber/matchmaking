@@ -1,0 +1,49 @@
+.test {
+	width: 100px;
+	height: 100px;
+	background-color: aqua;
+}
+
+@media (max-width: 992px) {
+	.my-nav {
+		box-shadow: 1px -1px 30px -5px rgba(0, 0, 0, 0.79);
+		-webkit-box-shadow: 1px -1px 30px -5px rgba(0, 0, 0, 0.79);
+		-moz-box-shadow: 1px -1px 30px -5px rgba(0, 0, 0, 0.79);
+	}
+	.my-link {
+		color: rgb(40, 33, 47);
+		border-bottom: 1px;
+		border-color: violet;
+	}
+	.my-active {
+		color: blueviolet;
+		border-bottom: 1px;
+		border-color: violet;
+	}
+
+	#hero {
+		background-color: rgba(65, 39, 88, 0.864);
+		height: 50vh;
+		border-radius: 0px 0px 30px 30px;
+	}
+	.dashboard-card {
+		margin-top: 80px;
+	}
+	.line-r {
+		border-right: 1px solid rgba(137, 43, 226, 0.864);
+	}
+	.d-match {
+		font-size: 10px;
+	}
+
+	.slider .slick-slide {
+		background: #f5f5f5;
+		border: solid 1px #dedede;
+		padding: 30px;
+	}
+
+    /* form-register */
+   /* your CSS goes here*/
+ 
+    /* form-register */
+}
