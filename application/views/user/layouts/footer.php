@@ -57,11 +57,18 @@
         //         alert("The paragraph was clicked.");
         //     });
         // });
+        // $(document).ready(function(){
+        //     $("#lengkapi-profile").modal('show');
+        // });
+
         let swiper = new Swiper(".mySwiper", {
             pagination: {
                 el: ".swiper-pagination",
             },
             });
+
+
+           
     </script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->

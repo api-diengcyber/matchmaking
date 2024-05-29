@@ -4,6 +4,33 @@
 	background-color: aqua;
 }
 
+
+
+.my-card {
+	border: 2px;
+	border: 2px solid #7575fa;
+	/* box-shadow: 4px 10px 20px -7px rgba(0,0,0,0.81);
+-webkit-box-shadow: 4px 10px 20px -7px rgba(0,0,0,0.81);
+-moz-box-shadow: 4px 10px 20px -7px rgba(0,0,0,0.81); */
+}
+.card-all {
+	border: 2px solid #7575fa;
+	/* box-shadow: 4px 10px 20px -7px rgba(0,0,0,0.81);
+-webkit-box-shadow: 4px 10px 20px -7px rgba(0,0,0,0.81);
+-moz-box-shadow: 4px 10px 20px -7px rgba(0,0,0,0.81); */
+}
+.card-notif{
+	border: 2px solid #fa75e7; 
+}
+.scroll {
+	margin: 4px, 4px;
+	padding: 4px;
+	width: 500px;
+	max-height: 75vh;
+	overflow-x: hidden;
+	overflow-y: auto;
+	text-align: justify;
+}
 @media (max-width: 992px) {
 	.my-nav {
 		box-shadow: 1px -1px 30px -5px rgba(0, 0, 0, 0.79);
