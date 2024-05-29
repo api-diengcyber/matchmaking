@@ -64,52 +64,60 @@ class Auth extends CI_Controller
 	public function sign_up()
 	{
 		// validate form input
-		$this->form_validation->set_rules('phone', 'No HP', 'trim|required');
+		$this->form_validation->set_rules('nama', 'Nama', 'trim|required');
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
 		$this->form_validation->set_rules('password', 'Kata Sandi', 'required|min_length[6]');
-		$this->form_validation->set_rules('verify_password', 'Ulangi Kata Sandi', 'required|matches[password]');
+		$this->form_validation->set_rules('syarat', 'Syarat dan ketentuan', 'required');
+		// $this->form_validation->set_rules('verify_password', 'Ulangi Kata Sandi', 'required|matches[password]');
 
 		if ($this->form_validation->run() === TRUE) {
 			$identity = $this->input->post('email', true);
 			$email = $this->input->post('email', true);
 			$password = $this->input->post('password', true);
 			$additional_data = [
-				'phone' => $this->input->post('phone', true),
+				'nama' => $this->input->post('nama', true),
 			];
 
-			$reg = $this->ion_auth->register($identity, $password, $email, $additional_data, [3]);
+			$reg = $this->ion_auth->register($identity, $password, $email, $additional_data, [2]);
 			if ($reg) {
 				$this->db->trans_start();
 
-				// insert siswa
-				$this->db->insert('siswa', [
-					'nama_siswa' => '',
+				// insert biodata
+				$this->db->insert('biodata', [
+					'nama' => $this->input->post('nama', true),
 					'id_user' => $reg,
 				]);
-				$id_siswa = $this->db->insert_id();
+				$id_user = $this->db->insert_id();
 
 				// insert kelas
-				$this->db->insert('kelas_siswa', [
-					'id_kelas' => 1,
-					'id_siswa' => $id_siswa,
-				]);
+				// $this->db->insert('kelas_siswa', [
+				// 	'id_' => 1,
+				// 	'idsiswa' => $id_user,
+				// ]);
 
 				$this->db->trans_complete();
-
+				$this->session->set_flashdata('message', "success");
 				redirect('auth/login');
 			} else {
-				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				// $this->session->set_flashdata('message', "Failed to create account.");
-				redirect('auth/sign-up', 'refresh');
+				
+				// $this->session->set_flashdata('flash', $this->ion_auth->errors());
+				// $this->session->set_flashdata('flash', "Failed to create account.");
+				// var_dump($this->session->set_flashdata('flash', $this->ion_auth->errors()));
+				// redirect('auth/sign-up', 'refresh');
+				$this->session->set_flashdata('message', "Failed to create account.");
+				$this->load->view('auth/signup');
 			}
 		} else {
 			$data = [
-				'phone' => set_value('phone'),
+				'nama' => set_value('nama'),
 				'email' => set_value('email'),
 				'password' => set_value('password'),
-				'verify_password' => set_value('verify_password'),
+				// 'verify_password' => set_value('verify_password'),
 			];
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'signup', $data);
+			// $this->session->set_flashdata('message', "Failed to create account.");
+			$this->load->view('auth/signup', $data);
+			// $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'signup', $data);
+			// redirect('auth/sign-up', 'refresh');
 		}
 	}
 
@@ -137,30 +145,41 @@ class Auth extends CI_Controller
 				// redirect them back to the home page
 				$row_users = $this->db->where('id', $this->ion_auth->get_user_id())->get('users')->row();
 				$row_biodata = $this->db->where('id_user', $row_users->id)->get('biodata')->row();
-				$array = array(
-					'id' => $row_users->id,
-					'email' => $row_users->email,
-					'nama' => $row_biodata->nama,
-					'foto' => $row_biodata->foto,
-				);
-				$this->session->set_userdata($array);
+				
+				
 				if ($row_users->company == 'ADMIN') {
+					$array = array(
+						'id' => $row_users->id,
+						'email' => $row_users->email,
+						// 'nama' => $row_biodata->nama,
+						// 'foto' => $row_biodata->foto,
+					);
+					$this->session->set_userdata($array);
 					redirect('dashboard_admin', 'refresh');
 				} else {
-					redirect('dashboard_admin', 'refresh');
+					$array = array(
+						'id' => $row_users->id,
+						'email' => $row_users->email,
+						'nama' => $row_biodata->nama,
+						'foto' => $row_biodata->foto,
+					);
+					$this->session->set_flashdata('message', 'success');
+					$this->session->set_userdata($array);
+					redirect('dashboard_user', 'refresh');
 				}
 				// $this->session->set_flashdata('message', $this->ion_auth->messages());
 			} else {
 				// if the login was un-successful
 				// redirect them back to the login page
-				$this->session->set_flashdata('message', $this->ion_auth->errors());
+				$this->session->set_flashdata('message', 'salah');
 				redirect('auth/login', 'refresh');
 				// use redirects instead of loading views for compatibility with MY_Controller libraries
 			}
 		} else {
 			// the user is not logging in so display the login page
 			// set the flash data error message if there is one
-			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+			$this->data['message'] = '';
+			// $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
 			$this->data['identity'] = [
 				'name' => 'identity',

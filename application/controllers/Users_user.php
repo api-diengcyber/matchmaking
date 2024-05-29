@@ -226,7 +226,7 @@ class Users_user extends CI_Controller
 		$this->load->view('user/layouts/header');
 		$this->load->view('user/semua');
 		$this->load->view('user/layouts/footer');
-		var_dump("user");
+		// var_dump("user");
 	}
 // encuser
 

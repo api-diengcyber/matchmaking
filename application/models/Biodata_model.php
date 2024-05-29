@@ -22,6 +22,15 @@ class Biodata_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function get_profile($id){
+        $this->db->select('b.*,b.id as id_bi,u.*');
+
+            $this->db->from('biodata b');
+            $this->db->join('users u','u.id=b.id_user');
+            $this->db->where('b.id_user',$id);
+            return $this->db->get()->row();
+    }
+
     // get data by id
     function get_by_id($id)
     {

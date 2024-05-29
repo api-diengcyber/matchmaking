@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dashboard_user extends CI_Controller
+class Dashboard_user extends MY_Controller
 {
 	function __construct()
 	{
