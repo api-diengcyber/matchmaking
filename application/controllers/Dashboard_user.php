@@ -7,6 +7,7 @@ class Dashboard_user extends MY_Controller
 	{
 		parent::__construct();
 		$this->load->model('Request_model');
+		$this->load->model('Biodata_model');
 	}
 
 	public function register()
@@ -16,12 +17,17 @@ class Dashboard_user extends MY_Controller
 
 	public function index()
 	{
+		$id = $this->session->userdata('id');
+
+		$p = $this->Biodata_model->get_profile($id);
 		$data = [
 			'title' => 'index',
+			'jk'	=> $p->jenis_kelamin
 		];
+		// var_dump($data);
 
 		$this->load->view('user/layouts/header');
-		$this->load->view('user/index');
+		$this->load->view('user/index',$data);
 		$this->load->view('user/layouts/footer');
 	}
 

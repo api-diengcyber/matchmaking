@@ -5,7 +5,6 @@
 }
 
 
-
 .my-card {
 	border: 2px;
 	border: 2px solid #7575fa;
@@ -31,6 +30,22 @@
 	overflow-y: auto;
 	text-align: justify;
 }
+
+
+#fchange{
+	background-color: #fa75e7;
+	padding: 8px;
+	border-radius: 50px;
+	color: white;
+	cursor: pointer;
+	margin-left:-25px;
+	margin-top:90px;
+	position: absolute;
+}
+.bg-1 {
+	background-color: #7575fa
+  }
+
 @media (max-width: 992px) {
 	.my-nav {
 		box-shadow: 1px -1px 30px -5px rgba(0, 0, 0, 0.79);

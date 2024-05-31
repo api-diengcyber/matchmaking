@@ -19,7 +19,7 @@ class Users_model extends CI_Model
     {
         $users = $this
             ->db
-            ->select('b.id_user1,s.company')
+            ->select('b.id_user,s.company')
             ->from('biodata b')
             ->join('users s', 's.id=b.id_user')
             ->where('s.company', NULL)
@@ -27,6 +27,31 @@ class Users_model extends CI_Model
         return $users->result();
         // $this->db->order_by($this->id, $this->order);
         // return $this->db->get($this->table)->result();
+    }
+    function get_all_users($nama)
+    {
+        $this->db->select('b.*,s.company');
+        $this->db->from('biodata b');
+        $this->db->join('users s', 's.id=b.id_user');
+        $this->db->where('s.company', NULL);
+        $this->db->where('s.id!=', $this->session->userdata('id'));
+        if($nama){
+            $this->db->like('b.nama',$nama);
+
+        }
+        $query = $this->db->get();
+        return $query->result();
+    }
+    function get_detail_users($id)
+    {
+        $this->db->select('b.*,s.company');
+        $this->db->from('biodata b');
+        $this->db->join('users s', 's.id=b.id_user');
+        $this->db->where('s.company', NULL);
+        $this->db->where('s.id', $id);
+        
+        $query = $this->db->get();
+        return $query->row();
     }
 
     // get data by id

@@ -9,6 +9,7 @@ class Users_user extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Users_model');
+        $this->load->model('Request_model');
         $this->load->library('form_validation');
     }
 
@@ -223,10 +224,34 @@ class Users_user extends CI_Controller
 // user
 	public function semua()
 	{
+		$nama='';
+		if($this->input->post('cari')){
+			$nama = $this->input->post('cari');
+		}
+		$users = $this->Users_model->get_all_users($nama);
+		$data = [
+			'cari' =>$nama,
+			'users' =>$users,
+		];
 		$this->load->view('user/layouts/header');
-		$this->load->view('user/semua');
+		$this->load->view('user/semua',$data);
 		$this->load->view('user/layouts/footer');
 		// var_dump("user");
+	}
+	public function detail($id)
+	{
+		
+		$users = $this->Users_model->get_detail_users($id); 
+		// $request = $this->Request_model->get_request_id($id);
+		$requestCek = $this->Request_model->get_request_id($id);
+		$data = [
+			'users' =>$users,
+			'requestCek' =>$requestCek,
+		];
+		$this->load->view('user/layouts/header');
+		$this->load->view('user/detail',$data);
+		$this->load->view('user/layouts/footer');
+		// var_dump($requestCek);
 	}
 // encuser
 

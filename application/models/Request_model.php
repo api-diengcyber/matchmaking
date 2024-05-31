@@ -81,6 +81,16 @@ class Request_model extends CI_Model
         // $this->db->where($this->id, $id);
         // return $this->db->get($this->table)->row();
     }
+    function get_request_id($id)
+    {
+        $this->db->select('*');
+        $this->db->from('request');
+        $this->db->where('id_user1', $this->session->userdata('id'));
+        $this->db->where('id_user2', $id);
+        $query = $this->db->get();
+        return $query->row();
+
+    }
 
     // get total rows
     function total_rows($q = NULL)
@@ -93,6 +103,7 @@ class Request_model extends CI_Model
         $this->db->from($this->table);
         return $this->db->count_all_results();
     }
+    
 
     // get data with limit and search
     function get_limit_data($limit, $start = 0, $q = NULL)
