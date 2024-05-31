@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Request_admin extends MY_Controller
+class Request_user extends MY_Controller
 {
     function __construct()
     {
@@ -17,22 +17,112 @@ class Request_admin extends MY_Controller
 
     public function index()
     {
-        $user = $this->Request_model->get_all();
         $jam = $this->Pil_jam_model->get_all();
+        $cari='';
+        if($this->input->post('cari')!=null){
+            $cari = $this->input->post('cari');
+        }
+        $request = $this->Request_model->get_my_request_out($cari);
+
 
         $data = array(
             'title' => 'request',
-            'request_admin_data' => $user,
+            'request' => $request,
             'jam' => $jam,
-            
+            'cari'  => $cari
         );
 
-        var_dump($user);
-        $this->load->view('admin/layouts/header');
-        $this->load->view('admin/request/request_list', $data);
-        $this->load->view('admin/layouts/footer');
+        $this->load->view('user/layouts/header');
+        $this->load->view('user/request', $data);
+        $this->load->view('user/layouts/footer');
     }
+    public function keluar()
+    {
+        $jam = $this->Pil_jam_model->get_all();
+        $cari='';
+        $sort='ASC';
+        $status='';
+        if($this->input->post('cari')!=null){
+            $cari = $this->input->post('cari');
+        }
+        if($this->input->post('sort')!=null){
+            $sort = $this->input->post('sort');
+        }
+        if($this->input->post('status')!=null){
+            $status = $this->input->post('status');
+        }
+        $request = $this->Request_model->get_my_request_out($cari,$sort,$status);
 
+
+        $data = array(
+            'title' => 'request',
+            'request' => $request,
+            'jam' => $jam,
+            'cari'  => $cari,
+            'sort'  => $sort,
+            'status'  => $status,
+        );
+
+        $this->load->view('user/layouts/header');
+        $this->load->view('user/requestKeluar', $data);
+        $this->load->view('user/layouts/footer');
+    }
+    public function masuk()
+    {
+        $jam = $this->Pil_jam_model->get_all();
+        $cari='';
+        $sort='ASC';
+        $status='';
+        if($this->input->post('cari')!=null){
+            $cari = $this->input->post('cari');
+        }
+        if($this->input->post('sort')!=null){
+            $sort = $this->input->post('sort');
+        }
+        if($this->input->post('status')!=null){
+            $status = $this->input->post('status');
+        }
+        $request = $this->Request_model->get_my_request_in($cari,$sort,$status);
+
+        $data = array(
+            'title' => 'request',
+            'request' => $request,
+            'jam' => $jam,
+            'cari'  => $cari,
+            'sort'  => $sort,
+            'status'  => $status,
+        );
+
+        $this->load->view('user/layouts/header');
+        $this->load->view('user/requestMasuk', $data);
+        $this->load->view('user/layouts/footer');
+    }
+    public function acc($id)
+    {
+       
+        
+        
+        $data = array(
+            'status' => 2,
+            
+        );
+        $this->Request_model->update($id,$data);
+        $this->session->set_flashdata('message','Request diterima');
+        redirect(site_url('request_user/masuk'));
+    }
+    public function request($id)
+    {
+        $data = [
+            'id_user1' => $this->session->userdata('id'),
+            'id_user2' => $id,
+            'status'    => 1,
+            'tgl_update' => date('Y-m-d')
+        ];
+        $this->Request_model->insert($data);
+        $this->session->set_flashdata('message','Request berhasil dikirim');
+        redirect(site_url('users_user/detail/'. $id));
+
+    }
     public function read($id)
     {
         $row = $this->Request_model->get_by_id($id);
@@ -95,29 +185,26 @@ class Request_admin extends MY_Controller
         } else {
             $jam = $this->Pil_jam_model->get_by_id($this->input->post('jam', TRUE));
 
-            $jam_mulai = new DateTime($jam->jam_mulai);
-            $jam_mulai_menit = $jam_mulai->format('H') * 60 + $jam_mulai->format('i');
+            $jam_mulai = DateTime::createFromFormat('H:i', trim($jam->jam_mulai));
+            $jam_selesai = DateTime::createFromFormat('H:i', trim($jam->jam_selesai));
 
-            $jam_selesai = new DateTime($jam->jam_selesai);
-            $jam_selesai_menit = $jam_selesai->format('H') * 60 + $jam_selesai->format('i');
+            $interval = $jam_mulai->diff($jam_selesai);
 
-            $selisih_menit = abs($jam_selesai_menit - $jam_mulai_menit);
-
-
+            $total_menit = ($interval->h * 60) + $interval->i;
 
             $data_jadwal = array(
                 'id_request' => $this->input->post('id_request', TRUE),
                 'id_jam' => $this->input->post('jam', TRUE),
                 'tgl_meeting' => $this->input->post('tgl', TRUE),
                 'link_zoom' => $this->input->post('link_zoom', TRUE),
-                'waktu' => $selisih_menit,
+                'waktu' => $total_menit,
                 // 'id_user2' => $this->input->post('id_user2', TRUE),
                 // 'status' => $this->input->post('status', TRUE),
                 // 'tgl_update' => date('Y-m-d H:i:s'),
             );
             $this->Jadwal_model->insert($data_jadwal);
             $data = array(
-                'status' => 4,
+                'status' => 1,
                 'tgl_update' => date('Y-m-d H:i:s')
             );
 

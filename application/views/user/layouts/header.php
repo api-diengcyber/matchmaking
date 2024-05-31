@@ -60,19 +60,19 @@
         color: white
     }
 
-    .icon {
+    /* .icon {
         background-color: #8c898c;
         color: white;
         width: 26px;
         height: 26px;
         padding: 5px;
         border-radius: 50px;
-    }
+    } */
 
-    .icon-active {
+    /* .icon-active {
         background-color: white;
         color: #7575fa;
-    }
+    } */
 
     .color-1 {
         color: #7575fa;
@@ -110,6 +110,16 @@
                     echo 'my-nav-active'; ?>" aria-current="page" href="<?= base_url('users_user/semua') ?>"><i class="icon fa-solid fa-magnifying-glass <?php if ($this->uri->segment(1) == 'users_user')
                             echo 'icon-active '; ?>"></i>
                     <span class="ms-2"> Pengguna</span></a>
+
+                <a class=" my-nav <?php if ($this->uri->segment(2) == 'keluar')
+                    echo 'my-nav-active'; ?>" aria-current="page" href="<?= base_url('request_user/keluar') ?>"><i class="icon fa fa-arrow-up <?php if ($this->uri->segment(1) == 'keluar')
+                            echo 'icon-active '; ?>"></i>
+                    <span class="ms-2"> Request Keluar</span></a>
+                    
+                <a class=" my-nav <?php if ($this->uri->segment(2) == 'masuk')
+                    echo 'my-nav-active'; ?>" aria-current="page" href="<?= base_url('request_user/masuk') ?>"><i class="icon fa fa-arrow-down <?php if ($this->uri->segment(2) == 'masuk')
+                            echo 'icon-active '; ?>"></i>
+                    <span class="ms-2"> Request Masuk</span></a>
 
                 <div class="pt-5"></div>
                 <div class="pt-5"></div>
