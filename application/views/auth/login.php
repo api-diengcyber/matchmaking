@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,11 +18,11 @@
     rel="stylesheet">
 
   <script src="
-https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js
-"></script>
+      https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js
+      "></script>
   <link href="
-https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css
-" rel="stylesheet">
+      https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css
+      " rel="stylesheet">
 
 
   <link rel="stylesheet" href="<?= base_url('assets/user/css/mycss.css') ?>">
@@ -143,7 +142,6 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css
   <div class="container-fluid">
     <div class="row mb-5">
       <div class="col-lg-6 ">
-        <div class="test2"></div>
         <div class="row">
           <div class="col-lg-12 pad-t" style="">
             <h1 class="text-white text-center"><i class="fa-solid fa-mars-and-venus-burst fa-2xl"></i></h1>
@@ -161,7 +159,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css
           <div class="card-body ">
             <h5 class="">Login</h5>
             <form class="px-4 pt-2" action="<?= base_url('auth/login') ?>" method="post">
-            <div id="infoMessage"><?php echo $message; ?></div>
+              <div id="infoMessage"><?php echo $message; ?></div>
 
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email</label>
@@ -171,15 +169,15 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css
                   <small class="text-danger">
                     <?php echo form_error('identity') ?>
                   </small>
-                  
+
                 </div>
               </div>
 
 
               <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" name="password" class="form-control"
-                  id="exampleInputPassword1" placeholder="Password">
+                <input type="password" name="password" class="form-control" id="exampleInputPassword1"
+                  placeholder="Password">
                 <small class="text-danger">
                   <?php echo form_error('password') ?>
                 </small>
@@ -197,7 +195,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css
               </div>
               <div class="mb-3">
                 <small>
-                  Lupa  <a href="<?= base_url('auth/login_forgot_password') ?>">Password?</a>
+                  Lupa <a href="<?= base_url('auth/login_forgot_password') ?>">Password?</a>
                 </small>
               </div>
               <div class="mb-3">
@@ -205,7 +203,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css
                   Belum punya akun? <a href="<?= base_url('auth/sign_up') ?>">Daftar</a>
                 </small>
               </div>
-              
+
             </form>
           </div>
         </div>
@@ -223,7 +221,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css
   <script>
     const flash = $('#message').attr('message');
     // console.log('ini' + flash);
-    if (flash=='success') {
+    if (flash == 'success') {
       Swal.fire({
         icon: "success",
         title: "Yeay!!",
@@ -231,7 +229,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css
         // footer: '<a href="#">Why do I have this issue?</a>'
       });
     }
-    if (flash=='salah') {
+    if (flash == 'salah') {
       Swal.fire({
         icon: "error",
         title: "Gagal",

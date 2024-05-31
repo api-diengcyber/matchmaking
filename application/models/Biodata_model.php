@@ -89,6 +89,11 @@ class Biodata_model extends CI_Model
         $this->db->where($this->id, $id);
         $this->db->update($this->table, $data);
     }
+    function update_bd($id, $data)
+    {
+        $this->db->where('id_user', $id);
+        $this->db->update($this->table, $data);
+    }
 
     // delete data
     function delete($id)

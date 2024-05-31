@@ -6,14 +6,11 @@
         <div class="row g-0 vh-100 overflow-y-auto">
             <div class="col offset-lg-2 offset-xl-2 d-flex flex-column vh-100">
                 <main class="row overflow-auto py-4 px-3">
-                    Button trigger modal
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#lengkapi-profile">
-                        Launch demo modal
-                    </button>
+
 
                     <!-- Modal -->
-                    <!-- <div class="modal fade" id="lengkapi-profile" tabindex="-1" data-bs-backdrop="static"
+                    <?php if(empty($jk)){?>
+                    <div class="modal fade" id="lengkapi-profile" tabindex="-1" data-bs-backdrop="static"
                         data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -30,7 +27,8 @@
                                 
                             </div>
                         </div>
-                    </div> -->
+                    </div>
+                    <?php } ?>
                     <div class="col-12">
                         <div class="row">
                             <div class="col-12">
