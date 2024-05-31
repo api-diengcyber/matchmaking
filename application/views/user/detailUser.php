@@ -5,6 +5,7 @@
   }
     </style>
     <div class="container-fluid overflow-hidden" style="background-color:#e8e8e8">
+    <div class="success" id="success" success="<?php echo $this->session->userdata('success') <> '' ? $this->session->userdata('success') : ''; ?>"></div>
         <div class="row g-0 vh-100 overflow-y-auto">
             <div class="col offset-lg-2 offset-xl-2 d-flex flex-column vh-100">
                 <main class="row overflow-auto py-4 px-3">
@@ -28,7 +29,7 @@
                                             </div>
                                             <div class="col-12 d-flex justify-content-center">
                                                 <p class="text-center badge bg-primary text-white"><?php 
-                                                if($users->jenis_kelamin==1){ echo 'Laki-laki';}else{ echo 'Perempuan';}?></p>
+                                                if($users->jenis_kelamin==1){ echo 'Laki-laki';}elseif($users->jenis_kelamin==2){ echo 'Perempuan';}?></p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -87,13 +88,18 @@
                                             </div>
                                             <div class="col-12">
                                                 <!-- Button trigger modal -->
-                                                <?php if($requestCek==null){?>
+                                                <?php if($requestCek==null&&$requestCekMasuk==null){?>
                                                     <button type="button" class="btn bg-1 text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                     Request Matching
                                                     </button>
-                                                <?php }else{?>
+                                                <?php }elseif($requestCek!=null){?>
                                                     <button type="button" class="btn bg-1 text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    Menunggu Konfirmasi Matching
+                                                    Menunggu Konfirmasi Matching dari <?=$users->nama?>
+                                                    </button>
+                                                    
+                                                <?php }elseif($requestCekMasuk!=null){?>
+                                                    <button type="button" class="btn bg-1 text-white" data-bs-toggle="modal" data-bs-target="#modalTerima">
+                                                    Menunggu Konfirmasi Matching dari anda
                                                     </button>
                                                     <?php
                                                      } ?>
@@ -117,7 +123,32 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                            <a href="" class="btn btn-primary">Ya</a>
+                                                            <a href="<?=base_url('request_user/request/'.$users->id_user)?>" class="btn btn-primary">Ya</a>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+
+                                                    <!-- Modal2 -->
+                                                    <div class="modal fade" id="modalTerima" tabindex="-1" aria-labelledby="modalTerimaLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="modalTerimaLabel">Request Matching</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col-12 py-4">
+                                                                    <h5 class="text-center">
+                                                                        Yakin terima permintaan matching dari <?=$users->nama?>?
+                                                                    </h5>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                            <a href="<?=base_url('request_user/acc/'.$users->id)?>" class="btn btn-primary">Ya</a>
                                                         </div>
                                                         </div>
                                                     </div>

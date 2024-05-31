@@ -244,15 +244,20 @@ class Users_user extends CI_Controller
 		$users = $this->Users_model->get_detail_users($id); 
 		// $request = $this->Request_model->get_request_id($id);
 		$requestCek = $this->Request_model->get_request_id($id);
+		$requestCekMasuk = $this->Request_model->get_request_id_m($id);
 		$data = [
 			'users' =>$users,
 			'requestCek' =>$requestCek,
+			'requestCekMasuk' =>$requestCekMasuk,
 		];
 		$this->load->view('user/layouts/header');
-		$this->load->view('user/detail',$data);
+		$this->load->view('user/detailUser',$data);
 		$this->load->view('user/layouts/footer');
 		// var_dump($requestCek);
 	}
+
+	
+
 // encuser
 
 
