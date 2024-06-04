@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 31, 2024 at 03:20 AM
+-- Generation Time: Jun 04, 2024 at 11:40 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 5.6.40
 
@@ -51,7 +51,9 @@ CREATE TABLE `biodata` (
 
 INSERT INTO `biodata` (`id`, `id_user`, `nama`, `hobi`, `pekerjaan`, `deskripsi_diri`, `kriteria_pasangan`, `ig`, `fb`, `jenis_kelamin`, `foto`, `tgl_register`, `tgl_lahir`, `alamat`) VALUES
 (1, 3, 'David', 'dasdasd', 'dasdasd', 'dasdasdas', 'dasdasdasdasd', 'asdad', 'arqwerqwer', 1, 'b3dff0a78115f894f3c3c7e4b6d06157.jpg', NULL, '2024-05-30', 'rwerwerwer, , Kedopok,  Kedopok, Kota Probolinggo, Jawa Timur'),
-(2, 4, 'Ivah Inayah', 'Olahraga', 'Mahasiswi', 'Hallo, Saya adalah seorang mahasiswi yang suka membaca', 'Yang penting baikhati okee??', 'ivehgege123', 'ivahgege', 2, 'b6ba41bc40d390fb86a98a2bf7dea991.jpg', NULL, '2000-02-09', 'Rt 01/Rw.02 Mlipak, , Mlipak,  Wonosobo, Kab. Wonosobo, Jawa Tengah');
+(2, 4, 'Ivah Inayah', 'Olahraga', 'Mahasiswi', 'Hallo, Saya adalah seorang mahasiswi yang suka membaca', 'Yang penting baikhati okee??', 'ivehgege123', 'ivahgege', 2, 'b6ba41bc40d390fb86a98a2bf7dea991.jpg', NULL, '2000-02-09', 'Rt 01/Rw.02 Mlipak, , Mlipak,  Wonosobo, Kab. Wonosobo, Jawa Tengah'),
+(3, 5, 'Hima', 'sadasfasf', 'fasfas', 'fasfas', 'fasfas', 'refsdf', 'sdfsdf', 2, '', NULL, '2024-06-04', '2321334, , Leubang,  Teupah Barat, Kab. Simeulue, Aceh'),
+(4, 6, 'Sefia Anggun', 'asdsad', 'adasd', 'adasdsa', 'adas', 'adasdda', 'adasdas', 2, '', NULL, '2005-06-11', 'adsad, , Ujung Sialit,  Pulau Banyak Barat, Kab. Aceh Singkil, Aceh');
 
 -- --------------------------------------------------------
 
@@ -82,11 +84,20 @@ INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 CREATE TABLE `jadwal` (
   `id` int(11) NOT NULL,
   `id_request` int(11) DEFAULT NULL,
-  `link_zoom` int(11) DEFAULT NULL,
-  `tgl_meeting` int(11) DEFAULT NULL,
-  `mulai` time DEFAULT NULL,
-  `selesai` time DEFAULT NULL
+  `id_jam` int(11) NOT NULL,
+  `link_zoom` text,
+  `tgl_meeting` date DEFAULT NULL,
+  `waktu` int(100) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jadwal`
+--
+
+INSERT INTO `jadwal` (`id`, `id_request`, `id_jam`, `link_zoom`, `tgl_meeting`, `waktu`, `status`) VALUES
+(2, 1, 4, 'aaaaaaaas', '2024-06-05', 5, NULL),
+(3, 3, 4, 'https://meet.google.com/kcu-sdzj-gfj', '2024-06-04', 185, NULL);
 
 -- --------------------------------------------------------
 
@@ -101,6 +112,13 @@ CREATE TABLE `login_attempts` (
   `time` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `login_attempts`
+--
+
+INSERT INTO `login_attempts` (`id`, `ip_address`, `login`, `time`) VALUES
+(4, '::1', 'hima@mail.com', 1717432167);
+
 -- --------------------------------------------------------
 
 --
@@ -109,8 +127,19 @@ CREATE TABLE `login_attempts` (
 
 CREATE TABLE `pil_jam` (
   `id` int(11) NOT NULL,
-  `pilihan_jam` varchar(100) NOT NULL
+  `jam_mulai` time NOT NULL,
+  `jam_selesai` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pil_jam`
+--
+
+INSERT INTO `pil_jam` (`id`, `jam_mulai`, `jam_selesai`) VALUES
+(1, '16:26:00', '16:27:00'),
+(2, '18:29:00', '19:29:00'),
+(3, '15:55:00', '16:56:00'),
+(4, '15:00:00', '18:05:00');
 
 -- --------------------------------------------------------
 
@@ -123,7 +152,7 @@ CREATE TABLE `request` (
   `id_user1` int(11) NOT NULL,
   `id_user2` int(11) NOT NULL,
   `status` int(11) DEFAULT NULL,
-  `tgl_update` date DEFAULT NULL
+  `tgl_update` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -131,7 +160,8 @@ CREATE TABLE `request` (
 --
 
 INSERT INTO `request` (`id`, `id_user1`, `id_user2`, `status`, `tgl_update`) VALUES
-(1, 3, 4, 1, '2024-05-30');
+(1, 3, 4, 4, '2024-06-04 10:00:47'),
+(3, 3, 5, 4, '2024-06-04 16:31:34');
 
 -- --------------------------------------------------------
 
@@ -182,9 +212,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2y$10$kMYepl.2k0vdntnp5qVEn.6r6FlDqadRNq2jECoXNXPcc7PvSqCdy', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1716956804, 1, 'Admin', 'istrator', 'ADMIN', '0'),
-(3, '::1', NULL, '$2y$10$ZMoe8kuBlQ0EM8qWege76OYiEii2x2jAwMcrOSC0ITQUvzDN5L.U.', 'david@mail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1716952511, 1717057370, 1, NULL, NULL, NULL, '434234'),
-(4, '::1', NULL, '$2y$10$dx7sGZ7JNd34lp.FNeVPW./JJjk9pQuqxXE6CvRVWA38iRYh2o3Ja', 'ivah@mail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1716952606, 1717056562, 1, NULL, NULL, NULL, '02315432152');
+(1, '127.0.0.1', 'administrator', '$2y$10$kMYepl.2k0vdntnp5qVEn.6r6FlDqadRNq2jECoXNXPcc7PvSqCdy', 'admin@admin.com', NULL, '', NULL, NULL, NULL, NULL, NULL, 1268889823, 1717493449, 1, 'Admin', 'istrator', 'ADMIN', '0'),
+(3, '::1', NULL, '$2y$10$ZMoe8kuBlQ0EM8qWege76OYiEii2x2jAwMcrOSC0ITQUvzDN5L.U.', 'david@mail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1716952511, 1717493476, 1, NULL, NULL, NULL, '434234'),
+(4, '::1', NULL, '$2y$10$dx7sGZ7JNd34lp.FNeVPW./JJjk9pQuqxXE6CvRVWA38iRYh2o3Ja', 'ivah@mail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1716952606, 1717192314, 1, NULL, NULL, NULL, '02315432152'),
+(5, '::1', NULL, '$2y$10$asmaZiot6FAJIctXsyTo3ub8e6uoO9inbEf0epWOevmofHmBdbHzS', 'hima@mail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1717187853, 1717493374, 1, NULL, NULL, NULL, '234234'),
+(6, '192.168.40.3', NULL, '$2y$10$.EHOhkI2JP4Y6oTTDCUfZeL9pLzayW5xKxCdqspnXIqSxaeCO1CUK', 'sefiaanggunnisa@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1717382881, 1717465269, 1, NULL, NULL, NULL, '121');
 
 -- --------------------------------------------------------
 
@@ -206,7 +238,9 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (1, 1, 1),
 (2, 1, 2),
 (4, 3, 2),
-(5, 4, 2);
+(5, 4, 2),
+(6, 5, 2),
+(7, 6, 2);
 
 -- --------------------------------------------------------
 
@@ -87554,7 +87588,7 @@ ALTER TABLE `wilayah_provinsi`
 -- AUTO_INCREMENT for table `biodata`
 --
 ALTER TABLE `biodata`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `groups`
@@ -87566,25 +87600,25 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `jadwal`
 --
 ALTER TABLE `jadwal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pil_jam`
 --
 ALTER TABLE `pil_jam`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `request`
 --
 ALTER TABLE `request`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `saldo`
@@ -87596,13 +87630,13 @@ ALTER TABLE `saldo`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

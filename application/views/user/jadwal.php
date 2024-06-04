@@ -14,7 +14,7 @@
                     <div class="col-12 ">
                         <div class="row">
                             <div class="col-12">
-                                <h5>Request Keluar</h5>
+                                <h5>Request Masuk</h5>
                             </div>
                         </div>
                         <div class="row">
@@ -23,7 +23,7 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <form action="<?= base_url('request_user/keluar') ?>" method="post" class="row gx-3 gy-2 align-items-center">
+                                                <!-- <form action="<?= base_url('request_user/masuk') ?>" method="post" class="row gx-3 gy-2 align-items-center">
                                                     <div class="col-sm-3">
                                                         <input type="text" name="cari" class="form-control"
                                                             placeholder="Cari nama.." onchange="this.form.submit();"
@@ -39,44 +39,105 @@
                                                     <div class="col-sm-3">
                                                         <select name="status" id="" class="form-select" onchange="this.form.submit();">
                                                             <option value="" <?php if($status==''){echo "selected";}?>>Semua</option>
-                                                            <option value="1" <?php if($status=='1'){echo "selected";}?>>Menunggu Teman</option>
+                                                            <option value="1" <?php if($status=='1'){echo "selected";}?>>Menunggu</option>
                                                             <option value="2" <?php if($status=='2'){echo "selected";}?>>Diterima</option>
                                                             <option value="3" <?php if($status=='3'){echo "selected";}?>>Ditolak</option>
-                                                            <option value="4" <?php if($status=='4'){echo "selected";}?>>Room Aktif</option>
-                                                            <option value="5" <?php if($status=='5'){echo "selected";}?>>Room Selesai</option>
-                                                            <option value="6" <?php if($status=='6'){echo "selected";}?>>Room Ditolak</option>
+                                                            <option value="4" <?php if($status=='4'){echo "selected";}?>>Room Meet Aktif</option>
+                                                            <option value="5" <?php if($status=='5'){echo "selected";}?>>Room Meet Berlangsung</option>
+                                                            <option value="6" <?php if($status=='6'){echo "selected";}?>>Room Meet Selesai</option>
+                                                            <option value="7" <?php if($status=='7'){echo "selected";}?>>Room Meet Ditolak</option>
                                                         </select>                                                        
                                                     </div>
-                                                </form>
+                                                </form> -->
                                             </div>
                                             <div class="col-lg-12 pt-3">
                                                 <ol class="list-group list-group-numbered">
                                                     <?php
 
-                                                    foreach ($request as $r) { ?>
+                                                    foreach ($jadwal as $j) { ?>
                                                         <li
                                                             class="list-group-item d-flex justify-content-between align-items-start">
                                                             <div class="ms-2 me-auto">
-                                                                <a href="<?=base_url('users_user/detail/'.$r->id_user_2)?>" class="text-decoration-none text-dark">
-                                                                <div class="fw-bold">
-                                                                        <?= $r->nama_user2 ?>
-                                                                    </div>
-                                                                </a>
-                                                                <?= date('d-m-Y', strtotime($r->tgl_update))
-                                                                    ?>
-                                                            </div>
+    <?php
+        $tgl_sekarang = date('d-m-Y'); // Tanggal saat ini
+        $tgl_pengumpulan = date('d-m-Y', strtotime($j->tgl_meeting)); // 
+
+        
+        $waktu_sekarang = date('H:i:s');
+
+       
+        $jam_mulai = strtotime($j->jmm);
+        $jam_selesai = strtotime($j->jms);
+        $statusMeet ='';
+
+        if ($tgl_sekarang < $tgl_pengumpulan) {
+            
+            $selisih_hari = floor((strtotime($tgl_pengumpulan) - strtotime($tgl_sekarang)) / (60 * 60 * 24)); // Menghitung selisih hari
+            echo $selisih_hari. " hari lagi";
+            $statusMeet=1;
+        } elseif ($tgl_sekarang == $tgl_pengumpulan && $waktu_sekarang >= $j->jmm && $waktu_sekarang <= $j->jms) {
+            $statusMeet=2;
+            
+            echo "Meet sekarang";
+        } else {
+           $statusMeet=3;
+            echo "Kedaluarsa ". $waktu_sekarang.'/'.$j->jmm;
+            
+        }
+    ?>
+    
+    <div class="fw-bold">
+        <?= $tgl_pengumpulan ?> <!-- -->
+        <?= $j->jmm ?> - <?= $j->jms ?> <!-- -->
+    </div>
+    <?= $j->waktu ?> menit
+</div>
+<script>
+function openAndCloseTab(url) {
+    // Buka tautan dalam tab baru
+    var newTab = window.open(url, '_blank');
+
+    // Mendapatkan waktu saat tombol diklik
+    var currentTime = new Date();
+    var currentHour = currentTime.getHours();
+    var currentMinute = currentTime.getMinutes();
+    var currentSecond = currentTime.getSeconds();
+
+    console.log("Tombol diklik pada jam: " + currentHour + ":" + currentMinute + ":" + currentSecond);
+
+    // Mendapatkan waktu jam selesai dari PHP
+    var jamSelesai = <?php echo $jam_selesai; ?>;
+
+    // Menghitung waktu tunggu untuk menutup tab (dalam milidetik)
+    var waktuTunggu = (jamSelesai - currentTime.getTime()) + 60000; // Menambahkan 1 menit (60 detik)
+
+    // Menutup tab baru setelah waktu tertentu
+    setTimeout(function() {
+        newTab.close();
+    }, waktuTunggu);
+}
+</script>
+
+
+
+
                                                             <?php
-                                                            if ($r->status == 1) {
+                                                            if ($statusMeet == 1) {
                                                                 ?>
-                                                                <span class="badge bg-primary rounded-pill">Menunggu diterima oleh <?= $r->nama_user2 ?></span>
-                                                                <?php }elseif($r->status==2){?>
-                                                                <span class="badge bg-primary rounded-pill">Diterima, Menunggu room dari admin</span>
+                                                                <br>
+                                                            <?php }elseif($statusMeet==2){?>
+                                                                <span class="badge bg-primary rounded-pill">
+                                                                    <a href="<?=base_url('jadwal_user/open_window')?>" target="_blank" class="text-white">Open</a>
+                                                                    
+                                                                </span>
+                                                                <a href="javascript:void(0);" onclick="openAndCloseTab('<?=$j->link_zoom?>')">Open</a>
+                                                                <button onclick="openNewWindow('<?=$j->link_zoom?>')">Open Tab</button>
                                                                 
-                                                            <?php }elseif($r->status==4){?>
+                                                            <?php }elseif($j->status==4){?>
                                                                 <div class="">
                                                                     <span class="badge bg-primary rounded-pill">Jadwal meet anda sudah siap</span>
                                                                     <p class="text-end pt-2">
-                                                                        <a href="<?=base_url('jadwal_user/detail/'.$r->idRequest)?>" class="btn btn-success btn-sm">Lihat</a>
+                                                                        <a href="<?=base_url('jadwal_user/detail/'.$j->id)?>" class="btn btn-success btn-sm">Lihat</a>
                                                                     </p>
                                                                     <?php }?>
                                                                 </div>

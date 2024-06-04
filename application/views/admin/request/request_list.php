@@ -100,6 +100,7 @@
                                                                         </div>
                                                                         <div class="mb-3">
                                                                             <label for="">Link Zoom</label>
+                                                                            <a href="https://meet.google.com/?hs=193&hl=id&pli=1" target="_blank"> Buat Link</a>
                                                                             <input type="text" name="link_zoom" id="" class="form-control" required>
                                                                         </div>
                                                                         <div class="mb-3">
@@ -137,7 +138,7 @@
                                             aria-labelledby="updateRoom<?=$request_admin->id_request?>Label" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
-                                                <form action="<?= base_url('request_admin/update')?>" method="post">
+                                                <form action="<?= base_url('request_admin/update_request')?>" method="post">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="updateRoom<?=$request_admin->id_request?>Label">Update Room</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -154,6 +155,7 @@
                                                                         </div>
                                                                         <div class="mb-3">
                                                                             <label for="">Link Zoom</label>
+                                                                            <a href="https://meet.google.com/?hs=193&hl=id&pli=1" target="_blank"> Buat Link Baru</a>
                                                                             <input type="text" name="link_zoom" id="" class="form-control" required value="<?=$request_admin->link_zoom?>">
                                                                         </div>
                                                                         <div class="mb-3">
@@ -161,7 +163,7 @@
                                                                             <select name="jam" id="" class="form-select" required>
                                                                                 <option value="">--Pilih--</option>
                                                                                 <?php foreach($jam as $j){?>
-                                                                                    <option value="<?=$j->id?>"><?=$j->jam_mulai?> - <?=$j->jam_selesai?></option>
+                                                                                    <option value="<?=$j->id?>" <?php if($request_admin->id_jam==$j->id){echo "selected";}?>><?=$j->jam_mulai?> - <?=$j->jam_selesai?></option>
                                                                                     <?php }?>
                                                                             </select>
                                                                         </div>                                                                  
@@ -171,7 +173,7 @@
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">Batal</button>
-                                                        <button type="submit" class="btn btn-primary">Buat</button>
+                                                        <button type="submit" class="btn btn-primary">Update</button>
                                                     </div>
                                                     </form>
                                                 </div>
@@ -179,7 +181,7 @@
                                         </div>
 
                                         <?php
-                                        echo '<p class="badge bg-primary">Dikonfirmasi user 2</p>';
+                                       
                                     } elseif ($request_admin->status == 3) {
                                         echo '<p class="badge bg-primary">Ditolak</p>';
                                     } elseif ($request_admin->status == 4) {
@@ -191,7 +193,7 @@
                                     } elseif ($request_admin->status == 4) {
                                         echo '<p class="badge bg-primary">Room ditolak</p>';
                                     } else {
-                                        echo '<p class="badge bg-success">-</p>';
+                                        
                                     }
 
                                     ?>
