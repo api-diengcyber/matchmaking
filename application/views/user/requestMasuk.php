@@ -105,7 +105,15 @@
                                                                 <br>
                                                             <?php }elseif($r->status==2){?>
                                                                 <span class="badge bg-primary rounded-pill">Diterima, Menunggu room dari admin</span>
-                                                                <?php }?>
+                                                                
+                                                            <?php }elseif($r->status==4){?>
+                                                                <div class="">
+                                                                    <span class="badge bg-primary rounded-pill">Jadwal meet anda sudah siap</span>
+                                                                    <p class="text-end pt-2">
+                                                                        <a href="<?=base_url('jadwal_user/detail/'.$r->idRequest)?>" class="btn btn-success btn-sm">Lihat</a>
+                                                                    </p>
+                                                                    <?php }?>
+                                                                </div>
                                                         </li>
                                                     <?php } ?>
                                                 </ol>

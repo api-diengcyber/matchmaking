@@ -29,6 +29,22 @@ class Jadwal_model extends CI_Model
         // $this->db->order_by($this->id, $this->order);
         // return $this->db->get($this->table)->result();
     }
+    function get_all_by_id($id)
+    {
+        $this->db->select('j.*,r.status, pj.jam_mulai as jmm,jam_selesai as jms, b1.nama as nama_user1, b2.nama as nama_user2');
+        $this->db->from('jadwal j');
+        $this->db->join('request r', 'j.id_request=r.id');
+        $this->db->join('biodata b1', 'b1.id_user = r.id_user1', 'left');
+        $this->db->join('biodata b2', 'b2.id_user = r.id_user2', 'left');
+        $this->db->join('pil_jam pj', 'pj.id = j.id_jam', 'left');
+        $this->db->where('r.id_user1',$id);
+        $this->db->or_where('r.id_user2',$id);
+        $this->db->where('j.status!=',2);
+        $query = $this->db->get();
+        return $query->result();
+        // $this->db->order_by($this->id, $this->order);
+        // return $this->db->get($this->table)->result();
+    }
 
     // get data by id
     function get_by_id($id)

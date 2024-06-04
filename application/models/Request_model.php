@@ -18,11 +18,11 @@ class Request_model extends CI_Model
     // get all
     function get_all()
     {
-        $this->db->select('r.status, r.tgl_update, r.id as id_request, b1.nama as nama_user1, b2.nama as nama_user2,j.id_jam,j.link_zoom,j.tgl_meeting,j.waktu');
+        $this->db->select('r.status, r.tgl_update, r.id as id_request,j.tgl_meeting,j.link_zoom,j.id_jam, b1.nama as nama_user1, b2.nama as nama_user2,j.id_jam,j.link_zoom,j.tgl_meeting,j.waktu');
         $this->db->from('request r');
         $this->db->join('biodata b1', 'b1.id_user = r.id_user1', 'left');
         $this->db->join('biodata b2', 'b2.id_user = r.id_user2', 'left');
-        $this->db->join('jadwal j', 'j.id_request = j.id', 'left');
+        $this->db->join('jadwal j', 'j.id_request = r.id', 'left');
         $query = $this->db->get();
         return $query->result();
         // $this->db->order_by($this->id, $this->order);
@@ -87,7 +87,7 @@ class Request_model extends CI_Model
     // get data by id
     function get_by_id($id)
     {
-        $this->db->select('r.status, r.tgl_update, r.id as id_request, 
+        $this->db->select('r.status, r.tgl_update, r.id as id_request, j.tgl_meeting,j.link_zoom,j.id_jam,
         
         b1.nama as nama_user1, 
         b1.tgl_lahir as tgl_lahir_user1, 
@@ -117,6 +117,7 @@ class Request_model extends CI_Model
         $this->db->from('request r');
         $this->db->join('biodata b1', 'b1.id_user = r.id_user1', 'left');
         $this->db->join('biodata b2', 'b2.id_user = r.id_user2', 'left');
+        $this->db->join('jadwal j', 'j.id_request = r.id', 'left');
         $this->db->where('r.id', $id);
         $query = $this->db->get();
         return $query->row();

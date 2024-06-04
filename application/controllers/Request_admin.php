@@ -24,10 +24,9 @@ class Request_admin extends MY_Controller
             'title' => 'request',
             'request_admin_data' => $user,
             'jam' => $jam,
-            
+
         );
 
-        var_dump($user);
         $this->load->view('admin/layouts/header');
         $this->load->view('admin/request/request_list', $data);
         $this->load->view('admin/layouts/footer');
@@ -37,6 +36,7 @@ class Request_admin extends MY_Controller
     {
         $row = $this->Request_model->get_by_id($id);
         $jam = $this->Pil_jam_model->get_all();
+        $jamset = $this->Pil_jam_model->get_by_id($row->id_jam);
         if ($row) {
             $data = array(
                 'jam' => $jam,
@@ -67,6 +67,9 @@ class Request_admin extends MY_Controller
                 'tgl_register_user2' => $row->tgl_register_user2,
                 'status' => $row->status,
                 'tgl_update' => $row->tgl_update,
+                'tgl_meeting'=> $row->tgl_meeting,
+                'id_jam'=> $row->id_jam,
+                'link_zoom'=> $row->link_zoom,
             );
             $this->load->view('admin/layouts/header');
             $this->load->view('admin/request/request_read', $data);
@@ -129,6 +132,39 @@ class Request_admin extends MY_Controller
             // $this->session->set_flashdata('message', 'Create Record Success');
             // redirect(site_url('request_admin'));
         }
+    }
+    public function update_request()
+    {
+        $id = $this->input->post('id_request');
+
+        $jadwal  = $this->Jadwal_model->get_by_id_request( $id );
+
+
+        $jam = $this->Pil_jam_model->get_by_id($this->input->post('jam', TRUE));
+
+        $jam_mulai = new DateTime($jam->jam_mulai);
+        $jam_mulai_menit = $jam_mulai->format('H') * 60 + $jam_mulai->format('i');
+
+        $jam_selesai = new DateTime($jam->jam_selesai);
+        $jam_selesai_menit = $jam_selesai->format('H') * 60 + $jam_selesai->format('i');
+
+        $selisih_menit = abs($jam_selesai_menit - $jam_mulai_menit);
+
+        $data_jadwal = [
+            'id_jam' => $this->input->post('jam', TRUE),
+            'tgl_meeting' => $this->input->post('tgl', TRUE),
+            'link_zoom' => $this->input->post('link_zoom', TRUE),
+            'waktu' => $selisih_menit,
+        ];
+        $this->Jadwal_model->update($jadwal->id,$data_jadwal);
+        $data = array(
+            'status' => 4,
+            'tgl_update' => date('Y-m-d H:i:s')
+        );
+
+        $this->Request_model->update($this->input->post('id_request', TRUE), $data);
+        $this->session->set_flashdata('message', 'Update Record Success');
+        redirect(site_url('request_admin'));
     }
 
     public function create()
