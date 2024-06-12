@@ -19,10 +19,11 @@ class Users_model extends CI_Model
     {
         $users = $this
             ->db
-            ->select('b.id_user,s.company')
+            ->select('b.id_user,s.company,b.*,s.email,s.phone')
             ->from('biodata b')
             ->join('users s', 's.id=b.id_user')
             ->where('s.company', NULL)
+            ->order_by('s.id', 'DESC')
             ->get();
         return $users->result();
         // $this->db->order_by($this->id, $this->order);
@@ -44,7 +45,7 @@ class Users_model extends CI_Model
     }
     function get_detail_users($id)
     {
-        $this->db->select('b.*,s.company');
+        $this->db->select('b.*,s.*');
         $this->db->from('biodata b');
         $this->db->join('users s', 's.id=b.id_user');
         $this->db->where('s.company', NULL);
@@ -60,6 +61,7 @@ class Users_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
+ 
 
     // get by gender
 

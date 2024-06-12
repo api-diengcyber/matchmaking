@@ -39,32 +39,36 @@
                                                     <div class="col-sm-3">
                                                         <select name="status" id="" class="form-select" onchange="this.form.submit();">
                                                             <option value="" <?php if($status==''){echo "selected";}?>>Semua</option>
-                                                            <option value="1" <?php if($status=='1'){echo "selected";}?>>Menunggu Teman</option>
-                                                            <option value="2" <?php if($status=='2'){echo "selected";}?>>Diterima</option>
+                                                            <option value="1" <?php if($status=='1'){echo "selected";}?>>Menunggu Konfirmasi Teman</option>
+                                                            <option value="8" <?php if($status=='8'){echo "selected";}?>>Dibatalkan</option>
+                                                            <option value="2" <?php if($status=='2'){echo "selected";}?>>Diterima, Menuggu Room</option>
                                                             <option value="3" <?php if($status=='3'){echo "selected";}?>>Ditolak</option>
                                                             <option value="4" <?php if($status=='4'){echo "selected";}?>>Room Aktif</option>
                                                             <option value="5" <?php if($status=='5'){echo "selected";}?>>Room Selesai</option>
                                                             <option value="6" <?php if($status=='6'){echo "selected";}?>>Room Ditolak</option>
+                                                            <option value="7" <?php if($status=='7'){echo "selected";}?>>Expired</option>
                                                         </select>                                                        
                                                     </div>
                                                 </form>
                                             </div>
                                             <div class="col-lg-12 pt-3">
-                                                <ol class="list-group list-group-numbered">
-                                                    <?php
-
-                                                    foreach ($request as $r) { ?>
-                                                        <li
-                                                            class="list-group-item d-flex justify-content-between align-items-start">
-                                                            <div class="ms-2 me-auto">
+                                            <?php
+                                                $no=1;
+                                                foreach ($request as $r) { ?>
+                                                <div class="card rounded-0 mb-2">
+                                                    <div class="card-body">
+                                                       <div class="col-12 d-flex justify-content-between">
+                                                            <div class="">
                                                                 <a href="<?=base_url('users_user/detail/'.$r->id_user_2)?>" class="text-decoration-none text-dark">
-                                                                <div class="fw-bold">
-                                                                        <?= $r->nama_user2 ?>
+                                                                    <div class="fw-bold">
+                                                                            <?= $r->nama_user2 ?>
                                                                     </div>
-                                                                </a>
-                                                                <?= date('d-m-Y', strtotime($r->tgl_update))
-                                                                    ?>
+                                                                    </a>
+                                                                    <?= date('d-m-Y', strtotime($r->tgl_update))
+                                                                        ?>
                                                             </div>
+                                                            <div class="">
+                                                                
                                                             <?php
                                                             if ($r->status == 1) {
                                                                 ?>
@@ -75,14 +79,21 @@
                                                             <?php }elseif($r->status==4){?>
                                                                 <div class="">
                                                                     <span class="badge bg-primary rounded-pill">Jadwal meet anda sudah siap</span>
-                                                                    <p class="text-end pt-2">
-                                                                        <a href="<?=base_url('jadwal_user/detail/'.$r->idRequest)?>" class="btn btn-success btn-sm">Lihat</a>
+                                                                    <p class="text-end pt-4">
+                                                                        <a href="<?=base_url('jadwal_user/index/'.$r->idRequest)?>" class="text-decoration-none">Lihat <i class="fa-solid fa-angle-right"></i></a>
                                                                     </p>
-                                                                    <?php }?>
                                                                 </div>
-                                                        </li>
-                                                    <?php } ?>
-                                                </ol>
+                                                                <?php }elseif($r->status==5){?>
+                                                                    <span class="badge bg-success rounded-pill">Selesai</span>
+                                                                <?php }?>
+
+                                                            </div>
+
+                                                       </div>
+                                                    </div>
+                                                </div>
+                                                <?php } ?>
+                                                
                                             </div>
                                         </div>
 

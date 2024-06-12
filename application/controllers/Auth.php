@@ -86,6 +86,7 @@ class Auth extends CI_Controller
 				$this->db->insert('biodata', [
 					'nama' => $this->input->post('nama', true),
 					'id_user' => $reg,
+					'tgl_register' => date('Y-m-d H:i:s'),
 				]);
 				$id_user = $this->db->insert_id();
 

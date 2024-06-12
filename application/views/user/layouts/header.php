@@ -120,9 +120,9 @@
                     echo 'my-nav-active'; ?>" aria-current="page" href="<?= base_url('request_user/masuk') ?>"><i class="icon fa fa-arrow-down <?php if ($this->uri->segment(2) == 'masuk')
                             echo 'icon-active '; ?>"></i>
                     <span class="ms-2"> Request Masuk</span></a>
-                <a class=" my-nav <?php if ($this->uri->segment(2) == 'jadwal')
-                    echo 'my-nav-active'; ?>" aria-current="page" href="<?= base_url('jadwal_user/') ?>"><i class="icon fa fa-arrow-down <?php if ($this->uri->segment(2) == 'jadwal')
-                            echo 'icon-active '; ?>"></i>
+                <a class=" my-nav <?php if ($this->uri->segment(1) == 'jadwal_user')  
+                    echo 'my-nav-active'; ?>" aria-current="page" href="<?= base_url('jadwal_user/') ?>"><i class="icon fa fa-calendar-days <?php if ($this->uri->segment(2) == 'jadwal')
+                            echo 'icon-active '; ?>"></i> 
                     <span class="ms-2"> Jadwal Meet</span></a>
 
                 <div class="pt-5"></div>

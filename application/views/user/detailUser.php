@@ -83,87 +83,574 @@
                                             </div>
                                         </div>
                                         <div class="row">
+                                            <div class="col-12 py-5">
+                                                            <?php 
+                                                            if($cekRequest==null){
+                                                                echo '
+                                                                <button type="button" class="btn bg-1 text-white" data-bs-toggle="modal" data-bs-target="#request">
+                                                                                    Request <i class="fa-solid fa-retweet"></i>
+                                                                                  </button>
+                                                                                 
+                                                                                  <!-- Request Modal -->
+                                                                                  <div class="modal fade" id="request" tabindex="-1" aria-labelledby="requestLabel" aria-hidden="true">
+                                                                                      <div class="modal-dialog">
+                                                                                          <div class="modal-content">
+                                                                                          <div class="modal-header">
+                                                                                              <h5 class="modal-title" id="requestLabel">Request Matching</h5>
+                                                                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                          </div>
+                                                                                          <div class="modal-body">
+                                                                                              <div class="row">
+                                                                                                  <div class="col-12 py-4">
+                                                                                                      <h5 class="text-center">
+                                                                                                          Yakin coba request matching dengan '.$users->nama.'?
+                                                                                                      </h5>
+                                                                                                  </div>
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div class="modal-footer">
+                                                                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                                                              <a href="'.base_url('request_user/request/'.$users->id_user).'" class="btn btn-primary">Ya</a>
+                                                                                          </div>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                                  <!-- Request Modal -->
+                                                                                  
+                                                                ';
+
+                                                            }else{
+                                                                if($cekRequest->id_user1==$isUser){
+                                                                    if($cekRequest->status== 1){
+                                                                                    // echo "Menuggu";
+                                                                                    $pill = '<span class="badge bg-info rounded-pill mb-3">Request terkirim, menunggu konfirmasi dari '.$users->nama.'</span> </br>
+                                                                                    <button type="button" class="btn btn-danger text-white" data-bs-toggle="modal" data-bs-target="#batal">
+                                                                                      Batalkan Request <i class="fa-solid fa-circle-xmark"></i>
+                                                                                    </button>
+                                                                                    <!-- MOdal batal -->
+                                                                                    <!-- Modal -->
+                                                                                    <div class="modal fade" id="batal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="batalLabel" aria-hidden="true">
+                                                                                        <div class="modal-dialog">
+                                                                                            <div class="modal-content">
+                                                                                                <div class="modal-header">
+                                                                                                    <h5 class="modal-title" id="batalLabel">Batalkan Request</h5>
+                                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                                </div>
+                                                                                                <div class="modal-body">
+                                                                                                    Yakin Batalkan Request Dengan '.$users->nama.' ?
+                                                                                                </div>
+                                                                                                <div class="modal-footer">
+                                                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                                    <a href="'.base_url('request_user/cancel/'.$cekRequest->id).'" class="btn btn-primary">Ya</a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <!-- MOdal batal -->
+                                                                                    
+                                                                                    ';
+                                                                                    
+                                                                                }elseif($cekRequest->status== 2){
+                                                                                    // echo "Menunggu room";
+                                                                                    $pill = '<span class="badge bg-primary rounded-pill mb-3">Request telah diterima oleh '.$users->nama.' menunggu room meet dari admin</span> </br>
+                                                                                    <a href="'.base_url('request_user/keluar/'.$cekRequest->id).'" class="btn bg-1 text-white">
+                                                                                      Lihat Request <i class="fa-solid fa-circle-info"></i>
+                                                                                    </a>
+                                                                                    
+                                                                                    
+                                                                                    ';
+                                                                                    
+                                                                                }elseif($cekRequest->status==3){
+                                                                                                $pill = '<span class="badge bg-danger rounded-pill mb-3">Request ditolak oleh '.$users->nama.' </span> </br>
+                                                                                               
+                                                                                                <button type="button" class="btn bg-1 text-white" data-bs-toggle="modal" data-bs-target="#request">
+                                                                                    Request lagi <i class="fa-solid fa-retweet"></i>
+                                                                                  </button>
+                                                                                 
+                                                                                  <!-- Request Modal -->
+                                                                                  <div class="modal fade" id="request" tabindex="-1" aria-labelledby="requestLabel" aria-hidden="true">
+                                                                                      <div class="modal-dialog">
+                                                                                          <div class="modal-content">
+                                                                                          <div class="modal-header">
+                                                                                              <h5 class="modal-title" id="requestLabel">Request Matching</h5>
+                                                                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                          </div>
+                                                                                          <div class="modal-body">
+                                                                                              <div class="row">
+                                                                                                  <div class="col-12 py-4">
+                                                                                                      <h5 class="text-center">
+                                                                                                          Yakin coba request matching dengan '.$users->nama.'?
+                                                                                                      </h5>
+                                                                                                  </div>
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div class="modal-footer">
+                                                                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                                                              <a href="'.base_url('request_user/request/'.$users->id_user).'" class="btn btn-primary">Ya</a>
+                                                                                          </div>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                                  <!-- Request Modal -->
+                                                                                                
+                                                                                                ';
+                                                                                                
+                                                                                            }elseif($cekRequest->status==4){
+                                                                                                // echo "activation";
+                                                                                                
+                                                                                                $pill = '<span class="badge bg-info rounded-pill mb-3">Request di konfirmasi oleh admin </span> </br></br>'.$text.' </br>
+                                                                                                <a href="'.base_url('jadwal_user/index/'.$cekRequest->id).'" class="btn bg-1 text-white"> Lihat Jadwal <i class="fa-solid fa-calendar-days"></i>
+                                                                                                </a>';
+                                        
+                                                                                                // if()
+                                        
+                                                                                                
+                                                                                            }elseif($cekRequest->status==5){
+                                                                                                            // echo "finish";
+                                                                                                            $pill='<span class="badge bg-success rounded-pill mb-3">Request Selesai</span> </br>
+                                                                                                            <button type="button" class="btn bg-1 text-white" data-bs-toggle="modal" data-bs-target="#request">
+                                                                                                              Request <i class="fa-solid fa-retweet"></i>
+                                                                                                            </button>
+                                                                                                            <a href="'.base_url('jadwal_user/index/'.$cekRequest->id).'" class="btn bg-1 text-white">
+                                                                                                            Lihat Jadwal <i class="fa-solid fa-calendar-days"></i>
+                                                                                                          </a>
+                                                                                                            <!-- Request Modal -->
+                                                                                                            <div class="modal fade" id="request" tabindex="-1" aria-labelledby="requestLabel" aria-hidden="true">
+                                                                                                                <div class="modal-dialog">
+                                                                                                                    <div class="modal-content">
+                                                                                                                    <div class="modal-header">
+                                                                                                                        <h5 class="modal-title" id="requestLabel">Request Matching</h5>
+                                                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                                                    </div>
+                                                                                                                    <div class="modal-body">
+                                                                                                                        <div class="row">
+                                                                                                                            <div class="col-12 py-4">
+                                                                                                                                <h5 class="text-center">
+                                                                                                                                    Yakin coba request matching dengan '.$users->nama.'?
+                                                                                                                                </h5>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                    <div class="modal-footer">
+                                                                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                                                                                        <a href="'.base_url('request_user/request/'.$users->id_user).'" class="btn btn-primary">Ya</a>
+                                                                                                                    </div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <!-- Request Modal -->
+                                                                                                            ';
+                                                                                                            
+                                                                                                        }elseif($cekRequest->status==6){
+                                                                                                            $pill = '<span class="badge bg-danger rounded-pill mb-3">Request ditolak oleh admin</span> </br>
+                                                                                                            <br>
+                                                                                                            <button type="button" class="btn bg-1 text-white" data-bs-toggle="modal" data-bs-target="#request">
+                                                                                                                Request Lagi <i class="fa-solid fa-retweet"></i>
+                                                                                                            </button>    
+                                                                                                            <!-- Request Modal -->
+                                                                                                            <div class="modal fade" id="request" tabindex="-1" aria-labelledby="requestLabel" aria-hidden="true">
+                                                                                                                <div class="modal-dialog">
+                                                                                                                    <div class="modal-content">
+                                                                                                                    <div class="modal-header">
+                                                                                                                        <h5 class="modal-title" id="requestLabel">Request Matching</h5>
+                                                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                                                    </div>
+                                                                                                                    <div class="modal-body">
+                                                                                                                        <div class="row">
+                                                                                                                            <div class="col-12 py-4">
+                                                                                                                                <h5 class="text-center">
+                                                                                                                                    Yakin coba request matching dengan '.$users->nama.'?
+                                                                                                                                </h5>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                    <div class="modal-footer">
+                                                                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                                                                                        <a href="'.base_url('request_user/request/'.$users->id_user).'" class="btn btn-primary">Ya</a>
+                                                                                                                    </div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <!-- Request Modal -->
+                                                                                                            ';
+                                                                                                            
+                                                                                                        }elseif($cekRequest->status==7){
+                                                                                                            $pill = '<span class="badge bg-danger rounded-pill mb-3">Request Expired</span>
+                                                                                                            <!-- Request Modal -->
+                                                                                                            <br>
+                                                                                                            <button type="button" class="btn bg-1 text-white" data-bs-toggle="modal" data-bs-target="#request">
+                                                                                                                Request <i class="fa-solid fa-retweet"></i>
+                                                                                                            </button>    
+                                                                                                            <div class="modal fade" id="request" tabindex="-1" aria-labelledby="requestLabel" aria-hidden="true">
+                                                                                                                <div class="modal-dialog">
+                                                                                                                    <div class="modal-content">
+                                                                                                                    <div class="modal-header">
+                                                                                                                        <h5 class="modal-title" id="requestLabel">Request Matching</h5>
+                                                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                                                    </div>
+                                                                                                                    <div class="modal-body">
+                                                                                                                        <div class="row">
+                                                                                                                            <div class="col-12 py-4">
+                                                                                                                                <h5 class="text-center">
+                                                                                                                                    Yakin coba request matching dengan '.$users->nama.'?
+                                                                                                                                </h5>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                    <div class="modal-footer">
+                                                                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                                                                                        <a href="'.base_url('request_user/request/'.$users->id_user).'" class="btn btn-primary">Ya</a>
+                                                                                                                    </div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <!-- Request Modal -->
+                                                                                                            ';
+                                                                                                            
+                                                                                                        }elseif($cekRequest->status==8){
+                                                                                                            echo "Keluar batal";
+                                                                                                            $pill='<span class="badge bg-danger rounded-pill mb-3">Request dibatalkan oleh anda</span> </br>
+                                                                                                            <button type="button" class="btn bg-1 text-white" data-bs-toggle="modal" data-bs-target="#request">
+                                                                                                              Request Ulang <i class="fa-solid fa-rotate"></i>
+                                                                                                            </button>
+                                                                                                            <!-- Request Modal -->
+                                                                                                            <div class="modal fade" id="request" tabindex="-1" aria-labelledby="requestLabel" aria-hidden="true">
+                                                                                                                <div class="modal-dialog">
+                                                                                                                    <div class="modal-content">
+                                                                                                                    <div class="modal-header">
+                                                                                                                        <h5 class="modal-title" id="requestLabel">Request Matching</h5>
+                                                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                                                    </div>
+                                                                                                                    <div class="modal-body">
+                                                                                                                        <div class="row">
+                                                                                                                            <div class="col-12 py-4">
+                                                                                                                                <h5 class="text-center">
+                                                                                                                                    Yakin coba request matching dengan '.$users->nama.'?
+                                                                                                                                </h5>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                    <div class="modal-footer">
+                                                                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                                                                                        <a href="'.base_url('request_user/request/'.$users->id_user).'" class="btn btn-primary">Ya</a>
+                                                                                                                    </div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <!-- Request Modal -->
+                                                                                                            ';
+                                                                                                            
+                                                                                                        }    else {
+                                                                                                            // echo "Lainya";
+                                                                                                        }        
+
+
+                                                                }else{
+                                                                   
+                                                                    if($cekRequest->status==1){
+                                                                        $pill = '<span class="badge bg-info rounded-pill mb-3">Request dari '.$users->nama.' menunggu konfirmasi dari Anda</span> </br>
+                                                                        <button type="button" class="btn bg-1 text-white" data-bs-toggle="modal" data-bs-target="#terima">
+                                                                          Terima Request <i class="fa-solid fa-check"></i>
+                                                                        </button>
+                                                                        <!-- MOdal Terima -->
+                                                                        <!-- Modal -->
+                                                                        <div class="modal fade" id="terima" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="terimaLabel" aria-hidden="true">
+                                                                            <div class="modal-dialog">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title" id="terimaLabel">Terima Request</h5>
+                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        Yakin Terima Request Dari '.$users->nama.' ?
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                        <a href="'.base_url('request_user/acc/'.$cekRequest->id).'" class="btn btn-primary">Ya</a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- MOdal Terima -->
+                                                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#tolak">
+                                                                          Tolak Request <i class="fa-solid fa-circle-xmark"></i>
+                                                                        </button>
+                                                                        <!-- MOdal tolak -->
+                                                                        <!-- Modal -->
+                                                                        <div class="modal fade" id="tolak" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tolakLabel" aria-hidden="true">
+                                                                            <div class="modal-dialog">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title" id="tolakLabel">Tolak Request</h5>
+                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        Yakin Tolak Request Dari '.$users->nama.' ?
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                        <a href="'.base_url('request_user/reject/'.$cekRequest->id).'" class="btn btn-primary">Ya</a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- MOdal tolak -->
+                                                                        
+                                                                        ';
+                                                                    }elseif($cekRequest->status== 2){
+                                                                                    // echo "Menunggu room";
+                                                                                    $pill = '<span class="badge bg-primary rounded-pill mb-3">Request dari '.$users->nama.' menunggu room meet dari admin</span> </br>
+                                                                                    <a href="'.base_url('request_user/masuk/'.$cekRequest->id).'" class="btn bg-1 text-white">
+                                                                                      Lihat Request <i class="fa-solid fa-circle-info"></i>
+                                                                                    </a>
+                                                                                    
+                                                                                    
+                                                                                    ';
+                                                                                    
+                                                                                }elseif($cekRequest->status==3){
+                                                                                    // echo "reject";
+                                                                                    $pill = '<span class="badge bg-danger rounded-pill mb-3">Request ditolak oleh anda </span> </br>
+                                                                                    <button type="button" class="btn bg-1 text-white" data-bs-toggle="modal" data-bs-target="#request">
+                                                                                    Request <i class="fa-solid fa-retweet"></i>
+                                                                                  </button>
+                                                                                 
+                                                                                  <!-- Request Modal -->
+                                                                                  <div class="modal fade" id="request" tabindex="-1" aria-labelledby="requestLabel" aria-hidden="true">
+                                                                                      <div class="modal-dialog">
+                                                                                          <div class="modal-content">
+                                                                                          <div class="modal-header">
+                                                                                              <h5 class="modal-title" id="requestLabel">Request Matching</h5>
+                                                                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                          </div>
+                                                                                          <div class="modal-body">
+                                                                                              <div class="row">
+                                                                                                  <div class="col-12 py-4">
+                                                                                                      <h5 class="text-center">
+                                                                                                          Yakin coba request matching dengan '.$users->nama.'?
+                                                                                                      </h5>
+                                                                                                  </div>
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div class="modal-footer">
+                                                                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                                                              <a href="'.base_url('request_user/request/'.$users->id_user).'" class="btn btn-primary">Ya</a>
+                                                                                          </div>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                                  <!-- Request Modal -->';
+                                                                                    
+                                                                                }elseif($cekRequest->status==4){
+                                                                                    
+                                                                                    
+                                                                                    $pill = '<span class="badge bg-info rounded-pill mb-3">Request di konfirmasi oleh admin </span> </br>'.$text.' </br>
+                                                                                    <a href="'.base_url('jadwal_user/index/'.$cekRequest->id).'" class="btn bg-1 text-white">
+                                                                                      Lihat Jadwal <i class="fa-solid fa-calendar-days"></i>
+                                                                                    </a> 
+                                                                                    <button type="button" class="btn bg-1 text-white" data-bs-toggle="modal" data-bs-target="#request">
+                                                                                    Request <i class="fa-solid fa-retweet"></i>
+                                                                                  </button>
+                                                                                 
+                                                                                  <!-- Request Modal -->
+                                                                                  <div class="modal fade" id="request" tabindex="-1" aria-labelledby="requestLabel" aria-hidden="true">
+                                                                                      <div class="modal-dialog">
+                                                                                          <div class="modal-content">
+                                                                                          <div class="modal-header">
+                                                                                              <h5 class="modal-title" id="requestLabel">Request Matching</h5>
+                                                                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                          </div>
+                                                                                          <div class="modal-body">
+                                                                                              <div class="row">
+                                                                                                  <div class="col-12 py-4">
+                                                                                                      <h5 class="text-center">
+                                                                                                          Yakin coba request matching dengan '.$users->nama.'?
+                                                                                                      </h5>
+                                                                                                  </div>
+                                                                                              </div>
+                                                                                          </div>
+                                                                                          <div class="modal-footer">
+                                                                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                                                              <a href="'.base_url('request_user/request/'.$users->id_user).'" class="btn btn-primary">Ya</a>
+                                                                                          </div>
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+                                                                                  <!-- Request Modal -->
+                                                                                  ';
+                                                                                    
+                                                                                }elseif($cekRequest->status==5){
+                                                                                                $pill='<span class="badge bg-success rounded-pill mb-3">Request Selesai</span> </br>
+                                                                                                <button type="button" class="btn bg-1 text-white" data-bs-toggle="modal" data-bs-target="#request">
+                                                                                                  Request <i class="fa-solid fa-retweet"></i>
+                                                                                                </button>
+                                                                                                <a href="'.base_url('jadwal_user/index/'.$cekRequest->id).'" class="btn bg-1 text-white">
+                                                                                                Lihat Jadwal <i class="fa-solid fa-calendar-days"></i>
+                                                                                              </a>
+                                                                                                <!-- Request Modal -->
+                                                                                                <div class="modal fade" id="request" tabindex="-1" aria-labelledby="requestLabel" aria-hidden="true">
+                                                                                                    <div class="modal-dialog">
+                                                                                                        <div class="modal-content">
+                                                                                                        <div class="modal-header">
+                                                                                                            <h5 class="modal-title" id="requestLabel">Request Matching</h5>
+                                                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                                        </div>
+                                                                                                        <div class="modal-body">
+                                                                                                            <div class="row">
+                                                                                                                <div class="col-12 py-4">
+                                                                                                                    <h5 class="text-center">
+                                                                                                                        Yakin coba request matching dengan '.$users->nama.'?
+                                                                                                                    </h5>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="modal-footer">
+                                                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                                                                            <a href="'.base_url('request_user/request/'.$users->id_user).'" class="btn btn-primary">Ya</a>
+                                                                                                        </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <!-- Request Modal -->
+                                                                                                ';
+                                                                                                
+                                                                                            }elseif($cekRequest->status==6){
+                                                                                                // echo "aaa";
+                                                                                                $pill = '<span class="badge bg-danger rounded-pill mb-3">Request ditolak oleh admin</span>     
+                                                                                                <br>
+                                                                                                <button type="button" class="btn bg-1 text-white" data-bs-toggle="modal" data-bs-target="#request">
+                                                                                                    Request <i class="fa-solid fa-retweet"></i>
+                                                                                                </button>                                                <!-- Request Modal -->
+                                                                                                <div class="modal fade" id="request" tabindex="-1" aria-labelledby="requestLabel" aria-hidden="true">
+                                                                                                    <div class="modal-dialog">
+                                                                                                        <div class="modal-content">
+                                                                                                        <div class="modal-header">
+                                                                                                            <h5 class="modal-title" id="requestLabel">Request Matching</h5>
+                                                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                                        </div>
+                                                                                                        <div class="modal-body">
+                                                                                                            <div class="row">
+                                                                                                                <div class="col-12 py-4">
+                                                                                                                    <h5 class="text-center">
+                                                                                                                        Yakin coba request matching dengan '.$users->nama.'?
+                                                                                                                    </h5>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="modal-footer">
+                                                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                                                                            <a href="'.base_url('request_user/request/'.$users->id_user).'" class="btn btn-primary">Ya</a>
+                                                                                                        </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <!-- Request Modal -->
+                                                                                                ';
+                                                                                                
+                                                                                            }elseif($cekRequest->status==7){
+                                                                                                $pill = '<span class="badge bg-danger rounded-pill mb-3">Request Expired</span> </br>
+                                                                                                <!-- Request Modal -->
+                                                                                                <button type="button" class="btn bg-1 text-white" data-bs-toggle="modal" data-bs-target="#request">
+                                                                                                    Request <i class="fa-solid fa-retweet"></i>
+                                                                                                </button>    
+                                                                                                <div class="modal fade" id="request" tabindex="-1" aria-labelledby="requestLabel" aria-hidden="true">
+                                                                                                    <div class="modal-dialog">
+                                                                                                        <div class="modal-content">
+                                                                                                        <div class="modal-header">
+                                                                                                            <h5 class="modal-title" id="requestLabel">Request Matching</h5>
+                                                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                                        </div>
+                                                                                                        <div class="modal-body">
+                                                                                                            <div class="row">
+                                                                                                                <div class="col-12 py-4">
+                                                                                                                    <h5 class="text-center">
+                                                                                                                        Yakin coba request matching dengan '.$users->nama.'?
+                                                                                                                    </h5>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="modal-footer">
+                                                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                                                                            <a href="'.base_url('request_user/request/'.$users->id_user).'" class="btn btn-primary">Ya</a>
+                                                                                                        </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <!-- Request Modal -->
+                                                                                                ';
+                                                                                                
+                                                                                            }elseif($cekRequest->status==8){
+                                                                                                // echo "masuk batal";
+                                                                                                $pill='<span class="badge bg-danger rounded-pill mb-3">Request dibatalkan oleh '.$users->nama.' </span> </br>
+                                                                                                <button type="button" class="btn bg-1 text-white" data-bs-toggle="modal" data-bs-target="#request">
+                                                                                                  Request <i class="fa-solid fa-retweet"></i>
+                                                                                                </button>
+                                                                                                <!-- Request Modal -->
+                                                                                                <div class="modal fade" id="request" tabindex="-1" aria-labelledby="requestLabel" aria-hidden="true">
+                                                                                                    <div class="modal-dialog">
+                                                                                                        <div class="modal-content">
+                                                                                                        <div class="modal-header">
+                                                                                                            <h5 class="modal-title" id="requestLabel">Request Matching</h5>
+                                                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                                        </div>
+                                                                                                        <div class="modal-body">
+                                                                                                            <div class="row">
+                                                                                                                <div class="col-12 py-4">
+                                                                                                                    <h5 class="text-center">
+                                                                                                                        Yakin coba request matching dengan '.$users->nama.'?
+                                                                                                                    </h5>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="modal-footer">
+                                                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                                                                            <a href="'.base_url('request_user/request/'.$users->id_user).'" class="btn btn-primary">Ya</a>
+                                                                                                        </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <!-- Request Modal -->
+                                                                                                ';
+                                                                                                
+                                                                                            }   else {
+                                                                                                // echo "Lainya";
+                                                                                            }
+                                                                }
+
+                                                            }
+                                                            
+                                                            ?>
+
+
+                                               
+                                               
+                                            </div>
+
+
+                                   
+                                        </div>
+
+                                                
+
+
+                                        <div class="row">
                                             <div class="col-12">
                                                 <hr>
+                                                <?php if(!empty($pill)){
+                                                    echo $pill;
+                                                }?>
                                             </div>
-                                            <div class="col-12">
-                                                <!-- Button trigger modal -->
-                                                <?php if($requestCek==null&&$requestCekMasuk==null){?>
-                                                    <button type="button" class="btn bg-1 text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    Request Matching
-                                                    </button>
-                                                <?php }elseif($requestCek!=null){?>
-                                                    <button type="button" class="btn bg-1 text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    Menunggu Konfirmasi Matching dari <?=$users->nama?>
-                                                    </button>
-                                                    
-                                                <?php }elseif($requestCekMasuk!=null){?>
-                                                    <button type="button" class="btn bg-1 text-white" data-bs-toggle="modal" data-bs-target="#modalTerima">
-                                                    Menunggu Konfirmasi Matching dari anda
-                                                    </button>
-                                                    <?php
-                                                     } ?>
-
-                                                    <!-- Modal -->
-                                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Request Matching</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="row">
-                                                                <div class="col-12 py-4">
-                                                                    <h5 class="text-center">
-                                                                        Yakin coba matching dengan <?=$users->nama?>?
-                                                                    </h5>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                            <a href="<?=base_url('request_user/request/'.$users->id_user)?>" class="btn btn-primary">Ya</a>
-                                                        </div>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-
-                                                    <!-- Modal2 -->
-                                                    <div class="modal fade" id="modalTerima" tabindex="-1" aria-labelledby="modalTerimaLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="modalTerimaLabel">Request Matching</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="row">
-                                                                <div class="col-12 py-4">
-                                                                    <h5 class="text-center">
-                                                                        Yakin terima permintaan matching dari <?=$users->nama?>?
-                                                                    </h5>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                            <a href="<?=base_url('request_user/acc/'.$users->id)?>" class="btn btn-primary">Ya</a>
-                                                        </div>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                            </div>
+                                           
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>                       
                     </div>
-
+                    
                    
                 </main>
                 <footer class="row bg-light py-4 mt-auto">
+                
                     <small>&copy Matchmaking by <a href="#">Dieng Cyber</a></small>
                     <small>Made with ❤</small>
                     <div class="col"> </div>
@@ -171,6 +658,40 @@
             </div>
         </div>
     </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+         $(document).ready(function(){
+            $('#btn-cek').click(function(){
+                var id = $(this).attr('val');
+
+                // alert (id);
+                $.ajax({
+                    url: '<?php echo base_url(); ?>request_user/check_request/' + id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log("Action completed successfully:", data);
+                        if(data.id_user1==id){
+                            console.log('keluar'+data.status);
+                        }else{
+
+                            console.log('masuk'+data.status);
+                        }
+
+                        
+                    },
+                    error: function (error) {
+                        console.error("Error in another action:", error);
+                    }
+                });
+
+
+            })
+         });
+
+    </script>
+
 </div>
 <!-- Mobile -->
 <div class="d-lg-none">

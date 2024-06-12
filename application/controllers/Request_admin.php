@@ -17,13 +17,86 @@ class Request_admin extends MY_Controller
 
     public function index()
     {
-        $user = $this->Request_model->get_all();
+
+        $cekJadwal = '';
+        $text = '';
+
+        $statusMeet = '';
+
+        $tglSekarang = date('Y-m-d');
+        $waktu_sekarang = date('H:i:s');
+
+        $sort = 'DESC';
+        $status = '';
+        if ($this->input->post('cari') != null) {
+            $cari = $this->input->post('cari');
+        }
+        if ($this->input->post('sort') != null) {
+            $sort = $this->input->post('sort');
+        }
+        if ($this->input->post('status') != null) {
+            $status = $this->input->post('status');
+        }
+
+        $request = $this->Request_model->get_all($sort, $status);
+
+        foreach ($request as $cekRequest) {
+            if ($cekRequest != null) {
+                $cekJadwal = $this->Jadwal_model->get_by_id_request_jam($cekRequest->id_request);
+                if ($cekJadwal == null) {
+
+                } elseif ($tglSekarang < $cekJadwal->tgl_meeting) {
+                    $text = 'ada';
+                } elseif ($tglSekarang == $cekJadwal->tgl_meeting) {
+                    $text = 'Hari ini';
+                    $statusMeet = 1;
+                    if ($waktu_sekarang <= $cekJadwal->jmm) {
+                        $text = '<span class="badge mb-3 bg-warning rounded-pill">Meet Sekarang</span>';
+                        $statusMeet = 2;
+                    } elseif ($waktu_sekarang >= $cekJadwal->jmm && $waktu_sekarang <= $cekJadwal->jms) {
+                        $text = '<span class="badge mb-3 bg-primary rounded-pill">Meet Sekarang</span>';
+                        $statusMeet = 3;
+                    } elseif ($waktu_sekarang >= $cekJadwal->jms) {
+                        $text = '<span class="badge mb-3 bg-danger rounded-pill">Request masuk, meet expired</span>';
+                        if ($cekRequest->status != 5) {
+
+                            $data = [
+                                'status' => 7,
+                                'tgl_update' => date('Y-m-d H:i:s')
+                            ];
+                            $this->Request_model->update($cekRequest->id_request, $data);
+                        }
+
+                        $statusMeet = 4;
+                    }
+
+                } elseif ($tglSekarang > $cekJadwal->tgl_meeting) {
+                    $text = '<span class="badge mb-3 bg-danger rounded-pill">Request masuk, meet expired</span>';
+                    if ($cekRequest->status != 5) {
+
+                        $data = [
+                            'status' => 7,
+                            'tgl_update' => date('Y-m-d H:i:s')
+                        ];
+                        $this->Request_model->update($cekRequest->id_request, $data);
+                    }
+                    $statusMeet = 4;
+                }
+            }
+
+
+
+        }
+
+
         $jam = $this->Pil_jam_model->get_all();
 
         $data = array(
             'title' => 'request',
-            'request_admin_data' => $user,
+            'request_admin_data' => $request,
             'jam' => $jam,
+            'sort' => $sort,
+            'status' => $status,
 
         );
 
@@ -67,9 +140,9 @@ class Request_admin extends MY_Controller
                 'tgl_register_user2' => $row->tgl_register_user2,
                 'status' => $row->status,
                 'tgl_update' => $row->tgl_update,
-                'tgl_meeting'=> $row->tgl_meeting,
-                'id_jam'=> $row->id_jam,
-                'link_zoom'=> $row->link_zoom,
+                'tgl_meeting' => $row->tgl_meeting,
+                'id_jam' => $row->id_jam,
+                'link_zoom' => $row->link_zoom,
             );
             $this->load->view('admin/layouts/header');
             $this->load->view('admin/request/request_read', $data);
@@ -94,39 +167,81 @@ class Request_admin extends MY_Controller
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('message', validation_errors());
+
+
             $this->index();
         } else {
+
+
+
             $jam = $this->Pil_jam_model->get_by_id($this->input->post('jam', TRUE));
+            $tglSekarang = date('Y-m-d');
+            $waktuSekarang = date('H:i:s');
+            $tglMeet = $this->input->post('tgl', TRUE);
+            $jamMulai = $jam->jam_mulai;
 
-            $jam_mulai = new DateTime($jam->jam_mulai);
-            $jam_mulai_menit = $jam_mulai->format('H') * 60 + $jam_mulai->format('i');
+            // Konversi tanggal dan waktu menjadi objek DateTime
+            $inputDatetime = new DateTime("$tglMeet $jamMulai");
+            $currentDatetime = new DateTime();
 
-            $jam_selesai = new DateTime($jam->jam_selesai);
-            $jam_selesai_menit = $jam_selesai->format('H') * 60 + $jam_selesai->format('i');
+            if ($inputDatetime < $currentDatetime) {
 
-            $selisih_menit = abs($jam_selesai_menit - $jam_mulai_menit);
+                $this->session->set_flashdata('message', 'Tanggal dan waktu tidak boleh kurang dari sekarang');
+                if ($this->input->post('id_req')) {
+                    redirect(site_url('request_admin/read/' . $this->input->post('id_req')));
+
+                } else {
+                    $this->index();
+
+                }
+                ;
+            } else {
+
+                $jam = $this->Pil_jam_model->get_by_id($this->input->post('jam', TRUE));
+
+                $jam_mulai = new DateTime($jam->jam_mulai);
+                $jam_mulai_menit = $jam_mulai->format('H') * 60 + $jam_mulai->format('i');
+
+                $jam_selesai = new DateTime($jam->jam_selesai);
+                $jam_selesai_menit = $jam_selesai->format('H') * 60 + $jam_selesai->format('i');
+
+                $selisih_menit = abs($jam_selesai_menit - $jam_mulai_menit);
 
 
 
-            $data_jadwal = array(
-                'id_request' => $this->input->post('id_request', TRUE),
-                'id_jam' => $this->input->post('jam', TRUE),
-                'tgl_meeting' => $this->input->post('tgl', TRUE),
-                'link_zoom' => $this->input->post('link_zoom', TRUE),
-                'waktu' => $selisih_menit,
-                // 'id_user2' => $this->input->post('id_user2', TRUE),
-                // 'status' => $this->input->post('status', TRUE),
-                // 'tgl_update' => date('Y-m-d H:i:s'),
-            );
-            $this->Jadwal_model->insert($data_jadwal);
-            $data = array(
-                'status' => 4,
-                'tgl_update' => date('Y-m-d H:i:s')
-            );
+                $data_jadwal = array(
+                    'id_request' => $this->input->post('id_request', TRUE),
+                    'id_jam' => $this->input->post('jam', TRUE),
+                    'tgl_meeting' => $this->input->post('tgl', TRUE),
+                    'link_zoom' => $this->input->post('link_zoom', TRUE),
+                    'waktu' => $selisih_menit,
+                    // 'id_user2' => $this->input->post('id_user2', TRUE),
+                    // 'status' => $this->input->post('status', TRUE),
+                    // 'tgl_update' => date('Y-m-d H:i:s'),
+                );
+                $this->Jadwal_model->insert($data_jadwal);
+                $data = array(
+                    'status' => 4,
+                    'tgl_update' => date('Y-m-d H:i:s')
+                );
 
-            $this->Request_model->update($this->input->post('id_request', TRUE), $data);
-            $this->session->set_flashdata('message', 'Update Record Success');
-            redirect(site_url('request_admin'));
+                $this->Request_model->update($this->input->post('id_request', TRUE), $data);
+                $this->session->set_flashdata('message', 'Update Record Success');
+                if ($this->input->post('id_req')) {
+                    redirect(site_url('request_admin/read/' . $this->input->post('id_req')));
+
+                } else {
+                    redirect(site_url('request_admin'));
+
+                }
+                ;
+
+            }
+
+            // var_dump($tglSekarang,$this->input->post('tgl', TRUE));
+
+
+
 
             // $this->Request_model->insert($data);
             // $this->session->set_flashdata('message', 'Create Record Success');
@@ -135,38 +250,116 @@ class Request_admin extends MY_Controller
     }
     public function update_request()
     {
-        $id = $this->input->post('id_request');
 
-        $jadwal  = $this->Jadwal_model->get_by_id_request( $id );
+        $this->form_validation->set_rules('tgl', 'Tanggal', 'trim|required', array('required' => 'Tanggal harus di isi'));
+        $this->form_validation->set_rules('link_zoom', 'Link Zoom', 'trim|required', array('required' => 'Link Zoom harus di isi'));
+        $this->form_validation->set_rules('jam', 'Jam ', 'trim|required', array('required' => 'Jam harus di isi'));
+        // $this->form_validation->set_rules('waktu', 'Waktu', 'trim|required|numeric|less_than_equal_to[50]', array(
+        //     'required' => 'Waktu harus di isi',
+        //     'numeric' => 'Waktu harus berupa angka',
+        //     'less_than_equal_to' => 'Maximal waktu 50 menit'
+        // ));
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('message', validation_errors());
+
+            if ($this->input->post('id_req')) {
+                redirect(site_url('request_admin/read/' . $this->input->post('id_req')));
+
+            } else {
+                $this->index();
+
+            }
+        } else {
+
+            $jam = $this->Pil_jam_model->get_by_id($this->input->post('jam', TRUE));
+            $tglSekarang = date('Y-m-d');
+            $waktuSekarang = date('H:i:s');
+            $tglMeet = $this->input->post('tgl', TRUE);
+            $jamMulai = $jam->jam_mulai;
+
+            // Konversi tanggal dan waktu menjadi objek DateTime
+            $inputDatetime = new DateTime("$tglMeet $jamMulai");
+            $currentDatetime = new DateTime();
+
+            if ($inputDatetime < $currentDatetime) {
+
+                $this->session->set_flashdata('message', 'Tanggal dan waktu tidak boleh kurang dari sekarang');
+                if ($this->input->post('id_req')) {
+                    redirect(site_url('request_admin/read/' . $this->input->post('id_req')));
+
+                } else {
+                    $this->index();
+
+                }
+            } else {
+
+                $id = $this->input->post('id_request');
+
+                $jadwal = $this->Jadwal_model->get_by_id_request($id);
 
 
-        $jam = $this->Pil_jam_model->get_by_id($this->input->post('jam', TRUE));
+                $jam = $this->Pil_jam_model->get_by_id($this->input->post('jam', TRUE));
 
-        $jam_mulai = new DateTime($jam->jam_mulai);
-        $jam_mulai_menit = $jam_mulai->format('H') * 60 + $jam_mulai->format('i');
 
-        $jam_selesai = new DateTime($jam->jam_selesai);
-        $jam_selesai_menit = $jam_selesai->format('H') * 60 + $jam_selesai->format('i');
+                $jam_mulai = new DateTime($jam->jam_mulai);
+                $jam_mulai_menit = $jam_mulai->format('H') * 60 + $jam_mulai->format('i');
 
-        $selisih_menit = abs($jam_selesai_menit - $jam_mulai_menit);
+                $jam_selesai = new DateTime($jam->jam_selesai);
+                $jam_selesai_menit = $jam_selesai->format('H') * 60 + $jam_selesai->format('i');
+
+                $selisih_menit = abs($jam_selesai_menit - $jam_mulai_menit);
+
+                $data_jadwal = [
+                    'id_jam' => $this->input->post('jam', TRUE),
+                    'tgl_meeting' => $this->input->post('tgl', TRUE),
+                    'link_zoom' => $this->input->post('link_zoom', TRUE),
+                    'waktu' => $selisih_menit,
+                ];
+                $this->Jadwal_model->update($jadwal->id, $data_jadwal);
+                $data = array(
+                    'status' => 4,
+                    'tgl_update' => date('Y-m-d H:i:s')
+                );
+                
+                $this->Request_model->update($this->input->post('id_request', TRUE), $data);
+
+                if ($this->input->post('id_req')) {
+                    $this->session->set_flashdata('message', 'Update Record Success');
+                    redirect(site_url('request_admin/read/' . $this->input->post('id_req')));
+
+                } else {
+                    $this->session->set_flashdata('message', 'Update Record Success');
+                    redirect(site_url('request_admin'));
+
+                }
+
+               
+            }
+
+        }
+
+
+    }
+    public function selesai($id)
+    {
+        $jadwal = $this->Jadwal_model->get_by_id_request($id);
 
         $data_jadwal = [
-            'id_jam' => $this->input->post('jam', TRUE),
-            'tgl_meeting' => $this->input->post('tgl', TRUE),
-            'link_zoom' => $this->input->post('link_zoom', TRUE),
-            'waktu' => $selisih_menit,
+            'status' => 3,
         ];
-        $this->Jadwal_model->update($jadwal->id,$data_jadwal);
-        $data = array(
-            'status' => 4,
+        $this->Jadwal_model->update($jadwal->id, $data_jadwal);
+
+        $data = [
+            'status' => 5,
             'tgl_update' => date('Y-m-d H:i:s')
-        );
+        ];
+        $this->Request_model->update($id, $data);
 
-        $this->Request_model->update($this->input->post('id_request', TRUE), $data);
-        $this->session->set_flashdata('message', 'Update Record Success');
-        redirect(site_url('request_admin'));
+
+
+        echo json_encode($this->session->set_flashdata('message', 'Update Record Success'));
     }
-
     public function create()
     {
         $l = $this->Users_model->get_by_gender(1);
@@ -229,6 +422,20 @@ class Request_admin extends MY_Controller
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('request_admin'));
         }
+    }
+    public function update_status($id)
+    {
+        $row = $this->Request_model->get_by_id($id);
+
+
+        $data = array(
+            'status' => 6,
+            'tgl_update' => date('Y-m-d H:i:s'),
+        );
+        $this->Request_model->update($id, $data);
+        $this->session->set_flashdata('message', 'Update Record Success');
+        redirect(site_url('request_admin'));
+
     }
 
     public function update_action()

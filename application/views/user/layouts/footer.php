@@ -218,6 +218,7 @@
                     $('.alamat').removeClass('d-none');
                     $('.input-alamat').addClass('d-none');
 	        });
+
     </script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->

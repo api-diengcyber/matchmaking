@@ -76,7 +76,7 @@
                     <a href="<?= base_url('request_admin') ?>" class="nav-item nav-link <?php if ($this->uri->segment(1) == 'request_admin') echo 'active'; ?> "><i class="fa fa-comment me-2"></i>Request</a>
                     <a href="<?= base_url('pil_jam_admin') ?>" class="nav-item nav-link <?php if ($this->uri->segment(1) == 'pil_jam_admin') echo 'active'; ?>"><i class="fa fa-clock me-2"></i>Jam</a>
                     <a href="<?= base_url('jadwal_admin') ?>" class="nav-item nav-link <?php if ($this->uri->segment(1) == 'jadwal_admin') echo 'active'; ?>"><i class="fa fa-calendar me-2"></i>Jadwal</a>
-                    <a href="<?= base_url('user_admin') ?>" class="nav-item nav-link <?php if ($this->uri->segment(1) == 'user_admin') echo 'active'; ?>"><i class="fa fa-users me-2"></i>User</a>
+                    <a href="<?= base_url('users_admin') ?>" class="nav-item nav-link <?php if ($this->uri->segment(1) == 'users_admin') echo 'active'; ?>"><i class="fa fa-users me-2"></i>User</a>
                     <div class="pt-5"></div>
                     <a href="<?= base_url('auth/logout') ?>" class="nav-item nav-link"><i class="fa fa-sign-out-alt me-2"><i class="fa-solid fa-right-from-bracket"></i></i>Logout</a>
                     
