@@ -201,7 +201,7 @@
                                                     }
                                                     ?>
                                                     <div class="mb-3">
-                                                        <label class="form-label">Provinsi <small>(abaikan jika alamat tidak ingin diubah)</small></label>
+                                                        <label class="form-label">Provinsi <small></small></label>
                                                         <select name="" class="form-control select-search provinsi" id="provinsi">
                                                             <option>Provinsi</option>
                                                             <?php 
@@ -214,25 +214,25 @@
                                                         
                                                     </div>       
                                                     <div class="mb-3">
-                                                    <label class="form-label">Kabupaten <small>(abaikan jika alamat tidak ingin diubah)</small></label>
+                                                    <label class="form-label">Kabupaten <small></small></label>
                                                         <select name="" class="form-control select-search kabupaten" id="kabupaten">
                                                             <option value=''>Kabupaten</option>
                                                         </select>
                                                     </div>                                             
                                                     <div class="mb-3">
-                                                    <label class="form-label">Kecamatan <small>(abaikan jika alamat tidak ingin diubah)</small></label>
+                                                    <label class="form-label">Kecamatan <small></small></label>
                                                         <select name="" class="form-control select-search kecamatan" id="kecamatan">
                                                             <option>Kecamatan</option>
                                                         </select>
                                                     </div>                                             
                                                     <div class="mb-3">
-                                                        <label class="form-label">Desa <small>(abaikan jika alamat tidak ingin diubah)</small></label>
+                                                        <label class="form-label">Desa <small></small></label>
                                                         <select name="s" class="form-control select-search desa" id="desa">
                                                             <option>Desa</option>
                                                         </select>
                                                     </div>                                             
                                                     <div class="mb-4">
-                                                        <label class="form-label">Nama jalan,Rt/Rw <small>(abaikan jika alamat tidak ingin diubah)</small></label>
+                                                        <label class="form-label">Nama jalan,Rt/Rw <small></small></label>
                                                         <input type="text" name="rt_rw" id="rt_rw" class="form-control" placeholder="Nama jalan atau Rt/Rw">
                                                     </div>      
                                                     <div class="mb-2">
@@ -368,7 +368,7 @@
                                                     ?>
                                                                                                
                                                     <div class="mb-3">
-                                                        <label class="form-label">Provinsi <small>(abaikan jika alamat tidak ingin diubah)</small></label>
+                                                        <label class="form-label">Provinsi <small></small></label>
                                                         <select name="" class="form-control select-search provinsi" id="provinsi-m">
                                                             <option>Provinsi</option>
                                                             <?php 
@@ -380,25 +380,25 @@
                                                         </select>
                                                     </div>       
                                                     <div class="mb-3">
-                                                    <label class="form-label">Kabupaten <small>(abaikan jika alamat tidak ingin diubah)</small></label>
+                                                    <label class="form-label">Kabupaten <small></small></label>
                                                         <select name="" class="form-control select-search kabupaten" id="kabupaten-m">
                                                             <option value=''>Kabupaten</option>
                                                         </select>
                                                     </div>                                             
                                                     <div class="mb-3">
-                                                    <label class="form-label">Kecamatan <small>(abaikan jika alamat tidak ingin diubah)</small></label>
+                                                    <label class="form-label">Kecamatan <small></small></label>
                                                         <select name="" class="form-control select-search kecamatan" id="kecamatan-m">
                                                             <option>Kecamatan</option>
                                                         </select>
                                                     </div>                                             
                                                     <div class="mb-3">
-                                                        <label class="form-label">Desa <small>(abaikan jika alamat tidak ingin diubah)</small></label>
+                                                        <label class="form-label">Desa <small></small></label>
                                                         <select name="" class="form-control select-search desa" id="desa-m">
                                                             <option>Desa</option>
                                                         </select>
                                                     </div>                                             
                                                     <div class="mb-3">
-                                                        <label class="form-label">Nama jalan, Rt/Rw <small>(abaikan jika alamat tidak ingin diubah)</small></label>
+                                                        <label class="form-label">Nama jalan, Rt/Rw <small></small></label>
                                                         <input type="text" name="rt_rw" id="rt_rw" class="form-control" placeholder="Nama jalan atau Rt/Rw">
                                                     </div>
                                                     <div class="mb-2">

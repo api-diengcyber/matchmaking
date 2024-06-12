@@ -14,23 +14,40 @@ class Jadwal_user extends CI_Controller
         $this->load->library('form_validation');
     }
 
-    public function open_window()
+    public function open_window($id)
     {
         // membuka window baru dan di beri timer
-        $this->load->view('open_window_view');
+        // $this->load->view('open_window_view');
     } 
-       public function index()
+       public function index($id_req='')
     {
+
+        $cari='';
+        $sort='ASC';
+        $status='';
+        if($this->input->post('cari')!=null){
+            $cari = $this->input->post('cari');
+        }
+        if($this->input->post('sort')!=null){
+            $sort = $this->input->post('sort');
+        }
+        if($this->input->post('status')!=null){
+            $status = $this->input->post('status');
+        }
+
         $id = $this->session->userdata('id');
-        $jadwal = $this->Jadwal_model->get_all_by_id($id);
+        $jadwal = $this->Jadwal_model->get_all_by_id($id,$id_req,$cari,$sort);
         // $tgl =date('d-m-Y');
 
         // var_dump($jadwal);
         $data = array(
             'jadwal' => $jadwal,
+            'cari'  => $cari,
+            'sort'  => $sort,
+            'status'  => $status,
             // 'tgl' => $tgl,
         );
-        var_dump($data);
+        // var_dump($data);
         $this->load->view('user/layouts/header');
         $this->load->view('user/jadwal', $data);
         $this->load->view('user/layouts/footer');

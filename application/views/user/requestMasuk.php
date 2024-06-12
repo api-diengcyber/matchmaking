@@ -39,84 +39,95 @@
                                                     <div class="col-sm-3">
                                                         <select name="status" id="" class="form-select" onchange="this.form.submit();">
                                                             <option value="" <?php if($status==''){echo "selected";}?>>Semua</option>
-                                                            <option value="1" <?php if($status=='1'){echo "selected";}?>>Menunggu</option>
-                                                            <option value="2" <?php if($status=='2'){echo "selected";}?>>Diterima</option>
+                                                            <option value="1" <?php if($status=='1'){echo "selected";}?>>Menunggu Konfirmasi Teman</option>
+                                                            <option value="8" <?php if($status=='8'){echo "selected";}?>>Dibatalkan</option>
+                                                            <option value="2" <?php if($status=='2'){echo "selected";}?>>Diterima, Menuggu Room</option>
                                                             <option value="3" <?php if($status=='3'){echo "selected";}?>>Ditolak</option>
-                                                            <option value="4" <?php if($status=='4'){echo "selected";}?>>Room Meet Aktif</option>
-                                                            <option value="5" <?php if($status=='5'){echo "selected";}?>>Room Meet Berlangsung</option>
-                                                            <option value="6" <?php if($status=='6'){echo "selected";}?>>Room Meet Selesai</option>
-                                                            <option value="7" <?php if($status=='7'){echo "selected";}?>>Room Meet Ditolak</option>
-                                                        </select>                                                        
+                                                            <option value="4" <?php if($status=='4'){echo "selected";}?>>Room Aktif</option>
+                                                            <option value="5" <?php if($status=='5'){echo "selected";}?>>Room Selesai</option>
+                                                            <option value="6" <?php if($status=='6'){echo "selected";}?>>Room Ditolak</option>
+                                                            <option value="7" <?php if($status=='7'){echo "selected";}?>>Expired</option>
+                                                        </select>                                                     
                                                     </div>
                                                 </form>
                                             </div>
                                             <div class="col-lg-12 pt-3">
-                                                <ol class="list-group list-group-numbered">
-                                                    <?php
-
-                                                    foreach ($request as $r) { ?>
-                                                        <li
-                                                            class="list-group-item d-flex justify-content-between align-items-start">
-                                                            <div class="ms-2 me-auto">
+                                            <?php
+                                                $no=1;
+                                                foreach ($request as $r) { ?>
+                                                <div class="card rounded-0 mb-2">
+                                                    <div class="card-body">
+                                                       <div class="col-12 d-flex justify-content-between">
+                                                            <div class="">
                                                                 <a href="<?=base_url('users_user/detail/'.$r->id_user_1)?>" class="text-decoration-none text-dark">
-                                                                <div class="fw-bold">
-                                                                        <?= $r->nama_user1 ?>
-                                                                </div>
-                                                                </a>
-                                                                <?= date('d-m-Y', strtotime($r->tgl_update))
-                                                                    ?>
+                                                                    <div class="fw-bold">
+                                                                            <?= $r->nama_user1 ?>
+                                                                    </div>
+                                                                    </a>
+                                                                    <?= date('d-m-Y', strtotime($r->tgl_update))
+                                                                        ?>
                                                             </div>
-                                                            <?php
-                                                            if ($r->status == 1) {
-                                                                ?>
-                                                                <div class="">
-                                                                    <span class="badge bg-primary rounded-pill">Menunggu diterima oleh Anda</span>
-                                                                    <p class="text-end pt-2">
-                                                                        <!-- Button trigger modal -->
-                                                                            <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#accModal<?=$r->idRequest?>">
-                                                                            Terima
-                                                                            </button>
-
-                                                                            <!-- Modal -->
-                                                                            <div class="modal fade" id="accModal<?=$r->idRequest?>" tabindex="-1" aria-labelledby="accModal<?=$r->idRequest?>Label" aria-hidden="true">
-                                                                            <div class="modal-dialog">
-                                                                                <div class="modal-content">
-                                                                                <div class="modal-header">
-                                                                                    <h5 class="modal-title" id="accModal<?=$r->idRequest?>Label">Terima Request</h5>
-                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                                </div>
-                                                                                <div class="modal-body">
-                                                                                    <h4 class="text-center">
-                                                                                        Yakin terima request dari <?=$r->nama_user1?>
-                                                                                    </h4>
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                                    <a href="<?=base_url('request_user/acc/'.$r->idRequest)?>" class="btn btn-primary">Ya</a>
-                                                                                </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            </div>
-
-
-                                                                    </p>
-
-                                                                </div>
-                                                                <br>
-                                                            <?php }elseif($r->status==2){?>
-                                                                <span class="badge bg-primary rounded-pill">Diterima, Menunggu room dari admin</span>
+                                                            <div class="">
                                                                 
-                                                            <?php }elseif($r->status==4){?>
+                                                            <?php
+                                                           if ($r->status == 1) {
+                                                            ?>
+                                                            <div class="">
+                                                                <span class="badge bg-primary rounded-pill">Menunggu diterima oleh Anda</span>
+                                                                <p class="text-end pt-2">
+                                                                    <!-- Button trigger modal -->
+                                                                        <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#accModal<?=$r->idRequest?>">
+                                                                        Terima
+                                                                        </button>
+
+                                                                        <!-- Modal -->
+                                                                        <div class="modal fade" id="accModal<?=$r->idRequest?>" tabindex="-1" aria-labelledby="accModal<?=$r->idRequest?>Label" aria-hidden="true">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="accModal<?=$r->idRequest?>Label">Terima Request</h5>
+                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <h4 class="text-center">
+                                                                                    Yakin terima request dari <?=$r->nama_user1?>
+                                                                                </h4>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                <a href="<?=base_url('request_user/acc/'.$r->idRequest)?>" class="btn btn-primary">Ya</a>
+                                                                            </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        </div>
+
+
+                                                                </p>
+
+                                                            </div>
+                                                            <br>
+                                                        <?php }elseif($r->status==2){?>
+                                                            <span class="badge bg-primary rounded-pill">Diterima, Menunggu room dari admin</span>
+                                                            
+                                                        <?php }elseif($r->status==4){?>
                                                                 <div class="">
                                                                     <span class="badge bg-primary rounded-pill">Jadwal meet anda sudah siap</span>
-                                                                    <p class="text-end pt-2">
-                                                                        <a href="<?=base_url('jadwal_user/detail/'.$r->idRequest)?>" class="btn btn-success btn-sm">Lihat</a>
+                                                                    <p class="text-end pt-4">
+                                                                        <a href="<?=base_url('jadwal_user/index/'.$r->idRequest)?>" class="text-decoration-none">Lihat <i class="fa-solid fa-angle-right"></i></a>
                                                                     </p>
-                                                                    <?php }?>
                                                                 </div>
-                                                        </li>
-                                                    <?php } ?>
-                                                </ol>
+                                                                <?php }elseif($r->status==5){?>
+                                                                    <span class="badge bg-success rounded-pill">Selesai</span>
+                                                                <?php }?>
+
+                                                            </div>
+
+                                                       </div>
+                                                    </div>
+                                                </div>
+                                                <?php } ?>
+
+                                                
                                             </div>
                                         </div>
 

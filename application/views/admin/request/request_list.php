@@ -13,9 +13,28 @@
                 <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
             </div>
         </div>
-        <div class="col-md-1 text-right">
-        </div>
-        <div class="col-md-3 text-right">
+        <div class="col-12">
+            <form action="<?= base_url('request_admin/index') ?>" method="post" class="row gx-3 gy-2 align-items-center">
+                <div class="col-sm-3">
+                    <select name="sort" id="" class="form-select" onchange="this.form.submit();">
+                        <option value="desc" <?php if($sort=='desc'){echo "selected";}?>>Terbaru</option>
+                        <option value="asc" <?php if($sort=='asc'){echo "selected";}?>>Terlama</option>
+                    </select>                                                        
+                </div>
+                <div class="col-sm-3">
+                    <select name="status" id="" class="form-select" onchange="this.form.submit();">
+                        <option value="" <?php if($status==''){echo "selected";}?>>Semua</option>
+                        <option value="1" <?php if($status=='1'){echo "selected";}?>>Menunggu Konfirmasi Teman</option>
+                        <option value="8" <?php if($status=='8'){echo "selected";}?>>Dibatalkan</option>
+                        <option value="2" <?php if($status=='2'){echo "selected";}?>>Diterima, Menuggu Room</option>
+                        <option value="3" <?php if($status=='3'){echo "selected";}?>>Ditolak</option>
+                        <option value="4" <?php if($status=='4'){echo "selected";}?>>Room Aktif</option>
+                        <option value="5" <?php if($status=='5'){echo "selected";}?>>Room Selesai</option>
+                        <option value="6" <?php if($status=='6'){echo "selected";}?>>Room Ditolak</option>
+                        <option value="7" <?php if($status=='7'){echo "selected";}?>>Expired</option>
+                    </select>                                                        
+                </div>
+            </form>
         </div>
         <div class="col-12 pt-4">
             <div class="table-responsive">
@@ -45,37 +64,39 @@
                                 <td class="text-center">
                                     <?php
                                     if ($request_admin->status == 1) {
-                                        echo '<p class="badge bg-danger">Menunggu user 2</p>';
+                                        echo '<span class="badge py-2 bg-warning text-dark">Menunggu User 2 <i class="fas fa-spinner text-info"></i></span>';
                                     } elseif ($request_admin->status == 2) {
-                                        echo '<p class="badge bg-primary">Dikonfirmasi user 2</p>';
+                                        echo '<span class="badge py-2 bg-warning text-dark">Dikonfirmasi User 2 <i class="fas fa-user-check text-success"></i></span>';
                                     } elseif ($request_admin->status == 3) {
-                                        echo '<p class="badge bg-primary">Ditolak</p>';
+                                        echo '<span class="badge py-2 bg-danger">Ditolak User 2 <i class="fas fa-user-times "></i></span>';
                                     } elseif ($request_admin->status == 4) {
-                                        echo '<p class="badge bg-primary">Room dibuat</p>';
+                                        echo '<span class="badge py-2 bg-primary">Room dibuat <i class="fas fa-restroom"></i></span>';
+
+                                    } elseif ($request_admin->status == 5) {
+                                        echo '<span class="badge py-2 bg-success">Room Selesai <i class="fas fa-check"></i></span>';
 
                                     } elseif ($request_admin->status == 6) {
-                                        echo '<p class="badge bg-primary">Room berlangsung</p>';
-
+                                        echo '<span class="badge py-2 bg-danger">Request room ditolak <i class="fas fa-times-circle"></i></span>';
+                                   
                                     } elseif ($request_admin->status == 7) {
-                                        echo '<p class="badge bg-primary">Room Selesai</p>';
+                                        echo '<span class="badge py-2 bg-danger">Request Expired <i class="fas fa-clock"></i></span>';
+                                    } elseif ($request_admin->status == 8) {
+                                        echo '<span class="badge py-2 bg-danger">Request Dibatalkan <i class="fas fa-ban"></i></span>';                                    
                                     } else {
-                                        echo '<p class="badge bg-success">Room Ditolak</p>';
+                                        
                                     }
 
                                     ?>
                                 </td>
                                 <td><?php echo $request_admin->tgl_update ?></td>
-                                <td>
+                                <td class="d-flex justify-content-between">
                                     <?php
                                     if ($request_admin->status == 2) { ?>
-                                        <!-- <a href="<?= base_url('request_admin/make_room/' . $request_admin->id_request) ?>"
-                                            class="btn btn-primary btn-sm">
-                                            Buat room
-                                        </a> -->
+                                     <div class="btn-group me-2" role="group" aria-label="Basic example">
                                         <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                             data-bs-target="#buatRoom<?=$request_admin->id_request?>">
-                                            Buat Room
+                                            <i class="fa fa-check"></i>
                                         </button>
 
                                         <!-- Modal -->
@@ -99,7 +120,7 @@
                                                                             <input type="date" name="tgl" id="" class="form-control" required>
                                                                         </div>
                                                                         <div class="mb-3">
-                                                                            <label for="">Link Zoom</label>
+                                                                            <label for="">Link Google meet</label>
                                                                             <a href="https://meet.google.com/?hs=193&hl=id&pli=1" target="_blank"> Buat Link</a>
                                                                             <input type="text" name="link_zoom" id="" class="form-control" required>
                                                                         </div>
@@ -124,13 +145,46 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#tolakRequest<?=$request_admin->id_request?>">
+                                            <i class="far fa-times-circle"></i>
+                                        </button>
 
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="tolakRequest<?=$request_admin->id_request?>" tabindex="-1"
+                                            aria-labelledby="tolakRequest<?=$request_admin->id_request?>Label" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="tolakRequest<?=$request_admin->id_request?>Label">Tolak Request Room</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                   
+                                                                    <h5 class="text-center text-danger">Yakin tolak request room?</h5>                                                                 
+                                                                </div>
+                                                            </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Batal</button>
+                                                            <a href="<?= base_url('request_admin/update_status/' . $request_admin->id_request) ?>"
+                                                        class="btn btn-primary" id="konfirmasi-btn">Ya</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                         <?php
+
                                     } elseif ($request_admin->status == 4) {?>
-                                    
-                                    <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal"
+                                    <div class="btn-group me-2" role="group">
+                                        <button type="button" class="btn btn-info btn-sm text-white" data-bs-toggle="modal"
                                             data-bs-target="#updateRoom<?=$request_admin->id_request?>">
-                                            Update Room
+                                            <i class="fas fa-pen-square"></i>
                                         </button>
 
                                         <!-- Modal -->
@@ -154,7 +208,7 @@
                                                                             <input type="date" name="tgl" id="" class="form-control" required value="<?=$request_admin->tgl_meeting?>">
                                                                         </div>
                                                                         <div class="mb-3">
-                                                                            <label for="">Link Zoom</label>
+                                                                            <label for="">Link Google meet</label>
                                                                             <a href="https://meet.google.com/?hs=193&hl=id&pli=1" target="_blank"> Buat Link Baru</a>
                                                                             <input type="text" name="link_zoom" id="" class="form-control" required value="<?=$request_admin->link_zoom?>">
                                                                         </div>
@@ -179,62 +233,88 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                    </div>
                                         <?php
                                        
-                                    } elseif ($request_admin->status == 3) {
-                                        echo '<p class="badge bg-primary">Ditolak</p>';
-                                    } elseif ($request_admin->status == 4) {
-                                        echo '<p class="badge bg-primary">Room dibuat</p>';
+                                    } elseif ($request_admin->status == 3) {?>
+                                    
+                                    <div class="btn-group me-2" role="group" aria-label="Basic example"></div>
+                                    <?php
+                                    } elseif ($request_admin->status == 4) {?>
+                                    
+                                        <div class="btn-group me-2" role="group" aria-label="Basic example"></div>
+                                        <?php
 
-                                    } elseif ($request_admin->status == 4) {
-                                        echo '<p class="badge bg-primary">Room selesai</p>';
+                                    } elseif ($request_admin->status == 4) {?>
+                                    
+                                        <div class="btn-group me-2" role="group" aria-label="Basic example"></div>
+                                        <?php
 
-                                    } elseif ($request_admin->status == 4) {
-                                        echo '<p class="badge bg-primary">Room ditolak</p>';
+                                    } elseif ($request_admin->status == 5) {?>
+                                    
+                                        <div class="btn-group me-2" role="group" aria-label="Basic example"></div>
+                                        <?php
+                                    } elseif ($request_admin->status == 6) {?>
+                                    
+                                        <div class="btn-group me-2" role="group" aria-label="Basic example"></div>
+                                        <?php
+                                    } elseif ($request_admin->status == 7) {?>
+                                    
+                                        <div class="btn-group me-2" role="group" aria-label="Basic example"></div>
+                                        <?php
+                                    } elseif ($request_admin->status == 7) {
+                                        ?>
+                                    
+                                        <div class="btn-group me-2" role="group" aria-label="Basic example"></div>
+                                        <?php
                                     } else {
+                                        ?>
+                                    
+                                        <div class="btn-group me-2" role="group" aria-label="Basic example"></div>
+                                        <?php
                                         
                                     }
 
                                     ?>
-
-                                    <a href="<?= base_url('request_admin/read/' . $request_admin->id_request) ?>"
-                                        class="btn btn-success btn-sm">
-                                        <i class="fa fa-info"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#hapus<?= $request_admin->id_request ?>">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                    <!-- Modal hapus -->
-                                    <div class="modal fade" id="hapus<?= $request_admin->id_request ?>" tabindex="-1"
-                                        aria-labelledby="hapus<?= $request_admin->id_request ?>Label" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title"
-                                                        id="hapus<?= $request_admin->id_request ?>Label">hapus Request</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <h5 class="text-danger">Yakin Hapus Request?</h5>
-                                                        </div>
-
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <a href="<?= base_url('request_admin/read/' . $request_admin->id_request) ?>"
+                                            class="btn btn-success btn-sm">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#hapus<?= $request_admin->id_request ?>">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                        <!-- Modal hapus -->
+                                        <div class="modal fade" id="hapus<?= $request_admin->id_request ?>" tabindex="-1"
+                                            aria-labelledby="hapus<?= $request_admin->id_request ?>Label" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title"
+                                                            id="hapus<?= $request_admin->id_request ?>Label">hapus Request</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
                                                     </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <a href="<?= base_url('request_admin/delete/' . $request_admin->id_request) ?>"
-                                                        class="btn btn-primary" id="konfirmasi-btn">Ya</a>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <h5 class="text-danger text-center">Yakin Hapus Request?</h5>
+                                                            </div>
+    
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <a href="<?= base_url('request_admin/delete/' . $request_admin->id_request) ?>"
+                                                            class="btn btn-primary" id="konfirmasi-btn">Ya</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- End Modal hapus -->                                        
                                     </div>
-                                    <!-- End Modal hapus -->
 
 
 
@@ -274,10 +354,10 @@
                                                                             placeholder="Masukkan Tanggal">
                                                                     </div>
                                                                     <div class="form-group mb-3">
-                                                                        <label for="">Link Zoom</label>
+                                                                        <label for="">Link Google meet</label>
                                                                         <input type="text" name="link_zoom" id=""
                                                                             class="form-control"
-                                                                            placeholder="Masukkan link zoom">
+                                                                            placeholder="Masukkan Link Google meet">
                                                                     </div>
                                                                     <div class="form-group mb-3">
                                                                         <label for="">Jam</label>
@@ -324,10 +404,10 @@
 
                                 </td>
                             </tr>
-                        </tbody>
                         <?php
                         }
                         ?>
+                        </tbody>
                 </table>
             </div>
         </div>

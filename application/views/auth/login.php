@@ -195,7 +195,7 @@
               </div>
               <div class="mb-3">
                 <small>
-                  Lupa <a href="<?= base_url('auth/login_forgot_password') ?>">Password?</a>
+                  Lupa <a href="<?= base_url('auth/forgot_password') ?>">Password?</a>
                 </small>
               </div>
               <div class="mb-3">

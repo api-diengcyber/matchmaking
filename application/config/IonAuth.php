@@ -144,7 +144,7 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	 | This is an arbitrary (long) value to protect against DOS attack.
 	 */
 	public $siteTitle                = 'Example.com';       // Site Title, example.com
-	public $adminEmail               = 'admin@example.com'; // Admin Email, admin@example.com
+	public $adminEmail               = 'adminmatch@yopmail.com'; // Admin Email, admin@example.com
 	public $defaultGroup             = 'members';           // Default group, use name
 	public $adminGroup               = 'admin';             // Default administrators group, use name
 	public $identity                 = 'email';             /* You can use any unique column in your table as identity column.
