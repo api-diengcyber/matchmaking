@@ -10,6 +10,7 @@ class Wilayah extends CI_Controller
 
    		$data['provinsi'] = $get_prov->result();
    		$data['path'] = base_url('assets');   
+		var_dump($data);
    		$this->load->view('wilayah_view', $data);
   	}
   

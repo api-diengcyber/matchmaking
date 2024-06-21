@@ -18,7 +18,7 @@ class Jadwal_model extends CI_Model
     // get all
     function get_all()
     {
-        $this->db->select('j.*,r.status, pj.jam_mulai as jmm,jam_selesai as jms, b1.nama as nama_user1, b2.nama as nama_user2');
+        $this->db->select('j.*,r.status, pj.jam_mulai as jmm,jam_selesai as jms, b1.nama as nama_user1, b2.nama as nama_user2,b1.foto as foto_user1,b2.foto as foto_user2');
         $this->db->from('jadwal j');
         $this->db->join('request r', 'j.id_request=r.id');
         $this->db->join('biodata b1', 'b1.id_user = r.id_user1', 'left');
@@ -32,7 +32,7 @@ class Jadwal_model extends CI_Model
     function get_all_by_id($id,$id_req,$cari,$sort)
     {
         $this->db->select('j.*,r.id as id_request,r.status as status_req, pj.jam_mulai as jmm,jam_selesai as jms, b1.nama as nama_user1, 
-        b2.nama as nama_user2,b1.id_user as id_user1,b2.id_user as id_user2');
+        b2.nama as nama_user2,b1.id_user as id_user1,b2.id_user as id_user2,b1.foto as foto_user1,b2.foto as foto_user2');
         $this->db->from('jadwal j');
         $this->db->join('request r', 'j.id_request=r.id');
         $this->db->join('biodata b1', 'b1.id_user = r.id_user1', 'left');

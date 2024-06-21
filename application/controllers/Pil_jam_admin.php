@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Pil_jam_admin extends CI_Controller
+class Pil_jam_admin extends MY_Controller
 {
     function __construct()
     {

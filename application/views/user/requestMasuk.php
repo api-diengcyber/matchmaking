@@ -23,7 +23,7 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <form action="<?= base_url('request_user/masuk') ?>" method="post" class="row gx-3 gy-2 align-items-center">
+                                                <form action="<?= base_url('request_user/masuk/all') ?>" method="get" class="row gx-3 gy-2 align-items-center">
                                                     <div class="col-sm-3">
                                                         <input type="text" name="cari" class="form-control"
                                                             placeholder="Cari nama.." onchange="this.form.submit();"
@@ -66,6 +66,8 @@
                                                                     </a>
                                                                     <?= date('d-m-Y', strtotime($r->tgl_update))
                                                                         ?>
+
+                                                                        <?=$r->status?>
                                                             </div>
                                                             <div class="">
                                                                 
@@ -74,50 +76,82 @@
                                                             ?>
                                                             <div class="">
                                                                 <span class="badge bg-primary rounded-pill">Menunggu diterima oleh Anda</span>
-                                                                <p class="text-end pt-2">
-                                                                    <!-- Button trigger modal -->
-                                                                        <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#accModal<?=$r->idRequest?>">
-                                                                        Terima
-                                                                        </button>
+                                                                    <div class="text-end pt-2">
+                                                                        <!-- Button trigger modal -->
+                                                                            <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#accModal<?=$r->idRequest?>">
+                                                                            Terima <i class="fa-solid fa-check"></i>
+                                                                            </button>
 
-                                                                        <!-- Modal -->
-                                                                        <div class="modal fade" id="accModal<?=$r->idRequest?>" tabindex="-1" aria-labelledby="accModal<?=$r->idRequest?>Label" aria-hidden="true">
-                                                                        <div class="modal-dialog">
-                                                                            <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title" id="accModal<?=$r->idRequest?>Label">Terima Request</h5>
-                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            <!-- Modal -->
+                                                                            <div class="modal fade" id="accModal<?=$r->idRequest?>" tabindex="-1" aria-labelledby="accModal<?=$r->idRequest?>Label" aria-hidden="true">
+                                                                            <div class="modal-dialog">
+                                                                                <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="accModal<?=$r->idRequest?>Label">Terima Request</h5>
+                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <h4 class="text-center">
+                                                                                        Yakin terima request dari <?=$r->nama_user1?>
+                                                                                    </h4>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                    <a href="<?=base_url('request_user/acc/'.$r->idRequest)?>" class="btn btn-primary">Ya</a>
+                                                                                </div>
+                                                                                </div>
                                                                             </div>
-                                                                            <div class="modal-body">
-                                                                                <h4 class="text-center">
-                                                                                    Yakin terima request dari <?=$r->nama_user1?>
-                                                                                </h4>
                                                                             </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                                <a href="<?=base_url('request_user/acc/'.$r->idRequest)?>" class="btn btn-primary">Ya</a>
+
+                                                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#tolak">
+                                                                            Tolak Request <i class="fa-solid fa-circle-xmark"></i>
+                                                                            </button>
+                                                                            <!-- MOdal tolak -->
+                                                                            <!-- Modal -->
+                                                                            <div class="modal fade" id="tolak" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tolakLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title" id="tolakLabel">Tolak Request</h5>
+                                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                        </div>
+                                                                                        <div class="modal-body">
+                                                                                            Yakin Tolak Request Dari <?=$r->nama_user1?>
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                            <a href="<?=base_url('request_user/reject/'.$r->idRequest)?>" class="btn btn-primary">Ya</a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        </div>
 
 
-                                                                </p>
+                                                            </div>
 
                                                             </div>
                                                             <br>
                                                         <?php }elseif($r->status==2){?>
                                                             <span class="badge bg-primary rounded-pill">Diterima, Menunggu room dari admin</span>
                                                             
+                                                        <?php }elseif($r->status==3){?>
+                                                            <span class="badge bg-danger rounded-pill">Anda Tolak</span>
+                                                            
                                                         <?php }elseif($r->status==4){?>
                                                                 <div class="">
                                                                     <span class="badge bg-primary rounded-pill">Jadwal meet anda sudah siap</span>
                                                                     <p class="text-end pt-4">
-                                                                        <a href="<?=base_url('jadwal_user/index/'.$r->idRequest)?>" class="text-decoration-none">Lihat <i class="fa-solid fa-angle-right"></i></a>
+                                                                        <a href="<?=base_url('jadwal_user/index/'.$r->idRequest)?>" class="btn btn-sm btn-primary">Lihat <i class="fa-solid fa-angle-right"></i></a>
                                                                     </p>
                                                                 </div>
                                                                 <?php }elseif($r->status==5){?>
-                                                                    <span class="badge bg-success rounded-pill">Selesai</span>
+                                                                    <span class="badge bg-success rounded-pill mb-3">Request Selesai</span>
+                                                                <?php }elseif($r->status==6){?>
+                                                                    <span class="badge bg-danger rounded-pill mb-3">Request ditolak oleh admin</span>
+                                                                <?php }elseif($r->status==7){?>
+                                                                    <span class="badge bg-danger rounded-pill mb-3">Request Expired</span>
+                                                                <?php }elseif($r->status==8){?>
+                                                                    <span class="badge bg-danger rounded-pill mb-3">Request Canceled</span>
                                                                 <?php }?>
 
                                                             </div>
@@ -150,168 +184,369 @@
 </div>
 <!-- Mobile -->
 <div class="d-lg-none">
-    <div class="container">
-        <section class="fixed-top ">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 d-flex justify-content-between py-3 bg-white content-items-center">
-                        <a href="<?= base_url('users_user/semua') ?>" class="text-decoration-none pt-2">
-                            <i class="fa-solid fa-chevron-left"></i>
+<style>
 
-                        </a>
-                        <div class="pt-2">
-                            <i class="fa-solid fa-mars-and-venus-burst fa-xl color-1"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Top Nav -->
+.scroll-container {
+    width: 100%; /* Lebar kontainer */
+    /* height: 300px; Tinggi kontainer */
+    overflow-x: auto; /* Aktifkan scroll horizontal */
+    overflow-y: none; /* Aktifkan scroll horizontal */
+    white-space: nowrap; /* Pastikan konten tidak mematahkan baris */
+    /* border: 1px solid #ccc; Garis tepi untuk kontainer */
+    padding: 10px; /* Padding untuk kontainer */
+}
 
-        <!-- Content -->
+.scroll-item {
+    display: inline-block; /* Membuat item berada dalam satu baris */
+    width: 80%; /* Lebar setiap item */
+    margin-right: 10px; /* Jarak antar item */
+    vertical-align: top; /* Memastikan item berada di atas */
+}
 
-        <section id="content" style="margin-bottom: 80px;margin-top: 80px;">
-            <div class="container pt-2">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="row mb-4">
-                            <div class="col-12">
-                                <div class="">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-12 d-flex justify-content-center">
-                                                <?php if ($users->foto == null) { ?>
-                                                    <img src="<?= base_url('assets/admin/img/user.png') ?>" alt=""
-                                                        class="rounded-3" width="140" height="140">
-                                                <?php } else { ?>
-                                                    <img src="<?= base_url('assets/user/foto/' . $users->foto) ?>" alt=""
-                                                        class="rounded-3" width="140" height="140">
-                                                <?php } ?>
-                                            </div>
-                                            <div class="col-12 pt-3 d-flex justify-content-center">
-                                                <h4 class="text-center p-2 rounded-3 bg-success text-white">
-                                                    <?= $users->nama ?>
-                                                </h4>
-                                            </div>
-                                            <div class="col-12 d-flex justify-content-center">
-                                                <p class="text-center badge bg-primary text-white">
-                                                    <?php
-                                                    if ($users->jenis_kelamin == 1) {
-                                                        echo 'Laki-laki';
-                                                    } else {
-                                                        echo 'Perempuan';
-                                                    } ?>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <h6 class="text-center">Tentang</h6>
-                                                        <hr>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <h6 class="">Tentang <?= $users->nama ?></h6>
-                                                        <p style="font-size:12px"><?= $users->deskripsi_diri ?></p>
-                                                    </div>
-                                                    <div class="col-12 pt-4">
-                                                        <h6 class="">Tanggal Lahir </h6>
-                                                        <p style="font-size:12px"><?= $users->tgl_lahir ?></p>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <h6 class="">Pekerjaan</h6>
-                                                        <p style="font-size:12px"><?= $users->pekerjaan ?></p>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <h6 class="">Hobi</h6>
-                                                        <p style="font-size:12px"><?= $users->hobi ?></p>
-                                                    </div>
-                                                    <div class="col-12 pt-4">
-                                                        <h6 class="">Kriteria </h6>
-                                                        <p style="font-size:12px"><?= $users->kriteria_pasangan ?></p>
+.card-body {
+    white-space: normal; /* Pastikan teks dalam card mengikuti lebar card */
+}
+
+.horizontal-scroll {
+        overflow-x: auto;
+        white-space: nowrap;
+        /* margin: 0px 20px ; */
+    }
+    .horizontal-scroll .card {
+        display: inline-block;
+        margin-right: 1rem; /* Optional: Adds space between cards */
+        margin-top: 10px;
+        margin-bottom: 10px;
+        
+        
+    }
+
+    
+
+@media (max-width: 992px) {
+   
+   
+    .scroll {
+    /* margin: 4px, 4px; */
+    padding: 4px;
+    width: 100%;
+    max-height: 40vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: justify;
+}
+.navbar {
+    transition: background-color 0.3s, box-shadow 0.3s; /* Transisi untuk latar belakang dan bayangan kotak */
+}
+
+.navbar-transparent {
+    background-color: transparent;
+    box-shadow: none; /* Tanpa bayangan kotak */
+}
+
+.navbar-white {
+    background-color: white !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Bayangan kotak untuk memberikan efek mengapung */
+}
+.text-brand{
+    color:#e7008b ;
+}
+.card-morp{
+    background: rgba( 255, 255, 255, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4.5px );
+    -webkit-backdrop-filter: blur( 4.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    color:white;
+    border: 2px solid white;
+    }
+  
+  
+    .horizontal-scroll::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        }
+
+    .horizontal-scroll::-webkit-scrollbar-thumb {
+        display: none;
+        }
+
+    .horizontal-scroll::-webkit-scrollbar-track {
+        display: none;
+        }
+
+}
+.card-morp-2{
+    background: rgba( 255, 255, 255, 0.5 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 20px );
+    -webkit-backdrop-filter: blur( 20px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    border: 2px solid white;
+    }
+
+   
+
+    .user-avatar {
+        display: flex;
+        align-items: center;
+    }
+
+    .user-avatar img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    .user-info {
+        margin-left: 10px;
+    }
+
+    .user-info h5 {
+        margin-bottom: 0;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .user-info p {
+        margin-bottom: 0;
+        font-size: 8px;
+        color: #6c757d;
+    }
+
+    /* .btn {
+        width:67px;
+        height:34px;
+        padding: 0px 15px;
+        border-radius: 20px;
+        border: none;
+        cursor: pointer;
+        font-size: 10px;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+      
+        transition: background-color 0.3s ease;
+    } */
+
+    .btn-m{
+        font-size: 11px;
+        border-radius: 20px;
+        padding: 8px 20px;
+    }
+
+    .btn-meet {
+        margin-right: 5px;
+        color: white;
+    }
+
+    .btn-meet:hover {
+        background-color: #ff4d4d;
+    }
+
+    .btn-view {
+        background-color: #6C6C6C;
+        color: white;
+    }
+
+    .btn-view:hover {
+        background-color: #6C6C6C;
+    }
+   
+
+</style>
+    <section style="">
+
+    <?php $this->load->view('user/component/headOne');?>
+
+  
+        <div class="container-fluid pt-5 mb-4" style="">
+            <div class="pt-5"></div>
+            <div class="pt-5"></div>
+            <div class="pt-3"></div>
+            <!-- <a href="<?=base_url('jadwal_user/index/'.$r->idRequest)?>" class="btn btn-sm btn-primary">Lihat <i class="fa-solid fa-angle-right"></i></a> -->
+            <div class="row">
+                <?php 
+                    foreach ($request as $r) { 
+                        if($r->status==1){
+                            $statusText= '<span class="badge bg-primary rounded-pill">Menunggu</span>';
+                        }elseif($r->status==2){
+                            $statusText= '
+                            <span class="badge bg-primary rounded-pill">Menunggu room</span>
+                            '; }elseif($r->status==3){
+                                $statusText= '
+                                <span class="badge bg-danger rounded-pill">Ditolak</span>
+                                ';
+                                }elseif($r->status==4){
+                                    $statusText ='
+                                    <span class="badge bg-primary rounded-pill">Jadwal siap</span>
+                                    ';
+                                    
+                            }elseif($r->status==5){
+                                $statusText = '<span class="badge bg-success rounded-pill mb-3">Selesai</span>';
+                                }elseif($r->status==6){
+                                    $statusText= '
+                                    <span class="badge bg-danger rounded-pill mb-3">Room ditolak</span>
+                                    ';
+                                }elseif($r->status==7){
+                                    $statusText= '
+                                    <span class="badge bg-danger rounded-pill mb-3">Expired</span>
+                                    ';
+                                }elseif($r->status==8){
+                                    $statusText= '
+                                        <span class="badge bg-danger rounded-pill mb-3">Canceled</span>
+                                    ';
+                                    }else{
+                                        $statusText= '';
+                                    }
+                                    ?>
+                
+                    <div class="col-md-6 mb-4">
+                        <div class="card card-users">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12 d-flex justify-content-between">
+                                        <a href="<?= base_url('users_user/detail/' . $r->id_user_1) ?>" class="text-dark text-decoration-none">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="">
+                                                    <?php if ($r->foto == null) { ?>
+                                                        <img src="<?= base_url('assets/admin/img/user.png') ?>" alt="" width="50" height="50" class="rounded-circle">
+                                                        
+                                                    <?php } else { ?>
+                                                        <img src="<?= base_url('assets/user/foto/' . $r->foto) ?>" alt="" width="50" height="50" class="rounded-circle">
+                                                    <?php } ?>
+                                                </div>
+                                                <div class="my-auto">
+                                                    <div class="user-info">
+                                                        <p><?=$statusText?></p>
+                                                        <h5 ><?=$r->nama_user1?></h5>
+                                                        <p> <?= date('d-m-Y', strtotime($r->tgl_update))
+                                                                ?></p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6">
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <h5 class="text-center">Kontak</h5>
-                                                        <hr>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <h6 class=""><i class="fa-brands fa-facebook fa-xl"></i>
-                                                            <span></span>
-                                                        </h6>
-                                                        <p style="font-size:12px"><?= $users->fb ?></p>
-                                                    </div>
-                                                    <div class="col-12 pt-4">
-                                                        <h6 class=""><i class="fa-brands fa-instagram fa-xl"></i>
-                                                            <span></span>
-                                                        </h6>
-                                                        <p style="font-size:12px"><?= $users->ig ?></p>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <h6 class=""><i class="fa-solid fa-location-dot fa-xl"></i>
-                                                        </h6>
-                                                        <p style="font-size:12px"><?= $users->alamat ?></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <hr>
-                                            </div>
-                                            <div class="col-12">
-                                                <!-- Button trigger modal -->
-                                                <div class="d-grid gap-2">
-                                                    <button type="button" class="btn bg-1 text-white"
-                                                        data-bs-toggle="modal" data-bs-target="#mm">
-                                                        Request Matching
-                                                    </button>
-                                                </div>
-
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="mm" tabindex="-1" aria-labelledby="mmLabel"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="mmLabel">Request Matching
-                                                                </h5>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
+                                        </a>
+                                        <div class="d-flex justify-content-between my-auto">
+                                            <?php 
+                                            if ($r->status == 1) {
+                                            ?>
+                                            <a href="#" class="btn btn-m btn-meet bg-3" data-bs-toggle="modal" data-bs-target="#konfirmasi<?=$r->idRequest?>">Konfirmasi</a>
+                                            <!-- Modal -->
+                                                <div class="modal fade px-5" id="konfirmasi<?=$r->idRequest?>" tabindex="-1" aria-labelledby="konfirmasi<?=$r->idRequest?>Label" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content r-20">
                                                             <div class="modal-body">
                                                                 <div class="row">
-                                                                    <div class="col-12 py-4">
-                                                                        <h5 class="text-center">
-                                                                            Yakin coba matching dengan
-                                                                            <?= $users->nama ?>?
-                                                                        </h5>
+                                                                    <div class="col-12">
+                                                                        <p class="text-center fs-12 mulish-600">
+                                                                        Apakah Kamu yakin ingin menerima permintaan pertemuan dengan
+                                                                        <span class="color-3">
+                                                                            <?=$r->nama_user1?>
+                                                                        </span>
+                                                                            ?
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col-12 p-4 d-flex justify-content-between">
+                                                                        <div class="">
+                                                                            <a href="<?=base_url('request_user/acc/'.$r->idRequest)?>" class="btn bg-3 rounded-pill text-white mulish-700 fs-12 r-10">Iya</a>
+                                                                        </div>
+                                                                        <div class="">
+                                                                            <button class="btn bg-4 rounded-pill text-white mulish-700 fs-12 r-10" type="button"
+                                                                                data-bs-dismiss="modal">Batal</button>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">Batal</button>
-                                                                <a href="" class="btn btn-primary">Ya</a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                                <!-- /Modal Option -->
+                                            <a href="#" class="btn btn-m btn-view" data-bs-toggle="modal" data-bs-target="#tolak<?=$r->idRequest?>">Tolak</a>
+                                                <!-- Modal -->
+                                                <div class="modal fade px-5" id="tolak<?=$r->idRequest?>" tabindex="-1" aria-labelledby="tolak<?=$r->idRequest?>Label" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog modal-dialog-centered">
+                                                            <div class="modal-content r-20">
+                                                                <div class="modal-body">
+                                                                    <div class="row">
+                                                                        <div class="col-12">
+                                                                            <p class="text-center fs-12 mulish-600">
+                                                                            Apakah Kamu yakin ingin menolak permintaan pertemuan dengan
+                                                                            <span class="color-3">
+                                                                                <?=$r->nama_user1?>
+                                                                            </span>
+                                                                                ?
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="col-12 p-4 d-flex justify-content-between">
+                                                                            <div class="">
+                                                                                <a href="<?=base_url('request_user/reject/'.$r->idRequest)?>" class="btn bg-3 rounded-pill text-white mulish-700 fs-12 r-10">Iya</a>
+                                                                            </div>
+                                                                            <div class="">
+                                                                                <button class="btn bg-4 rounded-pill text-white mulish-700 fs-12 r-10" type="button"
+                                                                                    data-bs-dismiss="modal">Batal</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /Modal Option -->
+                                                    <?php }elseif($r->status==2){?>
+                                                        <a href="<?=base_url('request_user/reject/'.$r->id_user_1)?>" class="btn btn-m btn-view">View</a>
+                                                    
+                                                <?php }elseif($r->status==3){?>
+                                                    
+                                                        <a href="<?=base_url('request_user/reject/'.$r->id_user_1)?>" class="btn btn-m btn-view">View</a>
+                                                <?php }elseif($r->status==4){?>
+                                                            
+                                                                <a href="<?=base_url('jadwal_user/index/'.$r->id_user_1)?>" class="btn btn-m btn-meet bg-3">Room</a>
+                                                        
+                                                        <?php }elseif($r->status==5){?>
+                                                            <a href="<?=base_url('request_user/reject/'.$r->id_user_1)?>" class="btn btn-m btn-view">View</a>
+                                                        <?php }elseif($r->status==6){?>
+                                                            <a href="<?=base_url('request_user/reject/'.$r->id_user_1)?>" class="btn btn-m btn-view">View</a>
+                                                        <?php }elseif($r->status==7){?>
+                                                            <a href="<?=base_url('request_user/reject/'.$r->id_user_1)?>" class="btn btn-m btn-view">View</a>
+                                                        <?php }elseif($r->status==8){?>
+                                                            <a href="<?=base_url('request_user/reject/'.$r->id_user_1)?>" class="btn btn-m btn-view">View</a>
+                                                        <?php }?>
                                         </div>
-                                    </div>
-                                </div>
+                                    </div>                                  
+                                </div>                                
                             </div>
                         </div>
                     </div>
-                </div>
-
+                <?php } ?>
+        
             </div>
 
-        </section>
-    </div>
+
+        
+    </section>
+    <script>
+        window.addEventListener('scroll', function () {
+            var navbar = document.getElementById('navbar');
+            var text = document.getElementById('text-name');
+            var brand = document.getElementById('brand');
+            if (window.scrollY > 0) {
+                navbar.classList.remove('navbar-transparent');
+                navbar.classList.add('navbar-white');
+                text.classList.remove('text-white');
+                text.classList.add('text-dark');
+                brand.classList.remove('text-white');
+                brand.classList.add('text-brand');
+            } else {
+                navbar.classList.remove('navbar-white');
+                navbar.classList.add('navbar-transparent');
+                text.classList.remove('text-dark');
+                text.classList.add('text-white');
+                brand.classList.remove('text-brand');
+                brand.classList.add('text-white');
+            }
+        });
+    </script>
+
 </div>

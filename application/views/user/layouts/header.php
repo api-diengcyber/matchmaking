@@ -17,7 +17,15 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="<?= base_url('assets/user/fontawesome/css/all.min.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/user/css/mycss.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/user/css/mycss.css') ?>"> <link rel="stylesheet" href="<?= base_url('assets/user/css/mobile.css') ?>">
+      <link rel="stylesheet" href="<?= base_url('assets/user/fontawesome/css/all.min.css') ?>">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap"
+            rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css" rel="stylesheet">
@@ -31,21 +39,23 @@
         font-family: "Poppins", sans-serif;
         font-weight: 400;
         font-style: normal;
-
+        
+        
     }
+   
 
     .my-nav-con {
         border-right: 2px solid #7575fa;
         border-radius: 10px;
-        font-size: 14px;
+        font-size: 13px;
     }
 
     .my-nav {
         width: 100%;
-        padding: 5px 10px;
+        padding: 5px 8px;
         text-decoration: none;
         color: #393839;
-        margin-top: 12px
+        margin: 7px -10px
     }
 
     .my-nav:hover {
@@ -100,35 +110,34 @@
                 </a>
                 <div class="pt-5"></div>
                 <a class=" my-nav   <?php if ($this->uri->segment(1) == 'dashboard_user')
-                    echo 'my-nav-active'; ?>" aria-current="page" href="<?= base_url('dashboard_user') ?>"><i class="icon  fa-solid fa-house <?php if ($this->uri->segment(1) == 'dashboard_user')
+                    echo 'my-nav-active'; ?>" href="<?= base_url('dashboard_user') ?>"><i class="icon  fa-solid fa-house <?php if ($this->uri->segment(1) == 'dashboard_user')
                             echo 'icon-active '; ?>"></i>
                     <span class="ms-2">Home</span></a>
 
 
 
                 <a class=" my-nav <?php if ($this->uri->segment(1) == 'users_user')
-                    echo 'my-nav-active'; ?>" aria-current="page" href="<?= base_url('users_user/semua') ?>"><i class="icon fa-solid fa-magnifying-glass <?php if ($this->uri->segment(1) == 'users_user')
+                    echo 'my-nav-active'; ?>" href="<?= base_url('users_user/semua') ?>"><i class="icon fa-solid fa-magnifying-glass <?php if ($this->uri->segment(1) == 'users_user')
                             echo 'icon-active '; ?>"></i>
                     <span class="ms-2"> Pengguna</span></a>
 
                 <a class=" my-nav <?php if ($this->uri->segment(2) == 'keluar')
-                    echo 'my-nav-active'; ?>" aria-current="page" href="<?= base_url('request_user/keluar') ?>"><i class="icon fa fa-arrow-up <?php if ($this->uri->segment(1) == 'keluar')
+                    echo 'my-nav-active'; ?>" href="<?= base_url('request_user/keluar/allkeluar') ?>"><i class="icon fa fa-arrow-up <?php if ($this->uri->segment(1) == 'keluar')
                             echo 'icon-active '; ?>"></i>
                     <span class="ms-2"> Request Keluar</span></a>
-                    
+
                 <a class=" my-nav <?php if ($this->uri->segment(2) == 'masuk')
-                    echo 'my-nav-active'; ?>" aria-current="page" href="<?= base_url('request_user/masuk') ?>"><i class="icon fa fa-arrow-down <?php if ($this->uri->segment(2) == 'masuk')
+                    echo 'my-nav-active'; ?>" href="<?= base_url('request_user/masuk/all') ?>"><i class="icon fa fa-arrow-down <?php if ($this->uri->segment(2) == 'masuk')
                             echo 'icon-active '; ?>"></i>
                     <span class="ms-2"> Request Masuk</span></a>
-                <a class=" my-nav <?php if ($this->uri->segment(1) == 'jadwal_user')  
-                    echo 'my-nav-active'; ?>" aria-current="page" href="<?= base_url('jadwal_user/') ?>"><i class="icon fa fa-calendar-days <?php if ($this->uri->segment(2) == 'jadwal')
-                            echo 'icon-active '; ?>"></i> 
+                <a class=" my-nav <?php if ($this->uri->segment(1) == 'jadwal_user')
+                    echo 'my-nav-active'; ?>" href="<?= base_url('jadwal_user/') ?>"><i class="icon fa fa-calendar-days <?php if ($this->uri->segment(2) == 'jadwal')
+                            echo 'icon-active '; ?>"></i>
                     <span class="ms-2"> Jadwal Meet</span></a>
 
                 <div class="pt-5"></div>
                 <div class="pt-5"></div>
-                <a class=" my-nav " aria-current="page" href="<?= base_url('auth/logout') ?>"><i
-                        class="fa fa-sign-out"></i>
+                <a class=" my-nav " href="<?= base_url('auth/logout') ?>"><i class="fa fa-sign-out"></i>
                     <span class="ms-2"> Logout</span></a>
 
 
@@ -139,13 +148,13 @@
                             <img src="<?= base_url('assets/admin/img/user.png') ?>" alt="hugenerd" width="28" height="28"
                                 class="rounded-circle">
                         <?php } else { ?>
-                            <img src="<?= base_url('assets/user/foto/' . $this->session->userdata('foto')) ?>" alt="hugenerd" width="28" height="28"
-                            class="rounded-circle">
-                           
+                            <img src="<?= base_url('assets/user/foto/' . $this->session->userdata('foto')) ?>"
+                                alt="hugenerd" width="28" height="28" class="rounded-circle">
+
                         <?php } ?>
 
 
-                        <span class="d-none d-sm-inline mx-1"><?=$this->session->userdata('nama')?></span>
+                        <span class="d-none d-sm-inline mx-1"><?= $this->session->userdata('nama') ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark px-0 px-sm-2 text-center text-sm-start"
                         aria-labelledby="dropdownUser1">
@@ -162,3 +171,41 @@
         </div>
     </div>
     <!-- Mobile VIew -->
+
+    <!-- Bottom navbar -->
+    <div class="d-lg-none">
+        <style></style>
+        <!-- <section>
+            <div class="container-fluid fixed-bottom bg-white border-top">
+                <div class="col-12 py-2">
+                <ul class="nav nav-pills nav-fill">
+                <li class="nav-item">
+                    <a class="nav-link <?php if ($this->uri->segment(1) == 'dashboard_user')
+                            echo 'my-active'; ?>" aria-current="page" href="<?= base_url('dashboard_user') ?>"><i class="fa-solid fa-home"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?php if ($this->uri->segment(1) == 'users_user')
+                            echo 'my-active'; ?>" href="<?= base_url('users_user/semua') ?>">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?php if ($this->uri->segment(1) == 'request_user')
+                            echo 'my-active'; ?>" href="<?= base_url('request_user/masuk') ?>" href="#"><i class="fa-solid fa-repeat"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?php if ($this->uri->segment(1) == 'jadwal_user')
+                    echo 'my-active'; ?>" href="<?= base_url('jadwal_user/') ?>"><i class="fa-solid fa-calendar"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?php if ($this->uri->segment(1) == 'profile_user')
+                    echo 'my-active'; ?>" href="<?= base_url('profile_user/') ?>" ><i class="fa-solid fa-user"></i></a>
+                </li>
+                </ul>
+                </div>
+            </div>
+        </section> -->
+       
+        <!-- /Bottom navbar -->
+    </div>
+    <!-- End Mobile VIew -->

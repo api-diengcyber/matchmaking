@@ -19,7 +19,7 @@ class Users_model extends CI_Model
     {
         $users = $this
             ->db
-            ->select('b.id_user,s.company,b.*,s.email,s.phone')
+            ->select('b.id_user,s.company,s.active,b.*,s.email,s.phone')
             ->from('biodata b')
             ->join('users s', 's.id=b.id_user')
             ->where('s.company', NULL)
@@ -29,20 +29,66 @@ class Users_model extends CI_Model
         // $this->db->order_by($this->id, $this->order);
         // return $this->db->get($this->table)->result();
     }
-    function get_all_users($nama)
-    {
-        $this->db->select('b.*,s.company');
-        $this->db->from('biodata b');
-        $this->db->join('users s', 's.id=b.id_user');
-        $this->db->where('s.company', NULL);
-        $this->db->where('s.id!=', $this->session->userdata('id'));
-        if($nama){
-            $this->db->like('b.nama',$nama);
+// 
+public function get_all_users($nama, $limit, $offset,$sort)
+{
+    $this->db->select('b.*,s.company');
+    $this->db->from('biodata b');
+    $this->db->join('users s', 's.id=b.id_user');
+    $this->db->where('s.company', NULL);
+    $this->db->where('s.id !=', $this->session->userdata('id'));
 
-        }
-        $query = $this->db->get();
-        return $query->result();
+    if ($nama) {
+        $this->db->like('b.nama', $nama);
     }
+
+    $this->db->order_by('s.id', $sort);
+    $this->db->limit($limit, $offset);  // Add limit and offset for pagination
+
+    $query = $this->db->get();
+    return $query->result();
+}
+public function search_users($nama,$order,$limit)
+{
+    $this->db->select('b.*,s.company');
+    $this->db->from('biodata b');
+    $this->db->join('users s', 's.id=b.id_user');
+    $this->db->where('s.company', NULL);
+    $this->db->where('s.id !=', $this->session->userdata('id'));
+
+    if ($nama!=null) {
+        $this->db->like('b.nama', $nama);
+    }
+    if ($order) {
+        $this->db->order_by('s.id', $order);
+    }
+    if($limit!=null){
+        $this->db->limit($limit);
+    }
+
+
+    $query = $this->db->get();
+    return $query->result();
+}
+
+public function get_users_count($nama,$sort)
+{
+    $this->db->select('b.*,s.company');
+    $this->db->from('biodata b');
+    $this->db->join('users s', 's.id=b.id_user');
+    $this->db->where('s.company', NULL);
+    $this->db->where('s.id !=', $this->session->userdata('id'));
+
+    if ($nama) {
+        $this->db->like('b.nama', $nama);
+    }
+      
+    
+
+    return $this->db->count_all_results();
+}
+
+// 
     function get_detail_users($id)
     {
         $this->db->select('b.*,s.*');
@@ -54,6 +100,10 @@ class Users_model extends CI_Model
         $query = $this->db->get();
         return $query->row();
     }
+
+
+
+
 
     // get data by id
     function get_by_id($id)

@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Jadwal_user extends CI_Controller
+class Jadwal_user extends MY_Controller
 {
     function __construct()
     {
@@ -25,14 +25,14 @@ class Jadwal_user extends CI_Controller
         $cari='';
         $sort='ASC';
         $status='';
-        if($this->input->post('cari')!=null){
-            $cari = $this->input->post('cari');
+        if($this->input->get('cari')!=null){
+            $cari = $this->input->get('cari');
         }
-        if($this->input->post('sort')!=null){
-            $sort = $this->input->post('sort');
+        if($this->input->get('sort')!=null){
+            $sort = $this->input->get('sort');
         }
-        if($this->input->post('status')!=null){
-            $status = $this->input->post('status');
+        if($this->input->get('status')!=null){
+            $status = $this->input->get('status');
         }
 
         $id = $this->session->userdata('id');

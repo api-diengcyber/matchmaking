@@ -10,6 +10,7 @@ class MY_Controller extends CI_Controller
         if (!$this->ion_auth->logged_in()) {
             redirect('auth/login', 'refresh');
         }
+        $this->load->helper('date');
         // $this->header = $this->load->view('admin/layouts/header');
         // $this->footer = $this->load->view('admin/layouts/footer');
     }

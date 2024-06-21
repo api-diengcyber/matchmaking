@@ -49,9 +49,9 @@ class Request_model extends CI_Model
         // $this->db->order_by($this->id, $this->order);
         // return $this->db->get($this->table)->result();
     }
-    function get_my_request_out($cari,$sort,$status)
+    function get_my_request_out($cari,$sort,$status,$id)
     {
-        $this->db->select('r.id as idRequest,r.status, r.tgl_update, r.id as id_request, b1.nama as nama_user1,r.id_user2 as id_user_2, b2.nama as nama_user2,r.tgl_update');
+        $this->db->select('r.id as idRequest,r.status, r.tgl_update, r.id as id_request, b1.nama as nama_user1,r.id_user2 as id_user_2, b2.nama as nama_user2,r.tgl_update,b2.foto as foto');
         $this->db->from('request r');
         $this->db->join('biodata b1', 'b1.id_user = r.id_user1', 'left');
         $this->db->join('biodata b2', 'b2.id_user = r.id_user2', 'left');
@@ -65,14 +65,17 @@ class Request_model extends CI_Model
         if($sort!=null){
             $this->db->order_by('b2.nama', $sort);
         }
+        if($id=null){
+            $this->db->order_by('r.idRequest', $id);
+        }
         $query = $this->db->get();
         return $query->result();
         // $this->db->order_by($this->id, $this->order);
         // return $this->db->get($this->table)->result();
     }
-    function get_my_request_in($cari,$sort,$status)
+    function get_my_request_in($cari,$sort,$status,$id)
     {
-        $this->db->select('r.id as idRequest,r.status, r.tgl_update, r.id as id_request, b1.nama as nama_user1,r.id_user1 as id_user_1, b2.nama as nama_user2,r.tgl_update');
+        $this->db->select('r.id as idRequest,r.status, r.tgl_update, r.id as id_request, b1.nama as nama_user1,r.id_user1 as id_user_1, b2.nama as nama_user2,r.tgl_update,b1.foto as foto');
         $this->db->from('request r');
         $this->db->join('biodata b1', 'b1.id_user = r.id_user1', 'left');
         $this->db->join('biodata b2', 'b2.id_user = r.id_user2', 'left');
@@ -86,6 +89,23 @@ class Request_model extends CI_Model
         if($sort!=null){
             $this->db->order_by('b2.nama', $sort);
         }
+        if($id=null){
+            $this->db->order_by('r.idRequest', $id);
+        }
+        $query = $this->db->get();
+        return $query->result();
+        // $this->db->order_by($this->id, $this->order);
+        // return $this->db->get($this->table)->result();
+    }
+    function get_my_request_in_wait()
+    {
+        $this->db->select('r.status, r.tgl_update, r.id as id_request, b1.nama as nama_user1,r.id_user1 as id_user_1, b2.nama as nama,r.tgl_update,b2.foto as foto');
+        $this->db->from('request r');
+        $this->db->join('biodata b1', 'b1.id_user = r.id_user1', 'left');
+        $this->db->join('biodata b2', 'b2.id_user = r.id_user2', 'left');
+        $this->db->where('r.id_user2', $this->session->userdata('id'));
+        $this->db->where('r.status', 1);
+       
         $query = $this->db->get();
         return $query->result();
         // $this->db->order_by($this->id, $this->order);
@@ -226,6 +246,7 @@ class Request_model extends CI_Model
         $query = $this->db->get();
         return $query->row(); 
     }
+    
 
 
 

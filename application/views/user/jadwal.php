@@ -27,7 +27,7 @@
                                             <div class="col-lg-12 mb-4">
                                                 <div class="card">
                                                     <div class="card-body">
-                                                        <form action="<?= base_url('jadwal_user/') ?>" method="post" class="row gx-3 gy-2 align-items-center">
+                                                        <form action="<?= base_url('jadwal_user/') ?>" method="get" class="row gx-3 gy-2 align-items-center">
                                                             <div class="col-sm-3">
                                                                 <input type="text" name="cari" class="form-control"
                                                                     placeholder="Cari nama.." onchange="this.form.submit();"
@@ -74,7 +74,7 @@
                                                                     $statusMeet = 1;
                                                                     }elseif($tgl_sekarang == $tgl_meet){
                                                                         if($waktu_sekarang <= $j->jmm){
-                                                                            $statusText = '<span class="badge bg-warning rounded-pill">Meet Sekarang</span>';
+                                                                            $statusText = '<span class="badge bg-warning rounded-pill">Hari ini</span>';
                                                                             $statusMeet = 2;
                                                                         }elseif($waktu_sekarang >= $j->jmm && $waktu_sekarang <= $j->jms){
                                                                             $statusText = '<span class="badge bg-primary rounded-pill">Meet Sekarang</span>';
@@ -96,6 +96,9 @@
                                                                 }elseif($j->status_req== 6){
                                                                     $statusText = '<span class="badge bg-danger rounded-pill">Room Ditolak</span>';
                                                                     $statusMeet = 6;
+                                                                }elseif($j->status_req== 7){
+                                                                    $statusText = '<span class="badge bg-danger rounded-pill">Expired</span>';
+                                                                    $statusMeet = 5;
                                                                 }
                                                                 
                                                 ?>
@@ -362,168 +365,365 @@
 </div>
 <!-- Mobile -->
 <div class="d-lg-none">
-    <div class="container">
-        <section class="fixed-top ">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 d-flex justify-content-between py-3 bg-white content-items-center">
-                        <a href="<?= base_url('users_user/semua') ?>" class="text-decoration-none pt-2">
-                            <i class="fa-solid fa-chevron-left"></i>
+<style>
 
-                        </a>
-                        <div class="pt-2">
-                            <i class="fa-solid fa-mars-and-venus-burst fa-xl color-1"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Top Nav -->
+.scroll-container {
+    width: 100%; /* Lebar kontainer */
+    /* height: 300px; Tinggi kontainer */
+    overflow-x: auto; /* Aktifkan scroll horizontal */
+    overflow-y: none; /* Aktifkan scroll horizontal */
+    white-space: nowrap; /* Pastikan konten tidak mematahkan baris */
+    /* border: 1px solid #ccc; Garis tepi untuk kontainer */
+    padding: 10px; /* Padding untuk kontainer */
+}
 
-        <!-- Content -->
+.scroll-item {
+    display: inline-block; /* Membuat item berada dalam satu baris */
+    width: 80%; /* Lebar setiap item */
+    margin-right: 10px; /* Jarak antar item */
+    vertical-align: top; /* Memastikan item berada di atas */
+}
 
-        <section id="content" style="margin-bottom: 80px;margin-top: 80px;">
-            <div class="container pt-2">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="row mb-4">
-                            <div class="col-12">
-                                <div class="">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-12 d-flex justify-content-center">
-                                                <?php if ($users->foto == null) { ?>
-                                                    <img src="<?= base_url('assets/admin/img/user.png') ?>" alt=""
-                                                        class="rounded-3" width="140" height="140">
+.card-body {
+    white-space: normal; /* Pastikan teks dalam card mengikuti lebar card */
+}
+
+.horizontal-scroll {
+        overflow-x: auto;
+        white-space: nowrap;
+        /* margin: 0px 20px ; */
+    }
+    .horizontal-scroll .card {
+        display: inline-block;
+        margin-right: 1rem; /* Optional: Adds space between cards */
+        margin-top: 10px;
+        margin-bottom: 10px;
+        
+        
+    }
+
+    
+
+@media (max-width: 992px) {
+   
+   
+    .scroll {
+    /* margin: 4px, 4px; */
+    padding: 4px;
+    width: 100%;
+    max-height: 40vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: justify;
+}
+.navbar {
+    transition: background-color 0.3s, box-shadow 0.3s; /* Transisi untuk latar belakang dan bayangan kotak */
+}
+
+.navbar-transparent {
+    background-color: transparent;
+    box-shadow: none; /* Tanpa bayangan kotak */
+}
+
+.navbar-white {
+    background-color: white !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Bayangan kotak untuk memberikan efek mengapung */
+}
+.text-brand{
+    color:#e7008b ;
+}
+.card-morp{
+    background: rgba( 255, 255, 255, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4.5px );
+    -webkit-backdrop-filter: blur( 4.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    color:white;
+    border: 2px solid white;
+    }
+  
+  
+    .horizontal-scroll::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        }
+
+    .horizontal-scroll::-webkit-scrollbar-thumb {
+        display: none;
+        }
+
+    .horizontal-scroll::-webkit-scrollbar-track {
+        display: none;
+        }
+
+}
+.card-morp-2{
+    background: rgba( 255, 255, 255, 0.5 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 20px );
+    -webkit-backdrop-filter: blur( 20px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    border: 2px solid white;
+    }
+
+   
+
+    .user-avatar {
+        display: flex;
+        align-items: center;
+    }
+
+    .user-avatar img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    .user-info {
+        margin-left: 10px;
+    }
+
+    .user-info h5 {
+        margin-bottom: 0;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .user-info p {
+        margin-bottom: 0;
+        font-size: 8px;
+        color: #6c757d;
+    }
+
+    /* .btn {
+        width:67px;
+        height:34px;
+        padding: 0px 15px;
+        border-radius: 20px;
+        border: none;
+        cursor: pointer;
+        font-size: 10px;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+      
+        transition: background-color 0.3s ease;
+    } */
+
+    .btn-m{
+        font-size: 11px;
+        border-radius: 20px;
+        padding: 8px 20px;
+    }
+
+    .btn-meet {
+        margin-right: 5px;
+        color: white;
+    }
+
+    .btn-meet:hover {
+        background-color: #ff4d4d;
+    }
+
+    .btn-view {
+        background-color: #6C6C6C;
+        color: white;
+    }
+
+    .btn-view:hover {
+        background-color: #6C6C6C;
+    }
+   
+
+</style>
+    <section style="">
+
+<?php $this->load->view('user/component/headOne');?>
+
+
+    <div class="container-fluid pt-5 mb-4" style="">
+        <div class="pt-5"></div>
+        <div class="pt-5"></div>
+        <div class="pt-3"></div>
+            <div class="row">
+                <div class="col-lg-12 pt-3">
+                    <?php
+
+                    foreach ($jadwal as $j) { 
+                        $tgl_sekarang = date('d-m-Y');
+                        $tgl_meet = date('d-m-Y', strtotime($j->tgl_meeting));   
+                        $tgl_meet = date('d-m-Y', strtotime($j->tgl_meeting)); // 
+                            
+
+                                $waktu_sekarang = date('H:i:s');
+
+                                $waktu_sekarang_timestamp = strtotime($tgl_sekarang . ' ' . $waktu_sekarang);
+                                $jam_mulai = strtotime($j->jmm);
+                                $jam_selesai = strtotime($j->jms);
+                                $statusMeet = '';
+                                $statusText = '';
+                                    // echo $waktu_sekarang.$j->jmm;
+                                    if($j->status_req==4){
+                                        if($tgl_sekarang < $tgl_meet){
+                                            $selisih_hari = floor((strtotime($tgl_meet) - strtotime($tgl_sekarang)) / (60 * 60 * 24)); 
+
+                                        $statusText = '<span class="fs-8 text-warning">'.$selisih_hari.' Hari lagi</span>';
+                                        $statusMeet = 1;
+                                        }elseif($tgl_sekarang == $tgl_meet){
+                                            if($waktu_sekarang <= $j->jmm){
+                                                $statusText = '<span class="fs-8 text-warning">Hari ini</span>';
+                                                $statusMeet = 2;
+                                            }elseif($waktu_sekarang >= $j->jmm && $waktu_sekarang <= $j->jms){
+                                                $statusText = '<span class="fs-8 text-primary">Meet Sekarang</span>';
+                                                $statusMeet = 3;
+                                            }elseif($waktu_sekarang >= $j->jms){
+                                                $statusText = '<span class="fs-8 text-danger">Expired</span>';
+                                                $statusMeet = 4;
+                                            }
+
+                                        }elseif($tgl_sekarang >= $tgl_meet){
+                                            $statusText = '<span class="fs-8 text-danger">Expired</span>';
+                                            $statusMeet = 4;
+                                        }else{
+                                            // echo "asdasd";
+                                        }
+                                    }elseif($j->status_req== 5){
+                                        $statusText = '<span class="fs-8 text-success">Selesai</span>';
+                                        $statusMeet = 5;
+                                    }elseif($j->status_req== 6){
+                                        $statusText = '<span class="fs-8 text-danger">Room Ditolak</span>';
+                                        $statusMeet = 6;
+                                    }elseif($j->status_req== 7){
+                                        $statusText = '<span class="fs-8 text-danger">Expired</span>';
+                                        $statusMeet = 5;
+                                    }
+                                    
+                    ?>
+
+<div class="col-md-6 mb-4">
+            <div class="card card-users">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-between">
+                         
+                                <div class="d-flex justify-content-between">
+                                    <div class="my-auto">
+                                        <?php 
+                                            if($this->session->userdata('id')==$j->id_user1){
+                                                ?>
+                                                <?php if ($j->foto_user2 == null) { ?>
+                                                    <img src="<?= base_url('assets/admin/img/user.png') ?>" alt="" width="50" height="50" class="rounded-circle">
+                                                    
                                                 <?php } else { ?>
-                                                    <img src="<?= base_url('assets/user/foto/' . $users->foto) ?>" alt=""
-                                                        class="rounded-3" width="140" height="140">
+                                                    <img src="<?= base_url('assets/user/foto/' . $j->foto_user2) ?>" alt="" width="50" height="50" class="rounded-circle">
                                                 <?php } ?>
-                                            </div>
-                                            <div class="col-12 pt-3 d-flex justify-content-center">
-                                                <h4 class="text-center p-2 rounded-3 bg-success text-white">
-                                                    <?= $users->nama ?>
-                                                </h4>
-                                            </div>
-                                            <div class="col-12 d-flex justify-content-center">
-                                                <p class="text-center badge bg-primary text-white">
-                                                    <?php
-                                                    if ($users->jenis_kelamin == 1) {
-                                                        echo 'Laki-laki';
-                                                    } else {
-                                                        echo 'Perempuan';
-                                                    } ?>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <h6 class="text-center">Tentang</h6>
-                                                        <hr>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <h6 class="">Tentang <?= $users->nama ?></h6>
-                                                        <p style="font-size:12px"><?= $users->deskripsi_diri ?></p>
-                                                    </div>
-                                                    <div class="col-12 pt-4">
-                                                        <h6 class="">Tanggal Lahir </h6>
-                                                        <p style="font-size:12px"><?= $users->tgl_lahir ?></p>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <h6 class="">Pekerjaan</h6>
-                                                        <p style="font-size:12px"><?= $users->pekerjaan ?></p>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <h6 class="">Hobi</h6>
-                                                        <p style="font-size:12px"><?= $users->hobi ?></p>
-                                                    </div>
-                                                    <div class="col-12 pt-4">
-                                                        <h6 class="">Kriteria </h6>
-                                                        <p style="font-size:12px"><?= $users->kriteria_pasangan ?></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <h5 class="text-center">Kontak</h5>
-                                                        <hr>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <h6 class=""><i class="fa-brands fa-facebook fa-xl"></i>
-                                                            <span></span>
-                                                        </h6>
-                                                        <p style="font-size:12px"><?= $users->fb ?></p>
-                                                    </div>
-                                                    <div class="col-12 pt-4">
-                                                        <h6 class=""><i class="fa-brands fa-instagram fa-xl"></i>
-                                                            <span></span>
-                                                        </h6>
-                                                        <p style="font-size:12px"><?= $users->ig ?></p>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <h6 class=""><i class="fa-solid fa-location-dot fa-xl"></i>
-                                                        </h6>
-                                                        <p style="font-size:12px"><?= $users->alamat ?></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <hr>
-                                            </div>
-                                            <div class="col-12">
-                                                <!-- Button trigger modal -->
-                                                <div class="d-grid gap-2">
-                                                    <button type="button" class="btn bg-1 text-white"
-                                                        data-bs-toggle="modal" data-bs-target="#mm">
-                                                        Request Matching
-                                                    </button>
-                                                </div>
-
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="mm" tabindex="-1" aria-labelledby="mmLabel"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="mmLabel">Request Matching
-                                                                </h5>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="row">
-                                                                    <div class="col-12 py-4">
-                                                                        <h5 class="text-center">
-                                                                            Yakin coba matching dengan
-                                                                            <?= $users->nama ?>?
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">Batal</button>
-                                                                <a href="" class="btn btn-primary">Ya</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                               
+                                            <?php
+                                            }else{ ?>
+                                                <?php if ($j->foto_user1 == null) { ?>
+                                                    <img src="<?= base_url('assets/admin/img/user.png') ?>" alt="" width="50" height="50" class="rounded-circle">
+                                                    
+                                                <?php } else { ?>
+                                                    <img src="<?= base_url('assets/user/foto/' . $j->foto_user1) ?>" alt="" width="50" height="50" class="rounded-circle">
+                                                <?php } ?>
+                                              
+                                            <?php }
+                                            ?>
+                                    </div>
+                                    <div class="my-auto">
+                                        <div class="user-info">
+                                          
+                                            <?php 
+                                                if($this->session->userdata('id')==$j->id_user1){
+                                                    ?>
+                                                    <h5 ><?=$j->nama_user2?></h5>
+                                                <?php
+                                                }else{ ?>
+                                                    <h5 ><?=$j->nama_user1?></h5>
+                                                <?php }
+                                                ?>
+    
+                                            
+                                            <p> <?= date('d-m-Y', strtotime($tgl_meet))
+                                                    ?></p>
                                         </div>
                                     </div>
                                 </div>
+                            <div class="d-flex justify-content-between my-auto">
+                            <!-- <p class="my-auto"><?=$statusText?></p> -->
+                            <a href="#" class="text-decoration-none color-3 my-auto colaps-jadwal" data-bs-toggle="collapse" data-bs-target="#collapse<?=$j->id?>" aria-expanded="false" aria-controls="collapse<?=$j->id?>">
+                            <?=$statusText?> <i class="fas fa-chevron-circle-down"></i>
+                            </a>
+
+
+                         
                             </div>
-                        </div>
-                    </div>
+                        </div>    
+                        <div class="col-12">
+                            <div class="collapse" id="collapse<?=$j->id?>">
+                               <div class="row p-2">
+                                <div class="col-12 d-flex justify-content-between">
+                                    <div class="fs-8 color-3">
+                                        <table>
+                                            <tr>
+                                                <td>Tgl</td>
+                                                <td>:</td>
+                                                <td>
+                                                <?= $tgl_meet ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jam</td>
+                                                <td>:</td>
+                                                <td><?= $j->jmm ?> - <?= $j->jms ?> (<?= $j->waktu ?> menit)</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Waktu</td>
+                                                <td>:</td>
+                                                <td> <?= $j->waktu ?> menit</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="my-auto">
+                            
+                                    <?php
+                                    
+                                    if ($j->status_req==4 && $statusMeet==3){
+                                        
+                                    ?>
+                                
+                                        <button val="<?=$j->id_request?>" type="button" class="btn bg-3 rounded-pill text-white mulish-700 fs-12 r-10 my-auto open" >Meet</button>
+
+                                    
+                                        
+                                        <?php }?>
+
+
+                                </div>
+                                </div>
+                               </div>
+                            </div>
+                        </div>                              
+                    </div>                                
                 </div>
-
             </div>
+        </div>
 
-        </section>
-    </div>
+                  
+                    
+                    <?php
+                    }?>
+
+                
+
+
+
+                </div>
+              
+            </div>
+        </div>
+    </section>
+
 </div>

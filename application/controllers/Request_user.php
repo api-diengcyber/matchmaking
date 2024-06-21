@@ -36,12 +36,16 @@ class Request_user extends MY_Controller
         $this->load->view('user/request', $data);
         $this->load->view('user/layouts/footer');
     }
-    public function keluar()
+    public function request_all()
     {
         $jam = $this->Pil_jam_model->get_all();
         $cari = '';
+        $type = '';
         $sort = 'ASC';
         $status = '';
+        if ($this->input->post('type') != null) {
+            $type = $this->input->post('type');
+        }
         if ($this->input->post('cari') != null) {
             $cari = $this->input->post('cari');
         }
@@ -51,7 +55,41 @@ class Request_user extends MY_Controller
         if ($this->input->post('status') != null) {
             $status = $this->input->post('status');
         }
-        $request = $this->Request_model->get_my_request_out($cari, $sort, $status);
+        $request = $this->Request_model->get_all($type,$cari, $sort, $status);
+
+
+        $data = array(
+            'title' => 'request',
+            'request' => $request,
+            'jam' => $jam,
+            'cari' => $cari,
+            'sort' => $sort,
+            'status' => $status,
+        );
+        var_dump($data);
+        $this->load->view('user/layouts/header');
+        $this->load->view('user/request', $data);
+        $this->load->view('user/layouts/footer');
+    }
+    public function keluar($status,$id='')
+    {
+        
+        $jam = $this->Pil_jam_model->get_all();
+        $cari = '';
+        $sort = 'ASC';
+        if ($status == 'allkeluar') {
+            $status = '';
+        }
+        if ($this->input->get('cari') != null) {
+            $cari = $this->input->get('cari');
+        }
+        if ($this->input->get('sort') != null) {
+            $sort = $this->input->get('sort');
+        }
+        if ($this->input->get('status') != null) {
+            $status = $this->input->get('status');
+        }
+        $request = $this->Request_model->get_my_request_out($cari, $sort, $status,$id);
 
 
         $data = array(
@@ -67,22 +105,23 @@ class Request_user extends MY_Controller
         $this->load->view('user/requestKeluar', $data);
         $this->load->view('user/layouts/footer');
     }
-    public function masuk()
+    public function masuk($status,$id='')
     {
         $jam = $this->Pil_jam_model->get_all();
         $cari = '';
         $sort = 'ASC';
-        $status = '';
-        if ($this->input->post('cari') != null) {
-            $cari = $this->input->post('cari');
+        if ($this->input->get('cari') != null) {
+            $cari = $this->input->get('cari');
         }
-        if ($this->input->post('sort') != null) {
-            $sort = $this->input->post('sort');
+        if ($this->input->get('sort') != null) {
+            $sort = $this->input->get('sort');
         }
-        if ($this->input->post('status') != null) {
-            $status = $this->input->post('status');
+        if ($status == 'all') {
+            $status = '';
         }
-        $request = $this->Request_model->get_my_request_in($cari, $sort, $status);
+
+        // var_dump($status);
+        $request = $this->Request_model->get_my_request_in($cari, $sort, $status,$id);
 
         $data = array(
             'title' => 'request',
@@ -106,7 +145,7 @@ class Request_user extends MY_Controller
         );
         $this->Request_model->update($id, $data);
         $this->session->set_flashdata('message', 'Request diterima');
-        redirect(site_url('request_user/masuk'));
+        redirect(site_url('request_user/masuk/all'));
     }
     public function cancel($id)
     {
@@ -118,7 +157,7 @@ class Request_user extends MY_Controller
         $this->Request_model->update($id, $data);
 
         $this->session->set_flashdata('message', 'Delete');
-        redirect(site_url('request_user/keluar'));
+        redirect(site_url('request_user/keluar/allkeluar'));
     }
     public function reject($id)
     {
@@ -128,7 +167,7 @@ class Request_user extends MY_Controller
         );
         $this->Request_model->update($id, $data);
         $this->session->set_flashdata('message', 'Request diterima');
-        redirect(site_url('request_user/masuk'));
+        redirect(site_url('request_user/masuk/all'));
     }
 
     public function ulang($id)
