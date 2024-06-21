@@ -18,6 +18,9 @@ class Profile_user extends MY_Controller
 
 	public function index()
 	{
+
+		$get_prov = $this->db->select('*')->from('wilayah_provinsi')->get();
+
 		$id = $this->session->userdata('id');
 
 		$p = $this->Biodata_model->get_profile($id);

@@ -46,7 +46,7 @@
                             <th>Jenis Kelamin</th>
                             <th>Tgl Lahir</th>
                             <th>Email</th>                           
-                                                  
+                            <th>Aktif</th>     
                             <th>Tgl Register</th>                           
                             <th class="text-center">Action</th>
                         </tr>
@@ -72,7 +72,14 @@
                                 ?></td>
                                 <td><?= date('d-m-Y', strtotime($u->tgl_lahir)) ?></td>
                                 <td><?=$u->email ?></td>
-                               
+                               <td class="text-center">
+                                    <form action="<?=base_url('users_admin/update_status')?>" method="POST">
+                                    <input type="hidden" name="id_user" id="id_user" value="<?=$u->id_user?>">
+                                    <div class="form-check form-switch">
+                                    <input name="status" value="<?=$u->active?>" class="form-check-input" Onchange="this.form.submit();" type="checkbox" id="flexSwitchCheckDefault" <?php if($u->active==1){ echo "checked";}?>>
+                                    </div>
+                                    </form>
+                               </td>
                                 <td><?= date('d-m-Y', strtotime($u->tgl_register)) ?></td>
                                 <td class="text-center">
                                     <a href="<?= base_url('users_admin/read/' . $u->id_user) ?>" class="btn btn-success btn-sm">

@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Saldo_admin extends CI_Controller
+class Saldo_admin extends MY_Controller
 {
     function __construct()
     {

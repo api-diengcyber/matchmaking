@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
 	exit('No direct script access allowed');
 
-class Users_user extends CI_Controller
+class Users_user extends MY_Controller
 {
 	function __construct()
 	{
@@ -225,20 +225,84 @@ class Users_user extends CI_Controller
 	// user
 	public function semua()
 	{
+		$sort = 'ASC';
 		$nama = '';
+		if ($this->input->post('sort') != null) {
+            $sort = $this->input->post('sort');
+        }
 		if ($this->input->post('cari')) {
 			$nama = $this->input->post('cari');
 		}
-		$users = $this->Users_model->get_all_users($nama);
+
+		$this->load->library('pagination');
+
+		// Configure pagination
+		$config['base_url'] = site_url('users_user/semua');  // Change 'your_controller' to your actual controller
+		$config['total_rows'] = $this->Users_model->get_users_count($nama,$sort);
+		$config['per_page'] = 10;
+		$config['uri_segment'] = 3;
+	
+		// Bootstrap pagination configuration
+		$config['full_tag_open'] = '<nav aria-label="Page navigation "><ul class="pagination justify-content-center ">';
+		$config['full_tag_close'] = '</ul></nav>';
+		$config['first_link'] = 'First';
+		$config['last_link'] = 'Last';
+		$config['first_tag_open'] = '<li class="page-item">';
+		$config['first_tag_close'] = '</li>';
+		$config['prev_link'] = '&laquo';
+		$config['prev_tag_open'] = '<li class="page-item">';
+		$config['prev_tag_close'] = '</li>';
+		$config['next_link'] = '&raquo';
+		$config['next_tag_open'] = '<li class="page-item">';
+		$config['next_tag_close'] = '</li>';
+		$config['last_tag_open'] = '<li class="page-item">';
+		$config['last_tag_close'] = '</li>';
+		$config['cur_tag_open'] = '<li class="page-item bg-seccondary"><a class="page-link " href="#">';
+		$config['cur_tag_close'] = '</a></li>';
+		$config['num_tag_open'] = '<li class="page-item">';
+		$config['num_tag_close'] = '</li>';
+		$config['attributes'] = array('class' => 'page-link card-morp rounded-0 border-0');
+	
+		$this->pagination->initialize($config);
+	
+		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+		$users = $this->Users_model->get_all_users($nama, $config['per_page'], $page,$sort);
+	
 		$data = [
 			'cari' => $nama,
 			'users' => $users,
+			'sort' => $sort,
+			'pagination' => $this->pagination->create_links()
 		];
+	
 		$this->load->view('user/layouts/header');
 		$this->load->view('user/semua', $data);
 		$this->load->view('user/layouts/footer');
-		// var_dump("user");
 	}
+
+	public function cari()
+	{
+		$nama = '';
+		$order = 'DESC';
+		$limit = 3;
+		if($this->input->get('cari')){
+			$nama = $this->input->get('cari');
+		}
+		if($this->input->get('semua')){
+			$limit = '';
+		}
+		$users = $this->Users_model->search_users($nama,$order,$limit);
+		$data = [
+			'users' => $users,
+			'cari' => $nama,
+			'semua' => $limit,
+		];
+		$this->load->view('user/layouts/header');
+		$this->load->view('user/hasilCari', $data);
+		$this->load->view('user/layouts/footer');
+	}
+
+
 	public function detail($id)
 	{
 
@@ -246,9 +310,9 @@ class Users_user extends CI_Controller
 		$users = $this->Users_model->get_detail_users($id);
 
 
-		
 
-		$cekJadwal= '';
+
+		$cekJadwal = '';
 		$text = '';
 
 		$statusMeet = '';
@@ -260,22 +324,22 @@ class Users_user extends CI_Controller
 
 		if ($cekRequest != null) {
 			$cekJadwal = $this->Jadwal_model->get_by_id_request_jam($cekRequest->id);
-			if($cekJadwal==null){
+			if ($cekJadwal == null) {
 
-			}elseif ($tglSekarang < $cekJadwal->tgl_meeting) {
+			} elseif ($tglSekarang < $cekJadwal->tgl_meeting) {
 				$text = 'ada';
 			} elseif ($tglSekarang == $cekJadwal->tgl_meeting) {
 				$text = 'Hari ini';
 				$statusMeet = 1;
 				if ($waktu_sekarang <= $cekJadwal->jmm) {
-					$text = '<span class="badge mb-3 bg-warning rounded-pill">Meet Sekarang</span>';
+					$text = '<span class="badge mb-3 bg-info rounded-pill">Hari ini</span>';
 					$statusMeet = 2;
 				} elseif ($waktu_sekarang >= $cekJadwal->jmm && $waktu_sekarang <= $cekJadwal->jms) {
-					$text = '<span class="badge mb-3 bg-primary rounded-pill">Meet Sekarang</span>';
+					$text = '<span class="badge mb-3 bg-success rounded-pill">Meet Sekarang</span>';
 					$statusMeet = 3;
 				} elseif ($waktu_sekarang >= $cekJadwal->jms) {
 					$text = '<span class="badge mb-3 bg-danger rounded-pill">Request masuk, meet expired</span>';
-					if($cekRequest->status!=5){
+					if ($cekRequest->status != 5) {
 
 						$data = [
 							'status' => 7,
@@ -289,7 +353,7 @@ class Users_user extends CI_Controller
 
 			} elseif ($tglSekarang > $cekJadwal->tgl_meeting) {
 				$text = '<span class="badge mb-3 bg-danger rounded-pill">Request masuk, meet expired</span>';
-				if($cekRequest->status!=5){
+				if ($cekRequest->status != 5) {
 
 					$data = [
 						'status' => 7,
@@ -305,20 +369,20 @@ class Users_user extends CI_Controller
 
 		$isUser = $this->session->userdata('id');
 
-		
 
 
 
-		
+
+
 		// var_dump($reqMasuk,$reqKeluar);
-			$data = [
-				'id' => $id,
-				'isUser' => $isUser,
-				'users' => $users,
-				'cekRequest' => $cekRequest,
-				'statusMeet' =>$statusMeet,
-				'text' =>$text,
-			];
+		$data = [
+			'id' => $id,
+			'isUser' => $isUser,
+			'users' => $users,
+			'cekRequest' => $cekRequest,
+			'statusMeet' => $statusMeet,
+			'text' => $text,
+		];
 
 		// var_dump($data);
 		$this->load->view('user/layouts/header');
@@ -335,14 +399,14 @@ class Users_user extends CI_Controller
 		// // 	}
 		// // }
 
-			
+
 		// $masukMenunggu = $this->Request_model->get_by_masuk($id, $status = 1);
 
 
 		// $masukDiterima = $this->Request_model->get_by_masuk($id, $status = 2);
 		// $masukDitolak = $this->Request_model->get_by_masuk($id, $status = 3);
 		// $masukAktif = $this->Request_model->get_by_masuk($id, $status = 4);
-		
+
 		// $masukSelesai = $this->Request_model->get_by_masuk($id, $status = 5);
 		// $masukNoRoom = $this->Request_model->get_by_masuk($id, $status = 6);
 		// $masukExp = $this->Request_model->get_by_masuk($id, $status = 7);
@@ -409,7 +473,7 @@ class Users_user extends CI_Controller
 		// 		];
 		// var_dump($data);
 		// var_dump($cek);
-		
+
 
 		// $cekMasuk = $this->Request_model->get_by_req_masuk($id);
 		// $cekKeluar = $this->Request_model->get_by_req_keluar($id);
@@ -433,10 +497,10 @@ class Users_user extends CI_Controller
 		// 					'status' => 7,
 		// 				];
 		// 				$this->Request_model->update($cekMasuk->id, $data);
-	
+
 		// 				$statusMeet = 4;
 		// 			}
-	
+
 		// 		} elseif ($tglSekarang > $cekJadwalMasuk->tgl_meeting) {
 		// 			$text = '<span class="badge bg-danger rounded-pill">Request masuk, meet expired</span>';
 		// 			$data = [
@@ -471,7 +535,7 @@ class Users_user extends CI_Controller
 		// 				$this->Request_model->update($cekKeluar->id, $data);
 		// 				$statusMeet = 4;
 		// 			}
-	
+
 		// 		} elseif ($tglSekarang > $cekJadwalKeluar->tgl_meeting) {
 		// 			$text = '<span class="badge bg-danger rounded-pill">Request keluar, meet expired</span>';
 		// 			$data = [
@@ -484,7 +548,7 @@ class Users_user extends CI_Controller
 		// }
 
 
-		
+
 
 		// $data = [
 		// 	'id' => $id,
@@ -500,7 +564,7 @@ class Users_user extends CI_Controller
 		// $this->load->view('user/detailUser', $data);
 		// $this->load->view('user/layouts/footer');
 
-		
+
 		// $masukMenunggu = $this->Request_model->get_by_masuk($id, $status = 1);
 
 

@@ -66,8 +66,9 @@ class Auth extends CI_Controller
 		// validate form input
 		$this->form_validation->set_rules('nama', 'Nama', 'trim|required');
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
-		$this->form_validation->set_rules('password', 'Kata Sandi', 'required|min_length[6]');
+		$this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
 		$this->form_validation->set_rules('syarat', 'Syarat dan ketentuan', 'required');
+		$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|matches[password]');
 		// $this->form_validation->set_rules('verify_password', 'Ulangi Kata Sandi', 'required|matches[password]');
 
 		if ($this->form_validation->run() === TRUE) {
@@ -106,7 +107,11 @@ class Auth extends CI_Controller
 				// var_dump($this->session->set_flashdata('flash', $this->ion_auth->errors()));
 				// redirect('auth/sign-up', 'refresh');
 				$this->session->set_flashdata('message', "Failed to create account.");
-				$this->load->view('auth/signup');
+				$data = [
+					'nama' => set_value('nama', $this->input->post('nama', true)),
+					'email' => set_value('email', $this->input->post('email', true)),
+				];
+				$this->load->view('auth/signup',$data);
 			}
 		} else {
 			$data = [
@@ -152,8 +157,11 @@ class Auth extends CI_Controller
 					$array = array(
 						'id' => $row_users->id,
 						'email' => $row_users->email,
-						// 'nama' => $row_biodata->nama,
-						// 'foto' => $row_biodata->foto,
+						'username' => $row_users->username,
+						'first_name' => $row_users->first_name,
+						'last_name' => $row_users->last_name,
+						
+						'foto' => $row_biodata->foto,
 					);
 					$this->session->set_userdata($array);
 					redirect('dashboard_admin', 'refresh');
@@ -163,6 +171,7 @@ class Auth extends CI_Controller
 						'email' => $row_users->email,
 						'nama' => $row_biodata->nama,
 						'foto' => $row_biodata->foto,
+						'jenis_kelamin' => $row_biodata->jenis_kelamin,
 					);
 					$this->session->set_flashdata('message', 'success');
 					$this->session->set_userdata($array);
@@ -267,7 +276,8 @@ class Auth extends CI_Controller
 
 			if ($change) {
 				// if the password was successfully changed
-				$this->session->set_flashdata('message', $this->ion_auth->messages());
+				// $this->session->set_flashdata('message', $this->ion_auth->messages());
+				$this->session->set_flashdata('message', "success");
 				$this->logout();
 			} else {
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
