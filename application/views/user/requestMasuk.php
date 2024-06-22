@@ -371,32 +371,32 @@
                 <?php 
                     foreach ($request as $r) { 
                         if($r->status==1){
-                            $statusText= '<span class="badge bg-primary rounded-pill">Menunggu</span>';
+                            $statusText= '<small class=" text-primary fs-10">Menunggu</small>';
                         }elseif($r->status==2){
                             $statusText= '
-                            <span class="badge bg-primary rounded-pill">Menunggu room</span>
+                            <small class=" text-primary fs-10">Menunggu room</small>
                             '; }elseif($r->status==3){
                                 $statusText= '
-                                <span class="badge bg-danger rounded-pill">Ditolak</span>
+                                <small class=" text-danger fs-10">Ditolak</small>
                                 ';
                                 }elseif($r->status==4){
                                     $statusText ='
-                                    <span class="badge bg-primary rounded-pill">Jadwal siap</span>
+                                    <small class=" text-primary fs-10">Jadwal siap</small>
                                     ';
                                     
                             }elseif($r->status==5){
-                                $statusText = '<span class="badge bg-success rounded-pill mb-3">Selesai</span>';
+                                $statusText = '<small class=" text-success fs-10 mb-3">Selesai</small>';
                                 }elseif($r->status==6){
                                     $statusText= '
-                                    <span class="badge bg-danger rounded-pill mb-3">Room ditolak</span>
+                                    <small class=" text-danger fs-10 mb-3">Room ditolak</small>
                                     ';
                                 }elseif($r->status==7){
                                     $statusText= '
-                                    <span class="badge bg-danger rounded-pill mb-3">Expired</span>
+                                    <small class=" text-danger fs-10 mb-3">Expired</small>
                                     ';
                                 }elseif($r->status==8){
                                     $statusText= '
-                                        <span class="badge bg-danger rounded-pill mb-3">Canceled</span>
+                                        <small class=" text-danger fs-10 mb-3">Canceled</small>
                                     ';
                                     }else{
                                         $statusText= '';
@@ -420,7 +420,7 @@
                                                 </div>
                                                 <div class="my-auto">
                                                     <div class="user-info">
-                                                        <p><?=$statusText?></p>
+                                                        <p></p>
                                                         <h5 ><?=$r->nama_user1?></h5>
                                                         <p> <?= date('d-m-Y', strtotime($r->tgl_update))
                                                                 ?></p>
@@ -495,23 +495,21 @@
                                                     </div>
                                                     <!-- /Modal Option -->
                                                     <?php }elseif($r->status==2){?>
-                                                        <a href="<?=base_url('request_user/reject/'.$r->id_user_1)?>" class="btn btn-m btn-view">View</a>
-                                                    
+                                                       
+                                                        <?=$statusText?>
                                                 <?php }elseif($r->status==3){?>
-                                                    
-                                                        <a href="<?=base_url('request_user/reject/'.$r->id_user_1)?>" class="btn btn-m btn-view">View</a>
+                                                    <?=$statusText?>
                                                 <?php }elseif($r->status==4){?>
-                                                            
-                                                                <a href="<?=base_url('jadwal_user/index/'.$r->id_user_1)?>" class="btn btn-m btn-meet bg-3">Room</a>
+                                                            <a href="<?=base_url('jadwal_user/index/'.$r->idRequest)?>"  class="btn btn-m btn-meet bg-3">Jadwal</a>
                                                         
                                                         <?php }elseif($r->status==5){?>
-                                                            <a href="<?=base_url('request_user/reject/'.$r->id_user_1)?>" class="btn btn-m btn-view">View</a>
+                                                            <?=$statusText?>
                                                         <?php }elseif($r->status==6){?>
-                                                            <a href="<?=base_url('request_user/reject/'.$r->id_user_1)?>" class="btn btn-m btn-view">View</a>
+                                                            <?=$statusText?>
                                                         <?php }elseif($r->status==7){?>
-                                                            <a href="<?=base_url('request_user/reject/'.$r->id_user_1)?>" class="btn btn-m btn-view">View</a>
+                                                            <?=$statusText?>
                                                         <?php }elseif($r->status==8){?>
-                                                            <a href="<?=base_url('request_user/reject/'.$r->id_user_1)?>" class="btn btn-m btn-view">View</a>
+                                                            <?=$statusText?>
                                                         <?php }?>
                                         </div>
                                     </div>                                  

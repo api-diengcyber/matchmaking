@@ -105,6 +105,8 @@
                                 class="btn bg-4 rounded-pill text-white mulish-700 fs-12 r-10">Edit Profil</a>
                             <a href="<?= base_url('auth/logout') ?>"
                                 class="btn bg-4 rounded-pill text-white mulish-700 fs-12 r-10">Logout</a>
+                            <a href="<?= base_url('auth/change_password') ?>"
+                                class="btn bg-4 rounded-pill text-white mulish-700 fs-12 r-10">Ubah Password</a>
                             <button class="btn bg-3 rounded-pill text-white mulish-700 fs-12 r-10" type="button"
                                 data-bs-dismiss="modal">Kembali</button>
                         </div>

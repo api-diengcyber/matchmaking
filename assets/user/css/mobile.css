@@ -1,3 +1,22 @@
+.mulish-400 {
+  font-family: "Mulish", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+.heart{
+  position: absolute;
+  /* margin-top:25%; */
+  /* width: 100%; */
+  
+}
+.img-match{
+  position: absolute;
+  left: 90;
+  /* top: 10; */
+  bottom: 160px;
+  z-index: -1;
+}
 @media (max-width: 992px) {
    .test12{
     width: 200px;
@@ -224,6 +243,12 @@
     position: absolute;
     right: 0px;
     top:10%
+}
+.img-match-3{
+    position: relative;
+    margin-top: -80px;
+    /* right: 0px; */
+    /* top:10% */
 }
 .bg-back{
     position: absolute;

@@ -110,10 +110,10 @@
                             <form action="<?= base_url('profile_user/update') ?>" method="post" enctype="multipart/form-data">
                             <div class="fail" id="fail" fail="<?php echo $this->session->userdata('error') <> '' ? $this->session->userdata('error') : ''; ?>"></div>
                             <div class="success" id="success" success="<?php echo $this->session->userdata('success') <> '' ? $this->session->userdata('success') : ''; ?>"></div>
-                            <input type="hidden" name="prov" id="prov">
-                            <input type="hidden" name="kab" id="kab">
-                            <input type="hidden" name="kec" id="kec">
-                            <input type="hidden" name="des" id="des">
+                            <input type="hidden" name="prov" id="prov" value="<?=$prove?>">
+                            <input type="hidden" name="kab" id="kab" value="<?=$kab?>">
+                            <input type="hidden" name="kec" id="kec" value="<?=$kec?>">
+                            <input type="hidden" name="des" id="des" value="<?=$des?>">
                                 <div class="col-lg-12">
                                     <div class="card card-all">
                                         <div class="card-body">
@@ -128,7 +128,7 @@
                                                             <?php } ?>
 
                                                         
-                                                        <label for="imgInp" id="fchange"><i class="fa-solid fa-camera"></i></label>
+                                                        <label for="imgInp" id="fchange" style=""><i class="fa-solid fa-camera"></i></label>
                                                         <input type="file" name="file" id="imgInp" class="d-none" accept="image/*">
                                                     </div>
                                                 </div>
@@ -190,7 +190,7 @@
                                                         <div class="alamat">
                                                             <div class="mb-3">
                                                                 <label for="" class="form-label">Alamat Saat Ini</label>
-                                                                <textarea name="alamat" class="form-control" readonly id="" rows="4"><?=$alamat?></textarea>
+                                                                <textarea name="alamat" class="form-control" readonly id="" rows="4"><?=$alamat?>, <?=$des?>, <?=$kec?>, <?=$kab?>, <?=$prove?></textarea>
                                                             </div>
                                                            
                                                         </div>
@@ -200,6 +200,10 @@
                                                        
                                                     }
                                                     ?>
+                                                    <div class="mb-4">
+                                                        <label class="form-label">Alamat<small></small></label>
+                                                        <input type="text" name="alamat" id="alamat" class="form-control" placeholder="Alamat" value="<?=$alamat?>">
+                                                    </div> 
                                                     <div class="mb-3">
                                                         <label class="form-label">Provinsi <small></small></label>
                                                         <select name="" class="form-control select-search provinsi" id="provinsi">
@@ -231,10 +235,7 @@
                                                             <option>Desa</option>
                                                         </select>
                                                     </div>                                             
-                                                    <div class="mb-4">
-                                                        <label class="form-label">Nama jalan,Rt/Rw <small></small></label>
-                                                        <input type="text" name="rt_rw" id="rt_rw" class="form-control" placeholder="Nama jalan atau Rt/Rw">
-                                                    </div>      
+                                                       
                                                     <div class="mb-2">
                                                         <label class="form-label">Kontak</label>
                                                     </div>
@@ -448,11 +449,10 @@
         <div class="row py-5 mb-5">
             
             <form action="<?= base_url('profile_user/update') ?>" method="post" enctype="multipart/form-data" id="form-m">
-                <input type="hidden" name="prov" id="prov-m">
-                <input type="hidden" name="prov" id="kab-m">
-                <input type="hidden" name="kab" id="kab-m">
-                <input type="hidden" name="kec" id="kec-m">
-                <input type="hidden" name="des" id="des-m">
+                <input type="hidden" name="prov" id="prov-m" value="<?=$prove?>">
+                <input type="hidden" name="kab" id="kab-m" value="<?=$kab?>">
+                <input type="hidden" name="kec" id="kec-m" value="<?=$kec?>">
+                <input type="hidden" name="des" id="des-m" value="<?=$des?>">
                 <div class="col-lg-12">
                     <div class="row">
                         <div class="col-lg-12">
@@ -530,20 +530,29 @@
                         </div>
                         <div class="col-lg-6">
                             <?php if($alamat!=null){?>
-                                    <div class="alamat">
-                                        <div class="mb-3">
-                                            <label for="" class="text-dark mulish-400 fs-12">Alamat Saat Ini</label>
-                                            <textarea name="alamat" class="form-control input-text mulish-400" readonly id="" rows="4"><?=$alamat?></textarea>
-                                        </div>
-                                        
-                                    </div>
+                              
+                                <div class="alamat">
+                                    <div class="mb-3">
+                                        <label for="" class="text-dark mulish-400 fs-12">Alamat Saat Ini</label>
+                                        <br>
+                                        <?=$alamat?>, <?=$des?>, <?=$kec?>, <?=$kab?>, <?=$prove?>
+                                    </div>                                               
                                 </div>
-                                <?php
-                                }else{
-                                
-                                }
-                                ?>
-                                                                        
+                                </div>
+                                <?php } else { ?>
+                                    <div>
+                                        <h2>
+
+                                        </h2>
+                                        <div>
+
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            <div class="mb-4">
+                                <label class="text-dark mulish-400 fs-12">Alamat<small></small></label>
+                                <input type="text" name="alamat" id="alamat-m" class="form-control" placeholder="Alamat" value="<?=$alamat?>">
+                            </div>                           
                             <div class="mb-3">
                                 <label class="text-dark mulish-400 fs-12">Provinsi<small></small></label>
                                 <select name="" class="form-control input-text mulish-400 select-search provinsi" id="provinsi-m">
@@ -573,11 +582,8 @@
                                 <select name="" class="form-control input-text mulish-400 select-search desa" id="desa-m">
                                     <option>Desa</option>
                                 </select>
-                            </div>                                             
-                            <div class="mb-3">
-                                <label class="text-dark mulish-400 fs-12">Nama jalan, Rt/Rw <small></small></label>
-                                <input type="text" name="rt_rw" id="rt_rw" class="form-control input-text mulish-400" placeholder="Nama jalan atau Rt/Rw">
-                            </div>
+                            </div>                                            
+                           
                             <div class="mb-2">
                                 <label for="" class="text-dark mulish-400 fs-12">Kontak</label>
                             </div>                                      

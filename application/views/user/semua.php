@@ -12,35 +12,42 @@
                                 <h5></h5>
                             </div>
                         </div>
-                        <form action="<?= base_url('users_user/semua') ?>" method="get">                        
-                        <div class="row">
-                                <div class="col-8">
-                                    <div class="mb-3">
-                                        <input type="text" name="cari" class="form-control " style="border-right:none" placeholder="Cari.."
-                                            onchange="this.form.submit();" value="<?= $cari ?>">
-                                                                                                  
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="mb-2">
-                                        <select name="sort" id="" class="form-select " style="border-left:none;" onchange="this.form.submit();">
-                                                <option value="asc" <?php if($sort=='asc'){echo "selected";}?>>A-Z</option>
-                                                <option value="desc" <?php if($sort=='desc'){echo "selected";}?>>Z-A</option>
-                                            </select> 
-                                    </div>
+                        
+                       
+                    </div>
+                    <div class="col-12">
+                        <div class="card card-all">
+                            <div class="card-body">
+                            <form action="<?= base_url('users_user/semua') ?>" method="get">                        
+                                <div class="row ">
+                                        <div class="col-8 ">
+                                            <div class="mb-3 my-auto px-2">
+                                                <input type="text" name="cari" class="form-control " style="border-right:none" placeholder="Cari.."
+                                                    onchange="this.form.submit();" value="<?= $cari ?>">
+                                                                                                        
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="mb-2">
+                                                <select name="sort" id="" class="form-select " style="border-left:none;" onchange="this.form.submit();">
+                                                        <option value="asc" <?php if($sort=='asc'){echo "selected";}?>>A-Z</option>
+                                                        <option value="desc" <?php if($sort=='desc'){echo "selected";}?>>Z-A</option>
+                                                    </select> 
+                                            </div>
 
-                                </div>
-                                <hr>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+                        </div>
                     </div>
                     <div class="col-12">
                         <div class="row">
                             <?php foreach ($users as $u) { ?>
                                 <div class="col-4 pt-3">
                                     <a href="<?= base_url('users_user/detail/' . $u->id_user) ?>"
-                                        class="text-decoration-none text-dark">
-                                        <div class="card card-all">
+                                        class="text-decoration-none text-dark ">
+                                        <div class="card card-all card-users">
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-3">
@@ -57,7 +64,9 @@
                                                             <?= $u->nama ?>
                                                         </h6>
                                                         <p style="font-size: 12px;">
-                                                            <?= substr($u->deskripsi_diri, 0, 25) . '..';
+                                                            <?php 
+                                                            substr($u->deskripsi_diri, 0, 25) . '..';
+                                                            echo $u->kabupaten.', '.$u->provinsi;
                                                             // <?=$u->deskripsi_diri ?>
                                                         </p>
                                                     </div>
@@ -211,7 +220,7 @@
     <section style="">
         <div class="container-fluid fixed-top navbar-transparent" id="navbar">
             <div class="row">
-                <div class="col-12 d-flex justify-content-between py-3 text-">
+                <div class="col-12 d-flex justify-content-between py-3 ">
                     <a href="<?= base_url('profile_user') ?>" class="text-decoration-none">
                         <div class="">
                             <?php if ($this->session->userdata('foto') == null) { ?>

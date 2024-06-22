@@ -129,6 +129,8 @@ class Request_model extends CI_Model
         b1.jenis_kelamin as jenis_kelamin_user1, 
         b1.foto as foto_user1, 
         b1.tgl_register as tgl_register_user1, 
+        b1.kabupaten as kabupaten_user1, 
+        b1.provinsi as provinsi_user1, 
         
         , b2.nama as nama_user2, 
         b2.tgl_lahir as tgl_lahir_user2, 
@@ -141,7 +143,10 @@ class Request_model extends CI_Model
         b2.fb as fb_user2, 
         b2.jenis_kelamin as jenis_kelamin_user2, 
         b2.foto as foto_user2, 
-        b2.tgl_register as tgl_register_user2, ');
+        b2.tgl_register as tgl_register_user2, 
+        b2.kabupaten as kabupaten_user2, 
+        b2.provinsi as provinsi_user2,
+        ');
         $this->db->from('request r');
         $this->db->join('biodata b1', 'b1.id_user = r.id_user1', 'left');
         $this->db->join('biodata b2', 'b2.id_user = r.id_user2', 'left');

@@ -41,8 +41,8 @@
                             <div class="col-lg-8">
                                 <div class="row">
                                     <div class="col-4 pt-3">
-                                        <a href="<?= base_url('request_user/masuk') ?>" class="text-decoration-none text-dark">
-                                            <div class="card my-card">
+                                        <a href="<?= base_url('request_user/masuk/all') ?>" class="text-decoration-none text-dark">
+                                            <div class="card shadow">
                                                 <div class="card-body">
                                                     <h4 class="text-center py-2 color-4"><i
                                                             class="fa-solid fa-repeat fa-xl"></i></h4>
@@ -55,8 +55,8 @@
                                         </a>
                                     </div>
                                     <div class="col-4 pt-3">
-                                        <a href="<?= base_url('request_user/keluar') ?>" class="text-decoration-none text-dark">
-                                            <div class="card my-card">
+                                        <a href="<?= base_url('request_user/keluar/allkeluar') ?>" class="text-decoration-none text-dark">
+                                            <div class="card shadow">
                                                 <div class="card-body">
                                                     <h4 class="text-center py-2 color-4"><i
                                                             class="fa-solid fa-repeat fa-xl"></i></h4>
@@ -70,7 +70,7 @@
                                     </div>
                                     <div class="col-4 pt-3">
                                         <a href="" class="text-decoration-none text-dark">
-                                            <div class="card my-card">
+                                            <div class="card shadow">
                                                 <div class="card-body">
                                                     <h4 class="text-center py-2 color-4"><i
                                                             class="fa-solid fa-user-check fa-xl"></i></h4>
@@ -84,22 +84,28 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 pt-3 bg-light">
+                            <div class="col-lg-4 pt-3 bg-light border rounded-3 shadow">
                                 <div class="row">
                                     <div class="col-12 px-3 d-flex justify-content-between shadow-sm">
                                     <h5>Request Masuk</h5>
-                                                <a href="<?=base_url('request_user/masuk')?>">Lihat Semua</a>
+                                                <a href="<?=base_url('request_user/masuk/all')?>">Lihat Semua</a>
                                     </div>
                                     <div class="col-12 scroll bg-light px-3">
                                         
                                         <?php
                                         foreach ($newReqMasuk as $m) {
                                             ?>
-                                            <div class="card mb-3 card-notif">
+                                            <div class="card mb-3 shadow">
                                                 <div class="row">
                                                     <div class="col-md-4 d-flex justify-content-center p-2 ">
-                                                        <img src="<?= base_url('assets/admin/img/user.png') ?>"
-                                                            class="items-center my-auto" alt="..." width="50" height="50">
+                                                    <?php if ($m->foto == null) { ?>
+                                                            <img src="<?= base_url('assets/admin/img/user.png') ?>" 
+                                                            class="items-center rounded-circle my-auto" alt="..." width="50" height="50">
+                                                        <?php } else { ?>
+                                                            <img src="<?= base_url('assets/user/foto/' . $m->foto) ?>" 
+                                                            class="items-center rounded-circle my-auto" alt="..." width="50" height="50">
+                                                        <?php } ?>
+                                                        
                                                     </div>
                                                     <div class="col-md-8 p-2">
                                                         <a href="<?=base_url('users_user/detail/'.$m->id_user)?>" class="text-decoration-none">
@@ -120,7 +126,7 @@
                     </div>
                 </main>
                 <footer class="row bg-light py-4 mt-auto">
-                    <div class="col"> Footer content here... </div>
+                    <div class="col">  </div>
                 </footer>
             </div>
         </div>
@@ -425,7 +431,7 @@
                                 <div class="my-auto">
                                     <div class="user-info">
                                         <h5><?=$nu->nama?></h5>
-                                        <p>Request Match Baru</p>
+                                        <p class="color-3"><?=$nu->provinsi?></p>
                                     </div>
                                 </div>
                             </div>

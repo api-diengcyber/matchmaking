@@ -36,198 +36,93 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap"
     rel="stylesheet">
-  <style>
-    
-    * {
-      font-family: "Poppins", sans-serif;
-      font-weight: 400;
-      font-style: normal;
-
-    }
-
-    body{
-      overflow-x: none;
-    }
-
-    .container-fluid-1 {
-     height: 100vh;
-      background: rgb(214, 0, 255);
-      background: linear-gradient(153deg, rgba(214, 0, 255, 1) 13%, rgba(117, 117, 250, 1) 100%);
-    }
-
-    .color-1 {
-      color: #7575fa;
-    }
-
-    .color-2 {
-      color: #d600ff;
-    }
-
-    .bn45 {
-      width: 170px;
-      height: 50px;
-    }
-
-    .bn46 {
-      width: 150px;
-      height: 50px;
-    }
-
-    .form-label {
-      font-size: 14px;
-    }
-
-    .form-control {
-      font-size: 14px;
-
-    }
-
-    .form-check-label {
-      font-size: 12px;
-
-    }
-
-    small {
-      font-size: 12px;
-    }
-
-    .pad-t {
-      padding-top: 40%;
-    }
-
-    .pad-t-2 {
-      padding-top: 7%;
-      margin-bottom: 20px;
-    }
-
-    .card-login {
-      border: 2px solid blue;
-      border-radius: 10px;
-    }
-
-    /* label {
-      color: #7575fa;
-    } */
-
-    small {
-
-      color: #7575fa;
-
-    }
-
-    .form-control:focus {
-      border-color: #7575fa;
-      box-shadow: none;
-      -webkit-box-shadow: none;
-    }
-
-    .has-error .form-control:focus {
-      box-shadow: none;
-      -webkit-box-shadow: none;
-    }
-
-    .bg-1 {
-      background-color: #7575fa
-    }
-
-    @media (max-width:991.98px) {
-      .bn45 {
-        width: 80px;
-        height: 20px;
-      }
-
-      .bn46 {
-        width: 90px;
-        height: 20px;
-      }
-
-      .pad-t {
-        padding-top: 10%;
-      }
-
-      .pad-t-2 {
-        margin-bottom: 20px;
-      }
-    }
-  </style>
+<style>
+  
+</style>
 </head>
 
 <body>
   <div class="d-none d-md-none d-sm-none d-lg-block">
-    <div class="container-fluid-1">
-      <div class="row mb-5">
-        <div class="col-lg-6 ">
-          <div class="row">
-            <div class="col-lg-12 pad-t" style="">
-              <h1 class="text-white text-center"><i class="fa-solid fa-mars-and-venus-burst fa-2xl"></i></h1>
-              <p class="text-white text-center pt-2">Selamat datang di matchmaking aplikasi buat
-                cari teman..</p>
-            </div>
-            <div class="col-12 text-center">
-              <!-- <a href="#" target="_blank" tabIndex="0"><img class="bn45" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/2560px-Google_Play_Store_badge_EN.svg.png" alt="bn45"/></a>
-                              <a href="#" target="_blank" tabIndex="0"><img class="bn46" src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"alt="bn45"/></a> -->
+    <section>
+      <div class="container vh-100 d-flex " style="">
+        <div class="row my-auto vw-100">
+          <div class="col-6 my-auto">
+            <div class="row">
+              <div class="col-lg-12 " style="">
+              <img src="<?= base_url('assets/temuser/match3.svg') ?>" alt="" class="img-match">
+                <h2 class="text-dark text-center">
+                  <b>Get your life partner with</b>
+                </h2>
+                <h1 class="color-3 text-center mulish-400">
+                  <b>
+                    N3MU
+                  </b>
+                </h1>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-lg-6 pad-t-2 px-2">
-          <div class="card card-login">
-            <div class="card-body ">
-              <h5 class="">Login</h5>
-              <form class="px-4 pt-2" action="<?= base_url('auth/login') ?>" method="post">
-                <div id="infoMessage"><?php echo $message; ?></div>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-lg-12 pad-t" style="">
+                <div class="card card-login shadow">
+                  <div class="card-body ">
+                    <h5 class="">Login</h5>
+                    <form class="px-4 pt-2" action="<?= base_url('auth/login') ?>" method="post">
+                      <div id="infoMessage"><?php echo $message; ?></div>
 
-                <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">Email</label>
-                  <input type="email" name="identity" class="form-control" id="exampleInputEmail1"
-                    aria-describedby="emailHelp" placeholder="Email">
-                  <div id="emailHelp" class="form-text">
-                    <small class="text-danger">
-                      <?php echo form_error('identity') ?>
-                    </small>
+                      <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email</label>
+                        <input type="email" name="identity" class="form-control" id="exampleInputEmail1"
+                          aria-describedby="emailHelp" placeholder="Email">
+                        <div id="emailHelp" class="form-text">
+                          <small class="text-danger">
+                            <?php echo form_error('identity') ?>
+                          </small>
 
+                        </div>
+                      </div>
+
+
+                      <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" id="exampleInputPassword1"
+                          placeholder="Password">
+                        <small class="text-danger">
+                          <?php echo form_error('password') ?>
+                        </small>
+                      </div>
+                      <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" name="remember" for="exampleCheck1">Ingat Saya
+                        </label>
+                        <small class="text-danger">
+                          <?php echo form_error('syarat') ?>
+                        </small>
+                      </div>
+                      <div class="d-grid gap-2">
+                        <button type="submit" class="btn bg-1 text-white">Login</button>
+                      </div>
+                      <div class="mb-3">
+                        <small>
+                          Lupa <a href="<?= base_url('auth/forgot_password') ?>">Password?</a>
+                        </small>
+                      </div>
+                      <div class="mb-3">
+                        <small>
+                          Belum punya akun? <a href="<?= base_url('auth/sign_up') ?>">Daftar</a>
+                        </small>
+                      </div>
+
+                    </form>
                   </div>
                 </div>
-
-
-                <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label">Password</label>
-                  <input type="password" name="password" class="form-control" id="exampleInputPassword1"
-                    placeholder="Password">
-                  <small class="text-danger">
-                    <?php echo form_error('password') ?>
-                  </small>
-                </div>
-                <div class="mb-3 form-check">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                  <label class="form-check-label" name="remember" for="exampleCheck1">Ingat Saya
-                  </label>
-                  <small class="text-danger">
-                    <?php echo form_error('syarat') ?>
-                  </small>
-                </div>
-                <div class="d-grid gap-2">
-                  <button type="submit" class="btn bg-1 text-white">Login</button>
-                </div>
-                <div class="mb-3">
-                  <small>
-                    Lupa <a href="<?= base_url('auth/forgot_password') ?>">Password?</a>
-                  </small>
-                </div>
-                <div class="mb-3">
-                  <small>
-                    Belum punya akun? <a href="<?= base_url('auth/sign_up') ?>">Daftar</a>
-                  </small>
-                </div>
-
-              </form>
+              </div>
             </div>
           </div>
         </div>
+
       </div>
-    </div>
-    <div style="margin-top: 8px" id="message" message="<?php echo $this->session->userdata('message') ?>">
-      <!-- <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?> -->
-    </div>
+    </section>
 
   </div>
 
@@ -238,7 +133,7 @@
       <img src="<?= base_url('assets/temuser/front.svg') ?>" alt="" class="bg-front">
       <img src="<?= base_url('assets/temuser/Bubble.svg') ?>" alt="" class="bg-front">
       <img src="<?= base_url('assets/temuser/Bubble2.svg') ?>" alt="" class="bg-bub-2">
-      
+
       <div class="container">
         <div class="row mb-5">
           <div class="col-6">
@@ -263,27 +158,30 @@
             <form action="<?= base_url('auth/login') ?>" method="POST">
               <div class="mb-3">
                 <label for="email" class="label-m mulish-700">Email</label>
-                <input type="text" name="identity" class="form-control input-text mulish-400"  placeholder="Masukkan email">
+                <input type="text" name="identity" class="form-control input-text mulish-400"
+                  placeholder="Masukkan email">
               </div>
               <div class="mb-3">
                 <label for="email" class="label-m mulish-700">Password</label>
-                <input type="password" name="password" class="form-control input-text mulish-400"  placeholder="Masukkan password">
+                <input type="password" name="password" class="form-control input-text mulish-400"
+                  placeholder="Masukkan password">
               </div>
               <div class="mb-3">
                 <div class="d-grid gap-2 ">
                   <button class="btn bg-3 text-white" type="submit">Login</button>
                 </div>
               </div>
-            
-                  <input type="checkbox" name="remember" class="form-check-input d-none" id="exampleCheck1" checked>
-                 
+
+              <input type="checkbox" name="remember" class="form-check-input d-none" id="exampleCheck1" checked>
+
             </form>
             <small>
               <a href="<?= base_url('auth/forgot_password') ?>" class="text-dark text-decoration-none">Lupa Password</a>
             </small>
             <br>
             <small class="text-dark">
-              Belum punya akun? <a href="<?= base_url('auth/sign_up') ?>" class="text-decoration-none color-3">Daftar</a>
+              Belum punya akun? <a href="<?= base_url('auth/sign_up') ?>"
+                class="text-decoration-none color-3">Daftar</a>
             </small>
           </div>
         </div>

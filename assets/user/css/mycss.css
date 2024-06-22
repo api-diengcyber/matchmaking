@@ -67,10 +67,23 @@
 -moz-box-shadow: 4px 10px 20px -7px rgba(0,0,0,0.81); */
 }
 .card-all {
-	border: 2px solid #7575fa;
+	/* border: 2px solid #7575fa; */
+	border-radius: 10px;
+	-webkit-box-shadow: 3px 3px 9px -3px rgba(0,0,0,0.75);
+-moz-box-shadow: 3px 3px 9px -3px rgba(0,0,0,0.75);
+box-shadow: 3px 3px 9px -3px rgba(0,0,0,0.75);
 	/* box-shadow: 4px 10px 20px -7px rgba(0,0,0,0.81);
 -webkit-box-shadow: 4px 10px 20px -7px rgba(0,0,0,0.81);
 -moz-box-shadow: 4px 10px 20px -7px rgba(0,0,0,0.81); */
+}
+.card-users{
+	transition: transform .2s;
+}
+.card-users:hover{
+	
+	-ms-transform: scale(1.02); /* IE 9 */
+	-webkit-transform: scale(1.02); /* Safari 3-8 */
+	transform: scale(1.02);
 }
 .card-notif{
 	border: 2px solid #fa75e7; 
@@ -88,16 +101,17 @@
 
 #fchange{
 	background-color: #D9D9D9!important;
-	width:15px!important;
-	height:15px!important;
-	font-size: 8px!important;
-	padding: 2px!important;
+	width:35px!important;
+	height:35px!important;
+	font-size: 18px!important;
+	padding: 3px!important;
 	border-radius: 50px!important;
-	color: black!important;
+	color: #7575fa!important;
 	cursor: pointer!important;
 	margin-left:-20px!important;
-	margin-top:50px!important;
+	margin-top:120px!important;
 	position: absolute!important;
+	border: 1px solid #d600ff;
 }
 .bg-1 {
 	background-color: #7575fa
@@ -153,6 +167,20 @@
 		overflow-x: hidden;
 		overflow-y: auto;
 		text-align: justify;
+	}
+
+	#fchange{
+		background-color: #D9D9D9!important;
+		width:15px!important;
+		height:15px!important;
+		font-size: 8px!important;
+		padding: 2px!important;
+		border-radius: 50px!important;
+		color: black!important;
+		cursor: pointer!important;
+		margin-left:-20px!important;
+		margin-top:50px!important;
+		position: absolute!important;
 	}
     /* form-register */
    /* your CSS goes here*/

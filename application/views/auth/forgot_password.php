@@ -28,6 +28,8 @@
 
 
   <link rel="stylesheet" href="<?= base_url('assets/user/css/mycss.css') ?>">
+  
+  <link rel="stylesheet" href="<?= base_url('assets/user/css/mobile.css') ?>">
   <link rel="stylesheet" href="<?= base_url('assets/user/fontawesome/css/all.min.css') ?>">
   <style>
     * {
@@ -141,6 +143,7 @@
 </head>
 
 <body>
+<div class="d-none d-md-none d-sm-none d-lg-block">
   <div class="container-fluid">
     <div class="row mb-5 d-flex justify-content-center">
       
@@ -169,7 +172,53 @@
   <div style="margin-top: 8px" id="message" message="<?php echo $this->session->userdata('message') ?>">
     <!-- <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?> -->
   </div>
+</div>
+<div class="d-lg-none">
+<section id="login-page">
+      <img src="<?= base_url('assets/temuser/heartline2.svg') ?>" alt="" class="heart-line-2">
+      <img src="<?= base_url('assets/temuser/back.svg') ?>" alt="" class="bg-back">
+      <img src="<?= base_url('assets/temuser/front.svg') ?>" alt="" class="bg-front">
+      <img src="<?= base_url('assets/temuser/Bubble.svg') ?>" alt="" class="bg-front">
+      <img src="<?= base_url('assets/temuser/Bubble2.svg') ?>" alt="" class="bg-bub-2">
 
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-12">
+            <h5 class="sub-title-2 poppins-n-7">
+              Get your
+              life partner with
+            </h5>
+
+            <h3 class="title color-3 poppins-n-7">
+              N3MU
+            </h3>
+          </div>
+          <div class="col-6">
+            <img src="<?= base_url('assets/temuser/match2.svg') ?>" alt="" class="img-match-2">
+          </div>
+        </div>
+        <div class="row pt-2 position-relative">
+          <div class="col-12">
+          <form class="px-4 pt-2" action="<?= base_url('auth/forgot_password') ?>" method="post">
+              <div id="infoMessage"><?php echo $message; ?></div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="label-m mulish-700">Alamat Email</label>
+                <input type="email" name="identity" class="form-control input-text mulish-400" id="exampleInputPassword1"
+                  placeholder="Masukkan alamat email anda">
+              </div>
+              
+             
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn bg-3 text-white">Kirim</button>
+              </div>
+            </form>
+           
+          </div>
+        </div>
+      </div>
+
+    </section>
+</div>
 
   <script src="<?= base_url('assets/user/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
 

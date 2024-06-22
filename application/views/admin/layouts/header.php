@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Matchmaking - Admin</title>
+    <title>N3MU - Admin</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -50,7 +50,7 @@
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
                 <a href="<?= base_url('dashboard_admin') ?>" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-fire"></i> Matchmaking</h3>
+                    <h3 class="text-primary">N3MU</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
@@ -78,7 +78,7 @@
                     <a href="<?= base_url('jadwal_admin') ?>" class="nav-item nav-link <?php if ($this->uri->segment(1) == 'jadwal_admin') echo 'active'; ?>"><i class="fa fa-calendar me-2"></i>Jadwal</a>
                     <a href="<?= base_url('users_admin') ?>" class="nav-item nav-link <?php if ($this->uri->segment(1) == 'users_admin') echo 'active'; ?>"><i class="fa fa-users me-2"></i>User</a>
                     <div class="pt-5"></div>
-                    <a href="<?= base_url('auth/logout') ?>" class="nav-item nav-link"><i class="fa fa-sign-out-alt me-2"><i class="fa-solid fa-right-from-bracket"></i></i>Logout</a>
+                    <a href="<?= base_url('auth/logout') ?>" class="nav-item nav-link"><i class="fa fa-sign-out-alt me-2"></i>Logout</a>
                     
                 </div>
             </nav>

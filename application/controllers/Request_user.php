@@ -234,11 +234,65 @@ class Request_user extends MY_Controller
         ];
         $this->Request_model->insert($data);
 
+        $last_id = $this->db->insert_id();
+        // $row = $this->Request_model->get_by_id($last_id);
+        // $match = $this->Request_Model->get();
 
-        $this->session->set_flashdata('message', 'Request berhasil dikirim');
-        redirect(site_url('users_user/detail/' . $id));
+
+        redirect(site_url('request_user/detail/' . $last_id));
+
+        // $this->session->set_flashdata('message', 'Request berhasil dikirim');
+        // redirect(site_url('users_user/detail/' . $id));
 
     }
+
+    public function detail($id)
+    {
+        $row = $this->Request_model->get_by_id($id);
+
+        $data = array(            
+            'id_request' => $row->id_request,
+            'nama_user1' => $row->nama_user1,
+            'tgl_lahir_user1' => $row->tgl_lahir_user1,
+            'alamat_user1' => $row->alamat_user1,
+            'hobi_user1' => $row->hobi_user1,
+            'pekerjaan_user1' => $row->pekerjaan_user1,
+            'deskripsi_diri_user1' => $row->deskripsi_diri_user1,
+            'kriteria_pasangan_user1' => $row->kriteria_pasangan_user1,
+            'ig_user1' => $row->ig_user1,
+            'fb_user1' => $row->fb_user1,
+            'jenis_kelamin_user1' => $row->jenis_kelamin_user1,
+            'foto_user1' => $row->foto_user1,
+            'tgl_register_user1' => $row->tgl_register_user1,
+            'kabupaten_user1' => $row->kabupaten_user1,
+            'provinsi_user1' => $row->provinsi_user1,
+            'nama_user2' => $row->nama_user2,
+            'tgl_lahir_user2' => $row->tgl_lahir_user2,
+            'alamat_user2' => $row->alamat_user2,
+            'hobi_user2' => $row->hobi_user2,
+            'pekerjaan_user2' => $row->pekerjaan_user2,
+            'deskripsi_diri_user2' => $row->deskripsi_diri_user2,
+            'kriteria_pasangan_user2' => $row->kriteria_pasangan_user2,
+            'ig_user2' => $row->ig_user2,
+            'fb_user2' => $row->fb_user2,
+            'jenis_kelamin_user2' => $row->jenis_kelamin_user2,
+            'foto_user2' => $row->foto_user2,
+            'tgl_register_user2' => $row->tgl_register_user2,
+            'kabupaten_user2' => $row->kabupaten_user2,
+            'provinsi_user2' => $row->provinsi_user2,
+            'status' => $row->status,
+            'tgl_update' => $row->tgl_update,
+            'tgl_meeting' => $row->tgl_meeting,
+            'id_jam' => $row->id_jam,
+            'link_zoom' => $row->link_zoom,
+        );
+
+        $this->load->view('user/layouts/header');
+        $this->load->view('user/requestDetail', $data);
+        $this->load->view('user/layouts/footer');
+    }
+
+
 
 
 
