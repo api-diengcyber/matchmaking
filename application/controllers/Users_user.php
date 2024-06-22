@@ -227,12 +227,13 @@ class Users_user extends MY_Controller
 	{
 		$sort = 'ASC';
 		$nama = '';
-		if ($this->input->post('sort') != null) {
-            $sort = $this->input->post('sort');
+		if ($this->input->get('sort') != null) {
+            $sort = $this->input->get('sort');
         }
-		if ($this->input->post('cari')) {
-			$nama = $this->input->post('cari');
+		if ($this->input->get('cari')) {
+			$nama = $this->input->get('cari');
 		}
+		
 
 		$this->load->library('pagination');
 
@@ -327,7 +328,7 @@ class Users_user extends MY_Controller
 			if ($cekJadwal == null) {
 
 			} elseif ($tglSekarang < $cekJadwal->tgl_meeting) {
-				$text = 'ada';
+				$text = '';
 			} elseif ($tglSekarang == $cekJadwal->tgl_meeting) {
 				$text = 'Hari ini';
 				$statusMeet = 1;

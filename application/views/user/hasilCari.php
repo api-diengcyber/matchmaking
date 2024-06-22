@@ -255,7 +255,7 @@
                                 <div class="user-info">
                                     <h5><?=$nu->nama?></h5>
                                     <p class="color-4">
-                                        <?=$nu->alamat?>
+                                        <?=$nu->kabupaten?>, <?=$nu->provinsi?>
                                     </p>
                                 </div>
                             </div>

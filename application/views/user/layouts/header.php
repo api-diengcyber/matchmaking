@@ -101,14 +101,13 @@
     <div class="d-none d-md-none d-sm-none d-lg-block">
         <div class="col-lg-2 d-none d-md-none d-sm-none d-lg-block col-xl-2 d-flex fixed-top" id="sidebar"
             style="background-color:white">
-            <div
-                class="my-nav-con d-flex flex-column flex-grow-1 align-items-center align-items-sm-start px-2 px-sm-3 py-2  vh-100 overflow-auto">
+           
+            <div class="my-nav-con d-flex flex-column flex-grow-1 align-items-center align-items-sm-start px-2 px-sm-3 py-2  vh-100 overflow-auto shadow">
                 <a href="<?= base_url('dashboard_user') ?>"
-                    class="d-flex align-items-center text-center pb-sm-3 mb-md-0 me-md-auto  text-decoration-none py-3">
-                    <span class="fs-5 text-center"><i class="fa-solid fa-mars-and-venus-burst fa-2xl"></i><span
-                            class="d-none d-sm-inline">Matchmaking</span></span>
+                    class="text-center pb-sm-3 mb-md-0 me-md-auto  text-decoration-none py-3">
+                    <h3 class="text-center">N3MU</h3>
                 </a>
-                <div class="pt-5"></div>
+                <div class="pt-3"></div>
                 <a class=" my-nav   <?php if ($this->uri->segment(1) == 'dashboard_user')
                     echo 'my-nav-active'; ?>" href="<?= base_url('dashboard_user') ?>"><i class="icon  fa-solid fa-house <?php if ($this->uri->segment(1) == 'dashboard_user')
                             echo 'icon-active '; ?>"></i>

@@ -161,7 +161,6 @@ class Auth extends CI_Controller
 						'first_name' => $row_users->first_name,
 						'last_name' => $row_users->last_name,
 						
-						'foto' => $row_biodata->foto,
 					);
 					$this->session->set_userdata($array);
 					redirect('dashboard_admin', 'refresh');
@@ -171,6 +170,8 @@ class Auth extends CI_Controller
 						'email' => $row_users->email,
 						'nama' => $row_biodata->nama,
 						'foto' => $row_biodata->foto,
+						'kabupaten' => $row_biodata->kabupaten,
+						'provinsi' => $row_biodata->provinsi,
 						'jenis_kelamin' => $row_biodata->jenis_kelamin,
 					);
 					$this->session->set_flashdata('message', 'success');

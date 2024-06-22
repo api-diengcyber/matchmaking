@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,6 +26,7 @@
 
 
   <link rel="stylesheet" href="<?= base_url('assets/user/css/mycss.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/user/css/mobile.css') ?>">
   <link rel="stylesheet" href="<?= base_url('assets/user/fontawesome/css/all.min.css') ?>">
   <style>
     * {
@@ -140,54 +140,127 @@
 </head>
 
 <body>
-  <div class="container-fluid">
-    <div class="row mb-5">
-      <div class="col-lg-6 ">
-        <div class="row">
-          <div class="col-lg-12 pad-t" style="">
-            <h1 class="text-white text-center"><i class="fa-solid fa-mars-and-venus-burst fa-2xl"></i></h1>
-            <p class="text-white text-center pt-2">Selamat datang di matchmaking aplikasi buat
-              cari teman..</p>
-          </div>
-          <div class="col-12 text-center">
-            <!-- <a href="#" target="_blank" tabIndex="0"><img class="bn45" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/2560px-Google_Play_Store_badge_EN.svg.png" alt="bn45"/></a>
+  <div class="d-none d-md-none d-sm-none d-lg-block">
+    <div class="container-fluid">
+      <div class="row mb-5">
+        <div class="col-lg-6 ">
+          <div class="row">
+            <div class="col-lg-12 pad-t" style="">
+              <p class="text-white text-center pt-2">Get your
+                life partner with</p>
+              <h1 class="text-white text-center">N3MU</h1>
+            </div>
+            <div class="col-12 text-center">
+              <!-- <a href="#" target="_blank" tabIndex="0"><img class="bn45" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/2560px-Google_Play_Store_badge_EN.svg.png" alt="bn45"/></a>
                               <a href="#" target="_blank" tabIndex="0"><img class="bn46" src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"alt="bn45"/></a> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 px-5 pad-t-2">
+          <div class="card card-login px-5">
+            <div class="card-body ">
+              <h5 class="">Ubah Password</h5>
+              <form class="px-4 pt-2" action="<?= base_url('auth/change_password') ?>" method="post">
+                <div id="infoMessage"><?php echo $message; ?></div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Password Lama</label>
+                  <input type="password" name="old" class="form-control" id="exampleInputPassword1"
+                    placeholder="Password lama">
+                  <small class="text-danger">
+                    <?php echo form_error('password') ?>
+                  </small>
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Password Baru</label>
+                  <input type="password" name="new" class="form-control" id="exampleInputPassword1"
+                    placeholder="Password baru">
+                  <small class="text-danger">
+                    <?php echo form_error('password') ?>
+                  </small>
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Konfirmasi Password</label>
+                  <input type="password" name="new_confirm" class="form-control" id="exampleInputPassword1"
+                    placeholder="Konfirmasi password baru">
+                  <small class="text-danger">
+                    <?php echo form_error('password') ?>
+                  </small>
+                </div>
+
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn bg-1 text-white">Update</button>
+                </div>
+                <div class="mb-3">
+                  <small>
+                    Lupa <a href="<?= base_url('auth/forgot_password') ?>">Password?</a>
+                  </small>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-lg-6 px-5 pad-t-2">
-        <div class="card card-login px-5">
-          <div class="card-body ">
-            <h5 class="">Ubah Password</h5>
+    </div>
+    <div style="margin-top: 8px" id="message" message="<?php echo $this->session->userdata('message') ?>">
+      <!-- <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?> -->
+    </div>
+
+  </div>
+  <div class="d-lg-none">
+    <section id="login-page">
+      <img src="<?= base_url('assets/temuser/heartline2.svg') ?>" alt="" class="heart-line-2">
+      <img src="<?= base_url('assets/temuser/back.svg') ?>" alt="" class="bg-back">
+      <img src="<?= base_url('assets/temuser/front.svg') ?>" alt="" class="bg-front">
+      <img src="<?= base_url('assets/temuser/Bubble.svg') ?>" alt="" class="bg-front">
+      <img src="<?= base_url('assets/temuser/Bubble2.svg') ?>" alt="" class="bg-bub-2">
+
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-12">
+            <h5 class="sub-title-2 poppins-n-7">
+              Get your
+              life partner with
+            </h5>
+
+            <h3 class="title color-3 poppins-n-7">
+              N3MU
+            </h3>
+          </div>
+          <div class="col-6">
+            <img src="<?= base_url('assets/temuser/match2.svg') ?>" alt="" class="img-match-2">
+          </div>
+        </div>
+        <div class="row pt-2 position-relative">
+          <div class="col-12">
             <form class="px-4 pt-2" action="<?= base_url('auth/change_password') ?>" method="post">
               <div id="infoMessage"><?php echo $message; ?></div>
               <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password Lama</label>
-                <input type="password" name="old" class="form-control" id="exampleInputPassword1"
+                <label for="exampleInputPassword1" class="label-m mulish-700">Password Lama</label>
+                <input type="password" name="old" class="form-control input-text mulish-400" id="exampleInputPassword1"
                   placeholder="Password lama">
                 <small class="text-danger">
                   <?php echo form_error('password') ?>
                 </small>
               </div>
               <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password Baru</label>
-                <input type="password" name="new" class="form-control" id="exampleInputPassword1"
+                <label for="exampleInputPassword1" class="label-m mulish-700">Password Baru</label>
+                <input type="password" name="new" class="form-control input-text mulish-400" id="exampleInputPassword1"
                   placeholder="Password baru">
                 <small class="text-danger">
                   <?php echo form_error('password') ?>
                 </small>
               </div>
               <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Konfirmasi Password</label>
-                <input type="password" name="new_confirm" class="form-control" id="exampleInputPassword1"
-                  placeholder="Konfirmasi password baru">
+                <label for="exampleInputPassword1" class="label-m mulish-700">Konfirmasi Password</label>
+                <input type="password" name="new_confirm" class="form-control input-text mulish-400"
+                  id="exampleInputPassword1" placeholder="Konfirmasi password baru">
                 <small class="text-danger">
                   <?php echo form_error('password') ?>
                 </small>
               </div>
-             
+
               <div class="d-grid gap-2">
-                <button type="submit" class="btn bg-1 text-white">Update</button>
+                <button type="submit" class="btn bg-3 text-white">Update Password</button>
               </div>
               <div class="mb-3">
                 <small>
@@ -198,11 +271,15 @@
           </div>
         </div>
       </div>
-    </div>
+
+    </section>
   </div>
-  <div style="margin-top: 8px" id="message" message="<?php echo $this->session->userdata('message') ?>">
-    <!-- <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?> -->
-  </div>
+
+
+
+
+
+
 
 
   <script src="<?= base_url('assets/user/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
