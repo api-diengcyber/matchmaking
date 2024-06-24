@@ -168,6 +168,9 @@
                         <li><a class="dropdown-item px-1" href="<?= base_url('profile_user') ?>"><i
                                     class="fs-6 bi-binoculars"></i><span
                                     class="d-none d-sm-inline ps-1">Profile</span></a></li>
+                        <li><a class="dropdown-item px-1" href="<?= base_url('auth/change_password') ?>"><i
+                                    class="fs-6 bi-binoculars"></i><span
+                                    class="d-none d-sm-inline ps-1">Ubah Password</span></a></li>
                     </ul>
                 </div>
             </div>

@@ -35,12 +35,87 @@
       font-style: normal;
 
     }
+    @media (min-width: 992px) {
+  .img-match-d{
+    position: absolute;
+    left: 90;
+    /* top: 15px; */
+    bottom: 0px;
+    z-index:0;
+  }
+  
+  #login-page-d{
+    background-color: #FFFFFF;
+    /* min-height:200vh; */
+  }
+  
+  
+  .heart-line{
+    position: absolute;
+    width: 100%;
+    right: 0;
+  
+    /* background-color: #F85371; */
+    
+  }
 
-    .container-fluid {
-      min-height: 100vh;
-      background: rgb(214, 0, 255);
-      background: linear-gradient(153deg, rgba(214, 0, 255, 1) 13%, rgba(117, 117, 250, 1) 100%);
-    }
+  input[type="email"],
+  select.input-text {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #f8537175;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  
+  input[type="email"]:focus,
+  select.input-text:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-bottom: 1px solid  #F85371;
+  }
+  input[type="password"],
+  select.input-text {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #f8537175;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  
+  input[type="password"]:focus,
+  select.input-text:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-bottom: 1px solid  #F85371;
+  }
+  input[type="text"],
+  select.input-text {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #f8537175;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  
+  input[type="text"]:focus,
+  select.input-text:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-bottom: 1px solid  #F85371;
+  }
+  
+  .bg-3{
+    background-color: #F85371;
+  }
+
+
+ }
+
+    
 
     .color-1 {
       color: #7575fa;
@@ -143,19 +218,21 @@
   <div class="d-none d-md-none d-sm-none d-lg-block">
     <div class="container-fluid">
       <div class="row mb-5">
-        <div class="col-lg-6 ">
-          <div class="row">
-            <div class="col-lg-12 pad-t" style="">
-              <p class="text-white text-center pt-2">Get your
-                life partner with</p>
-              <h1 class="text-white text-center">N3MU</h1>
-            </div>
-            <div class="col-12 text-center">
-              <!-- <a href="#" target="_blank" tabIndex="0"><img class="bn45" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/2560px-Google_Play_Store_badge_EN.svg.png" alt="bn45"/></a>
-                              <a href="#" target="_blank" tabIndex="0"><img class="bn46" src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"alt="bn45"/></a> -->
+          <div class="col-6 my-auto">
+            <img src="<?= base_url('assets/temuser/match2.svg') ?>" alt="" class="img-match-d">
+            <div class="row">
+              <div class="col-lg-12 position-relative" style="">
+                <h2 class="text-dark text-center">
+                  <b>Get your life partner with</b>
+                </h2>
+                <h1 class="color-3 text-center mulish-400">
+                  <b>
+                    N3MU
+                  </b>
+                </h1>
+              </div>
             </div>
           </div>
-        </div>
         <div class="col-lg-6 px-5 pad-t-2">
           <div class="card card-login px-5">
             <div class="card-body ">
