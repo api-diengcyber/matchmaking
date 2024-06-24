@@ -37,19 +37,99 @@
   <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap"
     rel="stylesheet">
 <style>
+@media (min-width: 992px) {
+  .img-match-d{
+    position: absolute;
+    left: 90;
+    /* top: 15px; */
+    bottom: 0px;
+    z-index:0;
+  }
   
+  #login-page-d{
+    background-color: #FFFFFF;
+    /* min-height:200vh; */
+  }
+  
+  
+  .heart-line{
+    position: absolute;
+    width: 100%;
+    right: 0;
+  
+    /* background-color: #F85371; */
+    
+  }
+
+  input[type="email"],
+  select.input-text {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #f8537175;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  
+  input[type="email"]:focus,
+  select.input-text:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-bottom: 1px solid  #F85371;
+  }
+  input[type="password"],
+  select.input-text {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #f8537175;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  
+  input[type="password"]:focus,
+  select.input-text:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-bottom: 1px solid  #F85371;
+  }
+  input[type="text"],
+  select.input-text {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #f8537175;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  
+  input[type="text"]:focus,
+  select.input-text:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-bottom: 1px solid  #F85371;
+  }
+  
+  .bg-3{
+    background-color: #F85371;
+  }
+
+
+ }
+
 </style>
 </head>
 
 <body>
   <div class="d-none d-md-none d-sm-none d-lg-block">
-    <section>
+    <section id="login-page-d">
+    <!-- <img src="<?= base_url('assets/temuser/heartline.svg') ?>" alt="" class="heart-line"> -->
       <div class="container vh-100 d-flex " style="">
         <div class="row my-auto vw-100">
           <div class="col-6 my-auto">
+            <img src="<?= base_url('assets/temuser/match2.svg') ?>" alt="" class="img-match-d">
             <div class="row">
-              <div class="col-lg-12 " style="">
-              <img src="<?= base_url('assets/temuser/match3.svg') ?>" alt="" class="img-match">
+              <div class="col-lg-12 position-relative" style="">
                 <h2 class="text-dark text-center">
                   <b>Get your life partner with</b>
                 </h2>
@@ -64,14 +144,14 @@
           <div class="col-6">
             <div class="row">
               <div class="col-lg-12 pad-t" style="">
-                <div class="card card-login shadow">
+                <div class="card card-login border-0">
                   <div class="card-body ">
-                    <h5 class="">Login</h5>
+                    <h5 class="text-center">Login</h5>
                     <form class="px-4 pt-2" action="<?= base_url('auth/login') ?>" method="post">
                       <div id="infoMessage"><?php echo $message; ?></div>
 
                       <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Email</label>
+                        <!-- <label for="exampleInputEmail1" class="form-label">Email</label> -->
                         <input type="email" name="identity" class="form-control" id="exampleInputEmail1"
                           aria-describedby="emailHelp" placeholder="Email">
                         <div id="emailHelp" class="form-text">
@@ -84,7 +164,7 @@
 
 
                       <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <!-- <label for="exampleInputPassword1" class="form-label">Password</label> -->
                         <input type="password" name="password" class="form-control" id="exampleInputPassword1"
                           placeholder="Password">
                         <small class="text-danger">
@@ -100,7 +180,7 @@
                         </small>
                       </div>
                       <div class="d-grid gap-2">
-                        <button type="submit" class="btn bg-1 text-white">Login</button>
+                        <button type="submit" class="btn bg-3 text-white">Login</button>
                       </div>
                       <div class="mb-3">
                         <small>

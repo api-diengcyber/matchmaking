@@ -118,21 +118,23 @@
                                     <div class="card card-all">
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="col-lg-12">
+                                                <div class="col-lg-2">
                                                     <div class="mb-4 text-center">
                                                     <?php if($foto==null){?>
-                                                        <img id="blah" src="<?= base_url('assets/admin/img/user.png') ?>" class="items-center my-auto img-thumbnail" alt="..." width="120" height="120">
+                                                        <img id="blah" src="<?= base_url('assets/admin/img/user.png') ?>" class="i" alt="..." width="120px" height="120px">
                                                         <?php }else{ ?>
                                                            
-                                                        <img id="blah" src="<?=base_url('assets/user/foto/'.$foto)?>" class="items-center my-auto img-thumbnail" alt="..." width="120" height="120">
+                                                        <img id="blah" src="<?=base_url('assets/user/foto/'.$foto)?>" class="i" alt="..." width="120px" height="120px">
                                                             <?php } ?>
 
-                                                        
-                                                        <label for="imgInp" id="fchange" style=""><i class="fa-solid fa-camera"></i></label>
+                                                        <br>
+                                                        <label for="imgInp" id="" style="" class="btn bg-3 text-white mt-3">
+                                                            Ubah
+                                                        </label>
                                                         <input type="file" name="file" id="imgInp" class="d-none" accept="image/*">
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-4">
                                                     <div class="mb-3">
                                                         <label for="nama" class="form-label">Nama</label>
                                                         <input type="text" name="nama" class="form-control form-control-sm" id="nama" placeholder="Masukkan nama lengkap" value="<?= $nama ?>">
@@ -273,7 +275,9 @@
                     </div>
                 </main>
                 <footer class="row bg-light py-4 mt-auto">
-                    <div class="col"> Footer content here... </div>
+                    <small>&copy Matchmaking by <a href="#">Dieng Cyber</a></small>
+                    <small>Made with ❤</small>
+                    <div class="col"> </div>
                 </footer>
             </div>
         </div>

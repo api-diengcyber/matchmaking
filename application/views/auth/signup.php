@@ -45,8 +45,8 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css
                               <div class="col-6 my-auto">
                                     <div class="row">
                                           <div class="col-lg-12 " style="">
-                                                <img src="<?= base_url('assets/temuser/match3.svg') ?>" alt=""
-                                                      class="img-match">
+                                                <img src="<?= base_url('assets/temuser/match2.svg') ?>" alt=""
+                                                      class="img-match-d">
                                                 <h2 class="text-dark text-center">
                                                       <b>Get your life partner with</b>
                                                 </h2>
@@ -61,16 +61,16 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css
                               <div class="col-6">
                                     <div class="row">
                                           <div class="col-lg-12" style="">
-                                          <div class="card card-login shadow">
+                                          <div class="card card-login border-0">
                                                       <div class="card-body ">
-                                                            <h5 class="">Daftar Akun</h5>
+                                                            <h5 class="text-center">Daftar Akun</h5>
                                                             <form class="px-4 pt-2"
                                                                   action="<?= base_url('auth/sign_up') ?>"
                                                                   method="post">
 
                                                                   <div class="mb-3">
-                                                                        <label for="nama" class="form-label">Nama
-                                                                              Lengkap </label>
+                                                                        <!-- <label for="nama" class="form-label">Nama
+                                                                              Lengkap </label> -->
                                                                         <input type="text" name="nama"
                                                                               class="form-control" id="nama"
                                                                               aria-describedby="nama"
@@ -83,9 +83,9 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css
                                                                   </div>
 
                                                                   <div class="mb-3">
-                                                                        <label for="exampleInputEmail1"
+                                                                        <!-- <label for="exampleInputEmail1"
                                                                               class="form-label">Alamat
-                                                                              Email</label>
+                                                                              Email</label> -->
                                                                         <input type="email" name="email"
                                                                               class="form-control"
                                                                               id="exampleInputEmail1"
@@ -96,22 +96,22 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css
                                                                               <small class="text-danger">
                                                                                     <?php echo form_error('email') ?>
                                                                               </small>
-                                                                              <small>Kami tidak akan pernah membagikan
+                                                                              <!-- <small>Kami tidak akan pernah membagikan
                                                                                     email Anda kepada
                                                                                     orang
-                                                                                    lain.</small>
+                                                                                    lain.</small> -->
                                                                         </div>
                                                                   </div>
 
 
                                                                   <div class="mb-3">
-                                                                        <label for="exampleInputPassword1"
-                                                                              class="form-label">Password</label>
+                                                                        <!-- <label for="exampleInputPassword1"
+                                                                              class="form-label">Password</label> -->
                                                                         <input type="password" name="password"
                                                                               class="form-control"
                                                                               value="<?= $password ?>"
                                                                               id="exampleInputPassword1"
-                                                                              placeholder="Minimal 8 karakter">
+                                                                              placeholder="Password (Min 8 karakter)">
                                                                         <small class="text-danger">
                                                                               <?php echo form_error('password') ?>
                                                                         </small>
@@ -137,7 +137,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css
                                                                   </div>
                                                                   <div class="d-grid gap-2">
                                                                         <button type="submit"
-                                                                              class="btn bg-1 text-white">Daftar</button>
+                                                                              class="btn bg-3 text-white">Daftar</button>
                                                                   </div>
                                                             </form>
                                                       </div>

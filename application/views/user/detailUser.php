@@ -11,33 +11,89 @@
         <div class="row g-0 vh-100 overflow-y-auto">
             <div class="col offset-lg-2 offset-xl-2 d-flex flex-column vh-100">
                 <main class="row overflow-auto py-4 px-3">
-                    <div class="col-12 ">
+                    <div class="col-12"  >
+                        <div class="card text-white" style="border-radius:10px;background-image:url('<?= base_url('assets/temuser/rose-petals.svg') ?>');background-size:cover;background-repeat:no-repeat;position:relative;height:40vh">
+                            <div class="card-body">
+                               
+                            </div>
+                        </div>
+                        <div class="card card-all mx-5" style="margin-top:-90px">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-2">
+                                    <?php if ($users->foto == null) { ?>
+                                                    <img src="https://st.depositphotos.com/1537427/3571/v/450/depositphotos_35717211-stock-illustration-vector-user-icon.jpg" alt="" class="rounded-2" width="100px" height="100px">
+                                                <?php } else { ?>
+                                                    <img src="<?= base_url('assets/user/foto/' . $users->foto) ?>" alt="" class="rounded-2" width="100px" height="100px">
+                                                <?php } ?>
+                                               
+                                    </div>
+                                    <div class="col-8 my-auto">
+                                        <h5>
+
+                                            <?= $users->nama ?>
+                                        </h5>
+                                        <p>
+                                            <b>
+                                            <?php
+                                                if ($users->jenis_kelamin == 1) {
+                                                    echo 'Laki-laki';
+                                                } elseif ($users->jenis_kelamin == 2) {
+                                                    echo 'Perempuan';
+                                                } ?>
+                                            </b>
+                                        </p>
+                                        <p class="color-4">
+                                          <?= $users->kabupaten.', '.$users->provinsi ?>
+                                                     
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 pt-5 ">
                         <div class="row">
-                            <div class="col-md-12 col-lg-6 mb-3">
+                        <div class="col-md-12 col-lg-12 mb-3">
                                 <div class="card card-all">
                                     <div class="card-body ">
                                         <div class="row">
-                                            <div class="col-12 d-flex justify-content-center">
-                                                <?php if ($users->foto == null) { ?>
-                                                    <img src="https://st.depositphotos.com/1537427/3571/v/450/depositphotos_35717211-stock-illustration-vector-user-icon.jpg" alt="" class="rounded-2" width="350px" height="350px">
-                                                <?php } else { ?>
-                                                    <img src="<?= base_url('assets/user/foto/' . $users->foto) ?>" alt="" class="rounded-2" width="350px" height="350px">
-                                                <?php } ?>
-                                            </div>
-                                            <div class="col-12 pt-3 d-flex justify-content-center">
-                                                <h4 class="text-center p-2 rounded-3 bg-success text-white">
-                                                    <?= $users->nama ?>
-                                                </h4>
-                                            </div>
-                                            <div class="col-12 d-flex justify-content-center">
-                                                <p class="text-center badge bg-primary text-white">
-                                                    <?php
-                                                    if ($users->jenis_kelamin == 1) {
-                                                        echo 'Laki-laki';
-                                                    } elseif ($users->jenis_kelamin == 2) {
-                                                        echo 'Perempuan';
-                                                    } ?>
-                                                </p>
+                                            
+                                            <div class="col-12">
+                                                <div class="row">
+                                                    <!-- <div class="col-12">
+                                                        <h5 class="text-center">Tentang</h5>
+                                                        <hr>
+                                                    </div> -->
+                                                    <div class="col-12">
+                                                        <h6 class="">Tentang <?= $users->nama ?></h6>
+                                                        <p><?= $users->deskripsi_diri ?></p>
+                                                    </div>
+                                                    <div class="col-12 pt-4">
+                                                        <h6 class="">Tanggal Lahir </h6>
+                                                        <p><?= $users->tgl_lahir ?></p>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <h6 class="">Pekerjaan</h6>
+                                                        <p><?= $users->pekerjaan ?></p>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <h6 class="">Hobi</h6>
+                                                        <p><?= $users->hobi ?></p>
+                                                    </div>
+                                                    <div class="col-12 pt-4">
+                                                        <h6 class="">Kriteria </h6>
+                                                        <p><?= $users->kriteria_pasangan ?></p>
+                                                    </div>
+                                                    <div class="col-12 pt-4">
+                                                        <h6 class="my-auto"><i class="fa-solid fa-location-dot fa-xl"></i>
+                                                        <?= $users->kabupaten.', '.$users->provinsi ?>
+                                                        </h6>
+                                                        <p></p>
+                                                    </div>
+                                                  
+                                                </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="col-12 py-2">
@@ -556,54 +612,11 @@
 
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12 col-lg-6 mb-3">
-                                <div class="card card-all">
-                                    <div class="card-body ">
-                                        <div class="row">
-                                            
                                             <div class="col-12">
-                                                <div class="row">
-                                                    <!-- <div class="col-12">
-                                                        <h5 class="text-center">Tentang</h5>
-                                                        <hr>
-                                                    </div> -->
-                                                    <div class="col-12">
-                                                        <h6 class="">Tentang <?= $users->nama ?></h6>
-                                                        <p><?= $users->deskripsi_diri ?></p>
-                                                    </div>
-                                                    <div class="col-12 pt-4">
-                                                        <h6 class="">Tanggal Lahir </h6>
-                                                        <p><?= $users->tgl_lahir ?></p>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <h6 class="">Pekerjaan</h6>
-                                                        <p><?= $users->pekerjaan ?></p>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <h6 class="">Hobi</h6>
-                                                        <p><?= $users->hobi ?></p>
-                                                    </div>
-                                                    <div class="col-12 pt-4">
-                                                        <h6 class="">Kriteria </h6>
-                                                        <p><?= $users->kriteria_pasangan ?></p>
-                                                    </div>
-                                                    <div class="col-12 pt-4">
-                                                        <h6 class="my-auto"><i class="fa-solid fa-location-dot fa-xl"></i>
-                                                        <?= $users->kabupaten.', '.$users->provinsi ?>
-                                                        </h6>
-                                                        <p></p>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <hr>
+                                            <hr>
                                                         <?php if (!empty($pill)) {
                                                             echo $pill;
                                                         } ?>
-                                                    </div>
-                                                </div>
                                             </div>
                                             <!-- <div class="col-md-12 col-lg-6 mb-3">
                                                 <div class="card card-all">
@@ -644,6 +657,8 @@
                                     </div>
                                 </div>
                             </div>
+                           
+                           
                         </div>
                     </div>
 
