@@ -7,7 +7,7 @@
     }
    
 
-    .my-nav-con {
+    /* .my-nav-con {
         border-right: 2px solid #7575fa;
         border-radius: 10px;
         font-size: 13px;
@@ -31,7 +31,7 @@
         background-color: #7575fa;
         border-radius: 10px;
         color: white
-    }
+    } */
 
     /* .icon {
         background-color: #8c898c;
@@ -57,6 +57,13 @@
 
     .color-3 {
         color: #fa75e7;
+    }
+
+	.color-4{
+        color: #F5576C;
+    }
+    .bg-3{
+        background-color: #F85371;
     }
 
 .my-card {

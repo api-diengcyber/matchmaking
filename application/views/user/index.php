@@ -38,59 +38,79 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-8">
+                            <div class="col-lg-12 mb-4">
                                 <div class="row">
                                     <div class="col-4 pt-3">
                                         <a href="<?= base_url('request_user/masuk/all') ?>" class="text-decoration-none text-dark">
-                                            <div class="card shadow">
+                                            <div class="card card-all">
                                                 <div class="card-body">
-                                                    <h4 class="text-center py-2 color-4"><i
-                                                            class="fa-solid fa-repeat fa-xl"></i></h4>
-                                                    <h4 class="text-center">
-                                                       <?=$reqMasuk?>
-                                                    </h4>
-                                                    <h6 class="text-center">Request Masuk</h6>
+                                                    <div class="row">
+                                                        <div class="col-4 my-auto ">
+                                                            <h4 class="text-center py-2 color-4"><i
+                                                                    class="fa-solid fa-repeat fa-xl"></i></h4>
+                                                        </div>
+                                                        <div class="col-8 my-auto">
+                                                                    <h4 class="text-center">
+                                                                    <?=$reqMasuk?>
+                                                                    </h4>
+                                                            <h6 class="text-center">Request Masuk</h6>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </a>
                                     </div>
                                     <div class="col-4 pt-3">
                                         <a href="<?= base_url('request_user/keluar/allkeluar') ?>" class="text-decoration-none text-dark">
-                                            <div class="card shadow">
+                                            <div class="card card-all">
                                                 <div class="card-body">
-                                                    <h4 class="text-center py-2 color-4"><i
-                                                            class="fa-solid fa-repeat fa-xl"></i></h4>
-                                                    <h4 class="text-center">
-                                                       <?=$reqKeluar?>
-                                                    </h4>
-                                                    <h6 class="text-center">Request Keluar</h6>
+                                                    <div class="row">
+                                                        <div class="col-4 my-auto">
+                                                            <h4 class="text-center py-2 color-4"><i
+                                                                class="fa-solid fa-repeat fa-xl"></i>
+                                                        </h4>
+                                                        </div>
+                                                        <div class="col-8 my-auto">
+                                                            <h4 class="text-center">
+                                                            <?=$reqKeluar?>
+                                                            </h4>
+                                                            <h6 class="text-center">Request Keluar</h6>
+                                                        </div>
+                                                    </div>                                              
                                                 </div>
                                             </div>
                                         </a>
                                     </div>
                                     <div class="col-4 pt-3">
                                         <a href="" class="text-decoration-none text-dark">
-                                            <div class="card shadow">
+                                            <div class="card card-all">
                                                 <div class="card-body">
-                                                    <h4 class="text-center py-2 color-4"><i
-                                                            class="fa-solid fa-user-check fa-xl"></i></h4>
-                                                    <h4 class="text-center">
-                                                        <?=$meet?>
-                                                    </h4>
-                                                    <h6 class="text-center">Meet Selesai</h6>
+                                                    <div class="row">
+                                                        <div class="col-4 my-auto">
+                                                            <h4 class="text-center py-2 color-4">
+                                                                <i class="fa-solid fa-user-check fa-xl"></i>
+                                                            </h4>
+                                                        </div>
+                                                        <div class="col-8 my-auto">
+                                                            <h4 class="text-center">
+                                                                <?=$meet?>
+                                                            </h4>
+                                                            <h6 class="text-center">Meet Selesai</h6>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 pt-3 bg-light border rounded-3 shadow">
+                            <div class="col-lg-4 pt-4 border card card-all">
                                 <div class="row">
-                                    <div class="col-12 px-3 d-flex justify-content-between shadow-sm">
+                                    <div class="col-12 px-3 d-flex justify-content-between shadow-sm bg-transparent">
                                     <h5>Request Masuk</h5>
-                                                <a href="<?=base_url('request_user/masuk/all')?>">Lihat Semua</a>
+                                                <a href="<?=base_url('request_user/masuk/all')?>" class="text-decoration-none color-4">Lihat Semua</a>
                                     </div>
-                                    <div class="col-12 scroll bg-light px-3">
+                                    <div class="col-12 scroll px-3">
                                         
                                         <?php
                                         foreach ($newReqMasuk as $m) {
@@ -108,7 +128,7 @@
                                                         
                                                     </div>
                                                     <div class="col-md-8 p-2">
-                                                        <a href="<?=base_url('users_user/detail/'.$m->id_user)?>" class="text-decoration-none">
+                                                        <a href="<?=base_url('users_user/detail/'.$m->id_user)?>" class="text-decoration-none color-4">
                                                             <b><?=$m->nama?></b>
                                                         </a>
                                                         <br>

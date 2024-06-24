@@ -63,7 +63,7 @@
                                                         <h6>
                                                             <?= $u->nama ?>
                                                         </h6>
-                                                        <p style="font-size: 12px;">
+                                                        <p style="font-size: 12px;" class="color-4">
                                                             <?php 
                                                             substr($u->deskripsi_diri, 0, 25) . '..';
                                                             echo $u->kabupaten.', '.$u->provinsi;

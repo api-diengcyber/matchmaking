@@ -92,7 +92,7 @@ class Profile_user extends MY_Controller
 			$alamat = $this->input->post('alamat');
 		}
 
-		// var_dump($alamat);
+		var_dump($alamat);
 
 		$id = $this->session->userdata('id');
 		if ($this->form_validation->run() == FALSE) {

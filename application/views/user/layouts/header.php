@@ -59,13 +59,13 @@
     }
 
     .my-nav:hover {
-        background-color: #7575fa;
+        background-color: #F85371;
         border-radius: 10px;
         color: white
     }
 
     .my-nav-active {
-        background-color: #7575fa;
+        background-color: #F85371;
         border-radius: 10px;
         color: white
     }
@@ -105,7 +105,11 @@
             <div class="my-nav-con d-flex flex-column flex-grow-1 align-items-center align-items-sm-start px-2 px-sm-3 py-2  vh-100 overflow-auto shadow">
                 <a href="<?= base_url('dashboard_user') ?>"
                     class="text-center pb-sm-3 mb-md-0 me-md-auto  text-decoration-none py-3">
-                    <h3 class="text-center">N3MU</h3>
+                    <h3 class="text-center color-3">
+                    <b>
+                        N3MU
+                    </b>
+                    </h3>
                 </a>
                 <div class="pt-3"></div>
                 <a class=" my-nav   <?php if ($this->uri->segment(1) == 'dashboard_user')
