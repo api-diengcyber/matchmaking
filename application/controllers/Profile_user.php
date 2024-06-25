@@ -92,7 +92,7 @@ class Profile_user extends MY_Controller
 			$alamat = $this->input->post('alamat');
 		}
 
-		var_dump($alamat);
+		// var_dump($alamat);
 
 		$id = $this->session->userdata('id');
 		if ($this->form_validation->run() == FALSE) {
@@ -103,8 +103,9 @@ class Profile_user extends MY_Controller
 			$foto = '';
 			if ($_FILES['file']['name'] != null) {
 				$config['upload_path'] = 'assets/user/foto'; // Path untuk menyimpan gambar, pastikan folder tersebut ada dan dapat ditulis
-				$config['allowed_types'] = 'jpg|png'; // Jenis file yang diperbolehkan untuk diunggah
-				$config['max_size'] = 2048; // Ukuran maksimum file dalam kilobyte (KB)
+				$config['allowed_types'] = 'gif|jpg|jpeg|png|svg|bmp|webp';
+ // Jenis file yang diperbolehkan untuk diunggah
+				$config['max_size'] = 5048; // Ukuran maksimum file dalam kilobyte (KB)
 				$config['encrypt_name'] = TRUE;
 
 				$this->load->library('upload', $config);

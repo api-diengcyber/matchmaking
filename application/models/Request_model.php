@@ -172,6 +172,15 @@ class Request_model extends CI_Model
         // $this->db->where($this->id, $id);
         // return $this->db->get($this->table)->row();
     }
+    function cek_request_id_user($id)
+    {
+        $this->db->select('*');
+        $this->db->from('request');
+        $this->db->where('id_user1', $id);
+        $query = $this->db->get();
+        return $query->result();
+
+    }
     function get_request_id($id)
     {
         $this->db->select('*');

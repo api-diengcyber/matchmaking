@@ -30,6 +30,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.css" />
 
 
     <title>Matchmaking</title>
@@ -137,6 +138,10 @@
                     echo 'my-nav-active'; ?>" href="<?= base_url('jadwal_user/') ?>"><i class="icon fa fa-calendar-days <?php if ($this->uri->segment(2) == 'jadwal')
                             echo 'icon-active '; ?>"></i>
                     <span class="ms-2"> Jadwal Meet</span></a>
+                <!-- <a class=" my-nav <?php if ($this->uri->segment(1) == 'saldo_user')
+                    echo 'my-nav-active'; ?>" href="<?= base_url('saldo_user/') ?>"><i class="icon fa fa-receipt <?php if ($this->uri->segment(2) == 'saldo')
+                            echo 'icon-active '; ?>"></i>
+                    <span class="ms-2"> Saldo Request</span></a> -->
 
                 <div class="pt-5"></div>
                 <div class="pt-5"></div>

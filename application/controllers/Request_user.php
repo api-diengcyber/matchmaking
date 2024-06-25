@@ -12,6 +12,7 @@ class Request_user extends MY_Controller
         $this->load->model('Users_model');
         $this->load->model('Jadwal_model');
         $this->load->model('Pil_jam_model');
+        $this->load->model('Saldo_model');
         $this->load->library('form_validation');
     }
 
@@ -226,23 +227,79 @@ class Request_user extends MY_Controller
     public function request($id)
     {
       
-        $data = [
-            'id_user1' => $this->session->userdata('id'),
-            'id_user2' => $id,
-            'status' => 1,
-            'tgl_update' => date('Y-m-d H:i:s')
-        ];
-        $this->Request_model->insert($data);
+        // $cekReq= '';
 
-        $last_id = $this->db->insert_id();
-        // $row = $this->Request_model->get_by_id($last_id);
-        // $match = $this->Request_Model->get();
+        // $cekRequest = $this->Request_model->cek_request_id_user($this->session->userdata('id'));
+
+        // if(count($cekRequest)>=3){
+           
+        //     $cekSaldo = $this->Saldo_model->cek_saldo_user($this->session->userdata('id'));
+        //     if($cekSaldo==null){
+        //         $cekRek = 0;
+        //         $this->load->view('user/layouts/header');
+        //         $this->load->view('user/saldoHabis');
+        //         $this->load->view('user/layouts/footer');
+        //     }else{
+        //         $saldo = $cekSaldo->saldo - 1;
+
+        //         if($saldo< 0){
+        //             $cekRek = 0;
+        //         }else{
+        //             $cekRek = 1;
+        //             $saldoUpdate = [
+        //                 'saldo' => $saldo,
+        //                 'tgl_update' => date('Y-m-d H:i:s'),
+        //             ];
+        //             $this->Saldo_model->update($cekSaldo->id, $saldoUpdate);
+
+        //             // $this->Request_model->check($id);
+        //             $data = [
+        //                 'id_user1' => $this->session->userdata('id'),
+        //                 'id_user2' => $id,
+        //                 'status' => 1,
+        //                 'tgl_update' => date('Y-m-d H:i:s')
+        //             ];
+            
+            
+        //             $this->Request_model->insert($data);
+            
+        //             $last_id = $this->db->insert_id();
+                   
+            
+            
+        //             redirect(site_url('request_user/detail/' . $last_id));
+            
+        //             $this->session->set_flashdata('message', 'Request berhasil dikirim');
+        //             redirect(site_url('users_user/detail/' . $id));
+
+        //     }
+        //     } 
+        // }else{
 
 
-        redirect(site_url('request_user/detail/' . $last_id));
+            $data = [
+                'id_user1' => $this->session->userdata('id'),
+                'id_user2' => $id,
+                'status' => 1,
+                'tgl_update' => date('Y-m-d H:i:s')
+            ];
+    
+    
+            $this->Request_model->insert($data);
+    
+            $last_id = $this->db->insert_id();
+           
+    
+    
+            $this->session->set_flashdata('message', 'Request berhasil dikirim');
+            redirect(site_url('request_user/detail/' . $last_id));
+    
+            // redirect(site_url('users_user/detail/' . $id));
 
-        // $this->session->set_flashdata('message', 'Request berhasil dikirim');
-        // redirect(site_url('users_user/detail/' . $id));
+
+        // }
+
+       
 
     }
 

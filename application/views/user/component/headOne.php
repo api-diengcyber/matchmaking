@@ -101,6 +101,8 @@
                 <div class="row">
                     <div class="col-12 p-4">
                         <div class="d-grid gap-2">
+                            <!-- <a href="<?= base_url('saldo_user/') ?>"
+                                class="btn bg-4 rounded-pill text-white mulish-700 fs-12 r-10">Saldo</a> -->
                             <a href="<?= base_url('profile_user/') ?>"
                                 class="btn bg-4 rounded-pill text-white mulish-700 fs-12 r-10">Edit Profil</a>
                             <a href="<?= base_url('auth/logout') ?>"
