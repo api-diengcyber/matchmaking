@@ -18,9 +18,34 @@ class Saldo_model extends CI_Model
     // get all
     function get_all()
     {
-        $this->db->order_by($this->id, $this->order);
-        return $this->db->get($this->table)->result();
+        $this->db->select('s.*,b.nama as nama_user');
+        $this->db->from('saldo s');
+        $this->db->join('users u','u.id=s.id_user');
+        $this->db->join('biodata b','b.id_user=s.id_user');
+        return $this->db->get()->result();
     }
+    function get_all_by_id($id)
+    {
+        $this->db->select('s.*,b.nama as nama_user');
+        $this->db->from('saldo s');
+        $this->db->join('users u','u.id=s.id_user');
+        $this->db->join('biodata b','b.id_user=s.id_user');
+        $this->db->where('s.id_user',$id);
+        return $this->db->get()->result();
+    }
+    function cek_saldo_user($id)
+    {
+        $this->db->select('s.*,b.nama as nama_user');
+        $this->db->from('saldo s');
+        $this->db->join('users u','u.id=s.id_user');
+        $this->db->join('biodata b','b.id_user=s.id_user');
+        $this->db->where('s.id_user',$id);
+        $this->db->where('s.status','validasi');
+        $this->db->where('s.saldo!=',0);
+        return $this->db->get()->row();
+    }
+
+
 
     // get data by id
     function get_by_id($id)

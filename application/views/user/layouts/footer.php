@@ -9,8 +9,40 @@
 <script src="<?= base_url('assets/user/jquery/jquery.3.7.js') ?>"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+    <script>
+         $(document).ready( function () {
+            $('#myTable').DataTable();
+        } );
 
-<script>
+
+        $(document).ready(function() {
+        $('#menit').keyup(function() {
+            var menit = $(this).val();
+            if (menit) {
+                var bayar = menit * 1000;
+                $('#bayar').val(formatNumber(bayar));
+            } else {
+                $('#bayar').val('');
+            }
+        });
+        $('#menit-m').keyup(function() {
+            var menit = $(this).val();
+            if (menit) {
+                var bayar = menit * 1000;
+                $('#bayar-m').val(formatNumber(bayar));
+            } else {
+                $('#bayar-m').val('');
+            }
+        });
+
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+    });
+
+
+
     // $(document).ready(function () {
     //     $("p").click(function () {
     //         alert("The paragraph was clicked.");

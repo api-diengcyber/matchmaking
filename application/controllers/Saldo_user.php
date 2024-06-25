@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Saldo_admin extends MY_Controller
+class Saldo_user extends MY_Controller
 {
     function __construct()
     {
@@ -15,20 +15,72 @@ class Saldo_admin extends MY_Controller
     public function index()
     {
       
-        $saldo = $this->Saldo_model->get_all();
+        $id = $this->session->userdata('id');
+
+        $saldo = $this->Saldo_model->get_all_by_id($id);
 
         $data = [
             'saldo' => $saldo
         ];
 
-
-        $this->load->view('admin/layouts/header');
-        $this->load->view('admin/saldo/saldo_list', $data);
-        $this->load->view('admin/layouts/footer');
+        $this->load->view('user/layouts/header');
+        $this->load->view('user/saldo', $data);
+        $this->load->view('user/layouts/footer');
         // var_dump($saldo);
 
         // $this->load->view('saldo_admin/saldo_list', $data);
     }
+
+    public function beli()
+    {
+        $this->form_validation->set_rules('menit', 'menit', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+			$error = validation_errors();
+			$this->session->set_flashdata('error', $error);
+			$this->index();
+		} else {
+                $config['upload_path'] = 'assets/user/saldo'; // Path untuk menyimpan gambar, pastikan folder tersebut ada dan dapat ditulis
+				$config['allowed_types'] = 'gif|jpg|jpeg|png|svg|bmp|webp';
+
+                // Jenis file yang diperbolehkan untuk diunggah
+				$config['max_size'] = 5048; // Ukuran maksimum file dalam kilobyte (KB)
+				$config['encrypt_name'] = TRUE;
+
+                $this->load->library('upload', $config);
+
+				if (!$this->upload->do_upload('file')) {
+					$error = $this->upload->display_errors();
+					$this->session->set_flashdata('error', $error);
+					$this->index();
+                   
+				} else {
+					$upload_data = $this->upload->data();
+					$foto = $upload_data['file_name'];
+                }
+
+                $nominal = $this->input->post('menit') * 1000;
+
+                $data = [
+
+                    'id_user' => $this->session->userdata('id'),
+                    'nominal' => $nominal,
+                    'jenis' => 'Pembelian',
+                    'keterangan' => 'Beli saldo Request',
+                    'saldo' => $this->input->post('menit',TRUE),
+                    'status' => 'belum-validasi',
+                    'bukti_bayar' =>$foto,
+                    'tgl_update' => date('Y-m-d H:i:s'),
+                ];
+                $this->Saldo_model->insert($data);
+                $this->session->set_flashdata('message', 'Create Record Success');
+                redirect(site_url('saldo_user'));
+
+
+        }
+
+    }
+
 
 
     public function validasi($id)
